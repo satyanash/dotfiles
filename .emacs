@@ -26,7 +26,7 @@
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  '(package-selected-packages
    (quote
-    (magit evil-tabs terraform-mode yaml-mode nov writeroom-mode ## json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
+    (magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -66,8 +66,8 @@
     "Ignore the various errors related to read-only text and motion; pass the rest to the default handler."
     (let ((err (car data))
 	  (skip-errors '(text-read-only beginning-of-buffer end-of-buffer beginning-of-line end-of-line)))
-      (unless (member (car data) ))
-        (command-error-default-function data context caller))))
+	(unless (member err skip-errors)
+	  (command-error-default-function data context caller)))))
 
 (progn ; projectile, neotree
   (setq projectile-switch-project-action 'neotree-projectile-action
