@@ -14,7 +14,7 @@
 ;;; * fix vim style i based 'inside' edits, to use the current cursor position, not some last one.
 ;;; * fix vim style i based edit, where error handler messes up and all you see is the message "Back to top level".
 ;;; * cursor should be placed at the end of the line when scrolling through history
-;;; * fix `w` in dired mode
+;;; * fix `w`, `gg`, `G` in dired mode
 ;;; 
 
 ;;; Code:
