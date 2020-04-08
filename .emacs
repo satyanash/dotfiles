@@ -61,8 +61,7 @@
     (nyan-mode))
   (load-theme 'gruvbox-dark-hard t); get themes with (custom-available-themes)
   (mode-line-bell-mode)
-  (add-to-list 'default-frame-alist '(height . 50))
-  (add-to-list 'default-frame-alist '(width . 180))
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (when (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)); get that fancy dark transparent title bar
     (add-to-list 'default-frame-alist '(ns-appearance . dark)))
