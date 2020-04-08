@@ -29,9 +29,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+ '(line-number-mode nil)
+ '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
+    (color-theme-modern nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -51,7 +53,12 @@
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (setq inhibit-startup-screen t
-        visible-bell t)
+	initial-scratch-message ";;;(setq eval-expression-print-level 5\n;;;      eval-expression-print-length 200)\n\n\n"
+	visible-bell t)
+  (progn
+    (setq nyan-animate-nyancat t
+	  nyan-wavy-trail t)
+    (nyan-mode))
   (load-theme 'gruvbox-dark-hard t); get themes with (custom-available-themes)
   (mode-line-bell-mode)
   (add-to-list 'default-frame-alist '(height . 50))
