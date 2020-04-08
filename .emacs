@@ -15,6 +15,11 @@
 ;;; * fix vim style i based edit, where error handler messes up and all you see is the message "Back to top level".
 ;;; * cursor should be placed at the end of the line when scrolling through history
 ;;; * fix `w`, `gg`, `G` in dired mode
+;;; * fix issue when emacsclient prompts in an existing frame instead of creating a new frame and then prompting.
+;;;    This appears as though nothing has happened, but a frame in the background is requesting input.
+;;;    It's then annoying to have to remember that something is happening in the background and manually switch focus to it.
+;;; * :q, :wq and friends should kill the buffer
+;;; * % should jump for do..end blocks and quotes
 ;;; 
 
 ;;; Code:
