@@ -18,8 +18,12 @@
 ;;; * fix issue when emacsclient prompts in an existing frame instead of creating a new frame and then prompting.
 ;;;    This appears as though nothing has happened, but a frame in the background is requesting input.
 ;;;    It's then annoying to have to remember that something is happening in the background and manually switch focus to it.
-;;; * :q, :wq and friends should kill the buffer
+;;; * :q, :wq and friends should kill the buffer (emacs behaves as if :set hidden)
 ;;; * % should jump for do..end blocks and quotes
+;;; * add vividchalk (aka Vibrant Ink) theme for emacs
+;;; * fix placement of swap/backup files in a central directory, instead of cluttering the git directory.
+;;; * fix word_boundary to ignore underscores. (maybe use the capital letters? That's the write way anyway, especially in lisp)
+;;; * make emacs disappear from the Alt-Tab menu if there are no active frames.
 ;;; 
 
 ;;; Code:
