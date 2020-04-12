@@ -33,7 +33,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
- '(line-number-mode nil)
+ '(line-number-mode t)
  '(nyan-mode t)
  '(package-selected-packages
    (quote
