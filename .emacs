@@ -37,7 +37,7 @@
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (color-theme-modern nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
+    (helm-projectile lsp-origami origami ag color-theme-modern nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
