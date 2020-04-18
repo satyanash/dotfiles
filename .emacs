@@ -24,6 +24,7 @@
 ;;; * fix placement of swap/backup files in a central directory, instead of cluttering the git directory.
 ;;; * fix word_boundary to ignore underscores. (maybe use the capital letters? That's the write way anyway, especially in lisp)
 ;;; * make emacs disappear from the Alt-Tab menu if there are no active frames.
+;;; * cannot pres up/down when searching with /
 ;;; 
 
 ;;; Code:
@@ -37,7 +38,7 @@
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (helm-projectile lsp-origami origami ag color-theme-modern nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
+    (evil-collection helm-projectile lsp-origami origami ag color-theme-modern nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode gruvbox-theme monokai-theme dracula-theme neotree evil))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -86,17 +87,20 @@
 
 (progn ; projectile, neotree
   (setq ;projectile-completion-system 'helm
-	projectile-switch-project-action 'neotree-projectile-action
-	projectile-project-search-path '("~/Code/")
-	neo-hidden-regexp-list '("^\\."
-				 "\\.pyc$"
-				 "~$"
-				 "^#.*#$")))
+   projectile-switch-project-action 'neotree-projectile-action
+   projectile-project-search-path '("~/Code/")
+   neo-hidden-regexp-list '("^\\."
+			    "\\.pyc$"
+			    "~$"
+			    "^#.*#$"))
+  (helm-projectile-on))
 
 (progn
   (setq evil-want-C-u-scroll t
-        dabbrev-case-fold-search nil)
+	dabbrev-case-fold-search nil
+	evil-collection-setup-minibuffer t)
   (evil-mode 1)
+  (evil-collection-init)
   (seq-do
    (lambda (tup) (define-key evil-normal-state-map (kbd (car tup)) (nth 1 tup)))
    '(("C-w C-l" evil-window-right)
@@ -106,22 +110,22 @@
      ("C-k" previous-line)
      ("C-j" next-line)
      ("C-c C-j" eval-print-last-sexp)
-     ("C-p" helm-projectile-find-file)
+     ("C-p" projectile-find-file)
      ))
   (add-hook 'neotree-mode-hook
-    (lambda ()
-      (seq-do
-        (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
-        '(("TAB" neotree-enter)
-        ("SPC" neotree-quick-look)
-        ("q" neotree-hide)
-        ("RET" neotree-enter)
-        ("r" neotree-refresh)
-        ("n" neotree-next-line)
-        ("p" neotree-previous-line)
-        ("A" neotree-stretch-toggle)
-        ("C" neotree-change-root)
-        ("H" neotree-hidden-file-toggle)))))
+	    (lambda ()
+	      (seq-do
+	       (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
+	       '(("TAB" neotree-enter)
+		 ("SPC" neotree-quick-look)
+		 ("q" neotree-hide)
+		 ("RET" neotree-enter)
+		 ("r" neotree-refresh)
+		 ("n" neotree-next-line)
+		 ("p" neotree-previous-line)
+		 ("A" neotree-stretch-toggle)
+		 ("C" neotree-change-root)
+		 ("H" neotree-hidden-file-toggle)))))
   (seq-do
    (lambda (tup) (define-key evil-insert-state-map (kbd (car tup)) (nth 1 tup)))
    '(
@@ -129,8 +133,23 @@
      ("C-w" evil-delete-backward-word)
      ("C-h" evil-delete-backward-char)
      ("C-p" evil-complete-previous)
-     ;("C-c" evil-normal-state)
-     )))
+					;("C-c" evil-normal-state)
+     ))
+  (seq-do
+   (lambda (tup)
+     (define-key (cdr ido-minor-mode-map-entry)
+       (kbd (car tup))
+       (nth 1 tup)))
+   '(
+     ("C-h" evil-delete-backward-char)
+     ("C-w" evil-delete-backward-word)))
+  (seq-do
+   (lambda (tup)
+     (define-key helm-map (kbd (car tup)) (nth 1 tup)))
+   '(
+     ("C-h" evil-delete-backward-char)
+     ("C-w" evil-delete-backward-word)))
+  )
  ; (seq-do
 					;  (lambda (tup) (define-key evil-command-window-mode-map (kbd (car tup)) (nth 1 tup)))
  ;  '(
