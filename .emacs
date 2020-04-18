@@ -98,6 +98,7 @@
 (progn
   (setq evil-want-C-u-scroll t
 	dabbrev-case-fold-search nil
+	evil-want-keybinding nil
 	evil-collection-setup-minibuffer t)
   (evil-mode 1)
   (evil-collection-init)
@@ -135,20 +136,12 @@
      ("C-p" evil-complete-previous)
 					;("C-c" evil-normal-state)
      ))
-  (seq-do
-   (lambda (tup)
-     (define-key (cdr ido-minor-mode-map-entry)
-       (kbd (car tup))
-       (nth 1 tup)))
-   '(
-     ("C-h" evil-delete-backward-char)
-     ("C-w" evil-delete-backward-word)))
-  (seq-do
-   (lambda (tup)
-     (define-key helm-map (kbd (car tup)) (nth 1 tup)))
-   '(
-     ("C-h" evil-delete-backward-char)
-     ("C-w" evil-delete-backward-word)))
+  (with-eval-after-load 'helm
+    (seq-do
+     (lambda (tup)
+       (define-key helm-map (kbd (car tup)) (nth 1 tup)))
+     '(("C-h" evil-delete-backward-char)
+       ("C-w" evil-delete-backward-word))))
   )
  ; (seq-do
 					;  (lambda (tup) (define-key evil-command-window-mode-map (kbd (car tup)) (nth 1 tup)))
