@@ -20,7 +20,6 @@
 ;;;    It's then annoying to have to remember that something is happening in the background and manually switch focus to it.
 ;;; * :q, :wq and friends should kill the buffer (emacs behaves as if :set hidden)
 ;;; * % should jump for do..end blocks and quotes
-;;; * add vividchalk (aka Vibrant Ink) theme for emacs
 ;;; * fix placement of swap/backup files in a central directory, instead of cluttering the git directory.
 ;;; * fix word_boundary to ignore underscores. (maybe use the capital letters? That's the write way anyway, especially in lisp)
 ;;; * make emacs disappear from the Alt-Tab menu if there are no active frames.
@@ -66,7 +65,9 @@
     (setq nyan-animate-nyancat t
 	  nyan-wavy-trail t)
     (nyan-mode))
-  (load-theme 'gruvbox-dark-hard t); get themes with (custom-available-themes)
+  (add-to-list 'custom-theme-load-path
+	       (file-name-as-directory (file-name-directory load-file-name)))
+  (load-theme 'vivid-chalk t); get themes with (custom-available-themes)
   (mode-line-bell-mode)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (when (eq system-type 'darwin)
