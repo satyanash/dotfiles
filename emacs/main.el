@@ -27,6 +27,8 @@
 ;;; * cannot pres up/down when searching with /
 ;;; 
 
+(provide 'main)
+
 ;;; Code:
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
