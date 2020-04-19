@@ -89,7 +89,8 @@
 	  (command-error-default-function data context caller)))))
 
 (progn ; projectile, neotree
-  (setq ;projectile-completion-system 'helm
+  (setq
+   projectile-completion-system 'helm
    projectile-switch-project-action 'neotree-projectile-action
    projectile-project-search-path '("~/Code/")
    neo-hidden-regexp-list '("^\\."
