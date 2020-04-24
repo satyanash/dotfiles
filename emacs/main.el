@@ -100,6 +100,7 @@
 
 (progn ; projectile, neotree
   (setq
+   helm-projectile-fuzzy-match t
    projectile-completion-system 'helm
    projectile-switch-project-action 'neotree-projectile-action
    projectile-project-search-path '("~/Code/")
@@ -125,7 +126,7 @@
      ("C-k" previous-line)
      ("C-j" next-line)
      ("C-c C-j" eval-print-last-sexp)
-     ("C-p" projectile-find-file)
+     ("C-p" helm-projectile-find-file)
      ))
   (add-hook 'neotree-mode-hook
 	    (lambda ()
