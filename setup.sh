@@ -5,3 +5,4 @@ cat <<EOF > "${HOME}/.emacs"
 (require 'main)
 EOF
 
+ln -s "$(realpath '.bashrc')" "${HOME}/.bashrc"

@@ -1,18 +1,34 @@
 #!/bin/bash
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Add vim as default editor
+export EDITOR=vim
+
 # history control
 export HISTCONTROL=ignoreboth:erasedups
 export HISTSIZE=10000
 
-# turn on bash completion [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    source $(brew --prefix)/etc/bash_completion
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+	. /etc/bash_completion
+    fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # turn on bash completion [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	source $(brew --prefix)/etc/bash_completion
+    fi
 fi
 
 alias cat='bat'
 
 # ls aliases
 alias ls='ls -G'
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 # grep aliases
 alias grep='grep --color'
