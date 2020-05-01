@@ -21,7 +21,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
-alias cat='bat'
+if [[ $(command -v bat) ]]; then
+  alias cat='bat'
+fi
 
 # ls aliases
 alias ls='ls -G'
