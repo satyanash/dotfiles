@@ -25,9 +25,6 @@
 ;;; * make emacs disappear from the Alt-Tab menu if there are no active frames.
 ;;; * cannot pres up/down when searching with /
 ;;; 
-
-(provide 'main)
-
 ;;; Code:
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -238,3 +235,5 @@
 (progn
   (require 'terraform-mode)
   (add-to-list 'auto-mode-alist '("\\.tf\\'" . yaml-mode)))
+
+(provide 'main)
