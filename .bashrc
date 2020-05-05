@@ -26,11 +26,14 @@ if [[ $(command -v bat) ]]; then
 fi
 
 # ls aliases
-alias ls='ls -G'
-alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  alias ls='ls --color=auto'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  alias ls='ls -G'
+fi
 
 # grep aliases
 alias grep='grep --color'
