@@ -39,7 +39,7 @@
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil))))
+    (jsonnet-mode lsp-java toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
