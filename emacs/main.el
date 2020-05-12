@@ -235,6 +235,6 @@
 
 (progn
   (require 'terraform-mode)
-  (add-to-list 'auto-mode-alist '("\\.tf\\'" . yaml-mode)))
+  (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode)))
 
 (provide 'main)
