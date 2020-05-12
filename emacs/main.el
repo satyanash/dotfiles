@@ -6,7 +6,8 @@
 ;;; * fix :q, :w, :wq and :wa behaviour for evil-tabs
 ;;; * fix neotree behaviour with evil-tabs
 ;;; * fix "Back to top level" message
-;;; * fix C-w, C-h, C-j and other shortcuts in the minibuffer
+;;; * fix C-j and other shortcuts in the minibuffer
+;;; * fix blinking search `/` which does not allow pasting etc..
 ;;; * fix neotree to be able to open per-frame
 ;;; * intelligent frame sizing when 
 ;;; * commands getting cancelled when your error handler is triggered in the minibuffer
