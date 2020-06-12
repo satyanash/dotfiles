@@ -237,4 +237,8 @@
   (require 'terraform-mode)
   (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode)))
 
+(progn ; configure org-mode
+  (setq org-hierarchical-todo-statistics nil
+	org-checkbox-hierarchical-statistics nil))
+
 (provide 'main)
