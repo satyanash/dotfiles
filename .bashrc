@@ -70,7 +70,7 @@ __prompt_command() {
   local EXIT="$?"             # This needs to be first
   PS1=""
   #local boxname=$(scutil --get ComputerName)
-  local boxname=$(uname -n)
+  local boxname=$(hostname -s)
 
   local txtgrn='\[\e[1;32m\]' # Green
   local txtblu='\[\e[34m\]'   # Blue
