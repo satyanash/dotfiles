@@ -175,7 +175,9 @@
 	  evil-window-right
 	  evil-window-left
 	  evil-window-down
-	  evil-window-up))
+	  evil-window-up)
+	golden-ratio-auto-scale t
+	window-combination-resize t)
   (golden-ratio-mode 1))
 
 (progn
