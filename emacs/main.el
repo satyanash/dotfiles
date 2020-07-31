@@ -238,6 +238,7 @@
       "---" \n)))
 
 (progn
+  (add-hook 'writeroom-mode-hook #'visual-line-mode)
   (with-eval-after-load 'writeroom-mode
     (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
     (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
@@ -252,8 +253,12 @@
   (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode)))
 
 (progn ; configure org-mode
+  (add-hook 'org-mode-hook #'visual-line-mode)
   (setq org-hierarchical-todo-statistics nil
 	org-checkbox-hierarchical-statistics nil))
+
+(progn ; configure eww
+  (add-hook 'eww-mode-hook #'visual-line-mode))
 
 (progn ; configure Clojure env
   (require 'smartparens-config)
