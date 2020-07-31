@@ -231,12 +231,17 @@
 	auto-insert t)
   (define-auto-insert
     '(markdown-mode . "slip box skeleton")
-    '("Slip Box skeleton:"
+    '("Markdown Slip Box skeleton:"
       "---" \n
       "date: " (format-time-string "%Y-%m-%dT%T%z") \n
       "type: fleeting" \n
       "tags: " _ \n
-      "---" \n)))
+      "---" \n))
+  (define-auto-insert
+    '(org-mode . "slip box skeleton")
+    '("Org Slip Box skeleton:"
+      "#+TITLE: " _ \n
+      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z"))))
 
 (progn
   (add-hook 'writeroom-mode-hook #'visual-line-mode)
