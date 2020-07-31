@@ -32,6 +32,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("4e392ca6744909f952a9f479fca580f30424404d53d20c328ac4f391ae29e903" default)))
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  '(line-number-mode t)
  '(nyan-mode t)
@@ -68,7 +71,7 @@
     (nyan-mode))
   (add-to-list 'custom-theme-load-path
 	       (file-name-as-directory (file-name-directory load-file-name)))
-  (load-theme 'vivid-chalk t); get themes with (custom-available-themes)
+  (load-theme 'vivid-chalk); get themes with (custom-available-themes)
   (mode-line-bell-mode)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (when (eq system-type 'darwin)
