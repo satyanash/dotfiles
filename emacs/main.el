@@ -246,7 +246,8 @@
     '(org-mode . "slip box skeleton")
     '("Org Slip Box skeleton:"
       "#+TITLE: " _ \n
-      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z"))))
+      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z")
+      "#+TAGS: ")))
 
 (progn
   (add-hook 'writeroom-mode-hook #'visual-line-mode)
