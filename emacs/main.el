@@ -188,9 +188,13 @@
 
 (progn
     (require 'lsp-mode)
+    (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
     (add-hook 'ruby-mode-hook #'lsp)
     (add-hook 'terraform-mode-hook #'lsp)
-    (add-hook 'go-mode-hook #'lsp))
+    (add-hook 'go-mode-hook #'lsp)
+    (setq gofmt-command "goimports")
+    (add-hook 'go-mode-hook 'lsp-deferred)
+    (add-hook 'before-save-hook 'gofmt-before-save))
 
 (progn
     (require 'ido)
