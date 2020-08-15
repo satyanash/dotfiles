@@ -35,12 +35,15 @@
  '(custom-safe-themes
    (quote
     ("4e392ca6744909f952a9f479fca580f30424404d53d20c328ac4f391ae29e903" default)))
+ '(eyebrowse-mode t)
+ '(eyebrowse-new-workspace t)
+ '(eyebrowse-wrap-around t)
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  '(line-number-mode t)
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
+    (eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(writeroom-fullscreen-effect (quote maximized))
@@ -184,7 +187,8 @@
 	  evil-window-up)
 	golden-ratio-auto-scale t
 	window-combination-resize t)
-  (golden-ratio-mode 1))
+  (golden-ratio-mode 1)
+  (eyebrowse-setup-evil-keys))
 
 (progn
     (require 'lsp-mode)
