@@ -35,9 +35,6 @@
  '(custom-safe-themes
    (quote
     ("4e392ca6744909f952a9f479fca580f30424404d53d20c328ac4f391ae29e903" default)))
- '(eyebrowse-mode t)
- '(eyebrowse-new-workspace t)
- '(eyebrowse-wrap-around t)
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  '(line-number-mode t)
  '(nyan-mode t)
@@ -188,12 +185,18 @@
 	golden-ratio-auto-scale t
 	window-combination-resize t)
   (golden-ratio-mode 1)
-  (eyebrowse-setup-evil-keys)
   (defadvice align-regexp (around align-regexp-with-spaces)
     "Never use tabs for alignment."
     (let ((indent-tabs-mode nil))
       ad-do-it))
   (ad-activate 'align-regexp))
+
+(progn ; configure eyebrowse
+  (setq eyebrowse-wrap-around t
+	eyebrowse-new-workspace t)
+  (require 'eyebrowse)
+  (eyebrowse-mode t)
+  (eyebrowse-setup-evil-keys))
 
 (progn
     (require 'lsp-mode)
