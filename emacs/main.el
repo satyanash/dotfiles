@@ -255,7 +255,7 @@
     '(org-mode . "slip box skeleton")
     '("Org Slip Box skeleton:"
       "#+TITLE: " _ \n
-      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z")
+      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
       "#+TAGS: ")))
 
 (progn
