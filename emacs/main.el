@@ -188,7 +188,12 @@
 	golden-ratio-auto-scale t
 	window-combination-resize t)
   (golden-ratio-mode 1)
-  (eyebrowse-setup-evil-keys))
+  (eyebrowse-setup-evil-keys)
+  (defadvice align-regexp (around align-regexp-with-spaces)
+    "Never use tabs for alignment."
+    (let ((indent-tabs-mode nil))
+      ad-do-it))
+  (ad-activate 'align-regexp))
 
 (progn
     (require 'lsp-mode)
