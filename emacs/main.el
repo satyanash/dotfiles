@@ -293,4 +293,7 @@
 (progn
   (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
 
+(progn ; configure leetcode
+  (setq leetcode-prefer-language "golang"))
+
 (provide 'main)
