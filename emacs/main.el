@@ -27,6 +27,21 @@
 ;;; * cannot pres up/down when searching with /
 ;;; 
 ;;; Code:
+
+(progn
+  ;; Pulled from iTerm2 ANSI color scheme
+  (defconst color-black   "#000000")
+  (defconst color-red     "#c91b00")
+  (defconst color-green   "#00c200")
+  (defconst color-yellow  "#c7c400")
+  (defconst color-blue    "#0082ff")
+  (defconst color-magenta "#c930c7")
+  (defconst color-cyan    "#00c5c7")
+  (defconst color-white   "#c7c7c7")
+
+  ;; Custom Colors
+  (defconst color-orange  "#ff9900"))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,8 +66,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 150 :family "Monego")))))
+
  ;; Get "Monego" from https://github.com/cseelus/monego
+ '(default ((t (:height 150 :family "Monego"))))
+
+ ;; vterm colors
+ `(vterm-color-default ((t (:foreground ,color-orange  :background nil :inherit default))))
+ `(vterm-color-black   ((t (:foreground ,color-black   :background ,color-black))))
+ `(vterm-color-red     ((t (:foreground ,color-red     :background ,color-black))))
+ `(vterm-color-green   ((t (:foreground ,color-green   :background ,color-black))))
+ `(vterm-color-yellow  ((t (:foreground ,color-yellow  :background ,color-black))))
+ `(vterm-color-blue    ((t (:foreground ,color-blue    :background ,color-black))))
+ `(vterm-color-magenta ((t (:foreground ,color-magenta :background ,color-black))))
+ `(vterm-color-cyan    ((t (:foreground ,color-cyan    :background ,color-black))))
+ `(vterm-color-white   ((t (:foreground ,color-white   :background ,color-black)))))
 
 (progn
     (require 'package)
