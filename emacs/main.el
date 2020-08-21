@@ -203,15 +203,17 @@
   (eyebrowse-mode t)
   (eyebrowse-setup-evil-keys))
 
-(progn
-    (require 'lsp-mode)
-    (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-    (add-hook 'ruby-mode-hook #'lsp)
-    (add-hook 'terraform-mode-hook #'lsp)
-    (add-hook 'go-mode-hook #'lsp)
-    (setq gofmt-command "goimports")
-    (add-hook 'go-mode-hook 'lsp-deferred)
-    (add-hook 'before-save-hook 'gofmt-before-save))
+(use-package go-mode
+  :ensure t
+  :mode "\\.go\\'"
+  :init (setq gofmt-command "goimports")
+  :config (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package lsp-mode
+  :ensure t
+  :hook ((ruby-mode . lsp)
+         (go-mode . lsp-deferred)
+         (terraform-mode . lsp)))
 
 (use-package ido
   :ensure t
