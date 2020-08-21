@@ -277,9 +277,9 @@
   :ensure t
   :mode "\\.yml\\'")
 
-(progn
-  (require 'terraform-mode)
-  (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode)))
+(use-package terraform-mode
+  :ensure t
+  :mode "\\.tf\\'")
 
 (progn ; configure org-mode
   (add-hook 'org-mode-hook #'visual-line-mode)
