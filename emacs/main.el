@@ -1,31 +1,5 @@
 ;;; satyanash's .emacs
 ;;; 
-;;; TODOS (shit to fix, make emacs behave like vim)
-;;; * fix projectile switch project
-;;; * fix evil jump list to have files opened through neotree
-;;; * fix :q, :w, :wq and :wa behaviour for evil-tabs
-;;; * fix neotree behaviour with evil-tabs
-;;; * fix "Back to top level" message
-;;; * fix C-j and other shortcuts in the minibuffer
-;;; * fix blinking search `/` which does not allow pasting etc..
-;;; * fix neotree to be able to open per-frame
-;;; * intelligent frame sizing when 
-;;; * commands getting cancelled when your error handler is triggered in the minibuffer
-;;; * debug behaviour where clipboard is overwritten as soon as emacs gets focus
-;;; * fix vim style i based 'inside' edits, to use the current cursor position, not some last one.
-;;; * fix vim style i based edit, where error handler messes up and all you see is the message "Back to top level".
-;;; * cursor should be placed at the end of the line when scrolling through history
-;;; * fix `w`, `gg`, `G` in dired mode
-;;; * fix issue when emacsclient prompts in an existing frame instead of creating a new frame and then prompting.
-;;;    This appears as though nothing has happened, but a frame in the background is requesting input.
-;;;    It's then annoying to have to remember that something is happening in the background and manually switch focus to it.
-;;; * :q, :wq and friends should kill the buffer (emacs behaves as if :set hidden)
-;;; * % should jump for do..end blocks and quotes
-;;; * fix placement of swap/backup files in a central directory, instead of cluttering the git directory.
-;;; * fix word_boundary to ignore underscores. (maybe use the capital letters? That's the write way anyway, especially in lisp)
-;;; * make emacs disappear from the Alt-Tab menu if there are no active frames.
-;;; * cannot pres up/down when searching with /
-;;; 
 ;;; Code:
 
 (progn
