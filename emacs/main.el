@@ -244,27 +244,27 @@
 		 ("C-o" nov-history-forward)))))
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
-(progn
-  (require 'autoinsert)
-  (add-hook 'find-file-hook 'auto-insert)
-  (setq auto-insert-alist ()
-	auto-insert-mode t
-	auto-insert-query nil
-	auto-insert t)
-  (define-auto-insert
-    '(markdown-mode . "slip box skeleton")
-    '("Markdown Slip Box skeleton:"
-      "---" \n
-      "date: " (format-time-string "%Y-%m-%dT%T%z") \n
-      "type: fleeting" \n
-      "tags: " _ \n
-      "---" \n))
-  (define-auto-insert
-    '(org-mode . "slip box skeleton")
-    '("Org Slip Box skeleton:"
-      "#+TITLE: " _ \n
-      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
-      "#+TAGS: ")))
+(use-package autoinsert
+  :ensure t
+  :hook (find-file . auto-insert)
+  :init (setq auto-insert-alist ()
+	      auto-insert-mode t
+	      auto-insert-query nil
+	      auto-insert t)
+  :config (progn (define-auto-insert
+		   '(markdown-mode . "slip box skeleton")
+		   '("Markdown Slip Box skeleton:"
+		     "---" \n
+		     "date: " (format-time-string "%Y-%m-%dT%T%z") \n
+		     "type: fleeting" \n
+		     "tags: " _ \n
+		     "---" \n))
+		 (define-auto-insert
+		   '(org-mode . "slip box skeleton")
+		   '("Org Slip Box skeleton:"
+		     "#+TITLE: " _ \n
+		     "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
+		     "#+TAGS: "))))
 
 (use-package writeroom-mode
   :ensure t
