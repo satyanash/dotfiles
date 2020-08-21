@@ -52,6 +52,7 @@
     ("4e392ca6744909f952a9f479fca580f30424404d53d20c328ac4f391ae29e903" default)))
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  '(line-number-mode t)
+ '(column-number-mode t)
  '(nyan-mode t)
  '(package-selected-packages
    (quote
