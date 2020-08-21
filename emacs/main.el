@@ -289,14 +289,21 @@
 (progn ; configure eww
   (add-hook 'eww-mode-hook #'visual-line-mode))
 
-(progn ; configure Clojure env
-  (require 'smartparens-config)
-  (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
-  (add-hook 'clojure-mode-hook #'evil-smartparens-mode)
-  (add-hook 'clojure-mode-hook #'cider-mode))
+(use-package smartparens
+  :ensure t
+  :hook (clojure-mode . smartparens-strict-mode))
 
-(progn
-  (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+(use-package evil-smartparens
+  :ensure t
+  :hook (clojure-mode . evil-smartparens-mode))
+
+(use-package cider
+  :ensure t
+  :hook (clojure-mode . cider-mode))
+
+(use-package dockerfile-mode
+  :ensure t
+  :mode "Dockerfile\\'")
 
 (use-package leetcode
   :init (setq leetcode-prefer-language "golang")
