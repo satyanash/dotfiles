@@ -281,10 +281,11 @@
   :ensure t
   :mode "\\.tf\\'")
 
-(progn ; configure org-mode
-  (add-hook 'org-mode-hook #'visual-line-mode)
-  (setq org-hierarchical-todo-statistics nil
-	org-checkbox-hierarchical-statistics nil))
+(use-package org
+  :ensure t
+  :init (setq org-hierarchical-todo-statistics nil
+	      org-checkbox-hierarchical-statistics nil)
+  :config (add-hook 'org-mode-hook #'visual-line-mode))
 
 (progn ; configure eww
   (add-hook 'eww-mode-hook #'visual-line-mode))
