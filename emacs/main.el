@@ -2,6 +2,14 @@
 ;;; 
 ;;; Code:
 
+;; Package Management
+(progn
+    (require 'package)
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+    (package-initialize))
+
+(require 'use-package)
+
 (progn
   ;; Pulled from iTerm2 ANSI color scheme
   (defconst color-black   "#000000")
@@ -30,7 +38,7 @@
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (vterm leetcode go-playground eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
+    (use-package vterm leetcode go-playground eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(writeroom-fullscreen-effect (quote maximized))
@@ -55,11 +63,6 @@
  `(vterm-color-magenta ((t (:foreground ,color-magenta :background ,color-black))))
  `(vterm-color-cyan    ((t (:foreground ,color-cyan    :background ,color-black))))
  `(vterm-color-white   ((t (:foreground ,color-white   :background ,color-black)))))
-
-(progn
-    (require 'package)
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-    (package-initialize))
 
 (progn ; visuals
   (show-paren-mode 1)
