@@ -213,14 +213,15 @@
     (add-hook 'go-mode-hook 'lsp-deferred)
     (add-hook 'before-save-hook 'gofmt-before-save))
 
-(progn
-    (require 'ido)
-    (setq ido-enable-flex-matching t)
-    (ido-mode t))
+(use-package ido
+  :ensure t
+  :init (setq ido-enable-flex-matching t)
+  :config (ido-mode t))
 
-(progn ; markdown-mode settings
-  (setq markdown-command "kramdown"
-	markdown-enable-math t))
+(use-package markdown-mode
+  :ensure t
+  :init (setq markdown-command "kramdown"
+	      markdown-enable-math t))
 
 (progn ; epub reader
   (setq nov-text-width 120
