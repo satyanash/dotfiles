@@ -182,17 +182,18 @@
   ;(define-key evil-command-window-mode-map (kbd "C-j") 'evil-command-window-execute)
   ;(define-key evil-command-window-mode-map (kbd "C-p") 'evil-command-window-execute))
 
-(progn
-  (require 'golden-ratio)
-  (setq golden-ratio-extra-commands ; evil mode fix
-	'(evil-window-next
-	  evil-window-prev
-	  evil-window-right
-	  evil-window-left
-	  evil-window-down
-	  evil-window-up)
-	golden-ratio-auto-scale t
-	window-combination-resize t)
+(use-package golden-ratio
+  :ensure t
+  :init (setq golden-ratio-extra-commands ; evil mode fix
+	      '(evil-window-next
+		evil-window-prev
+		evil-window-right
+		evil-window-left
+		evil-window-down
+		evil-window-up)
+	      golden-ratio-auto-scale t
+	      window-combination-resize t)
+  :config
   (golden-ratio-mode 1)
   (defadvice align-regexp (around align-regexp-with-spaces)
     "Never use tabs for alignment."
