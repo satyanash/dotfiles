@@ -58,36 +58,6 @@
   :ensure t
   :config (mode-line-bell-mode))
 
-(use-package magit :ensure t)
-
-(use-package ag :ensure t)
-
-(use-package projectile
-  :ensure t
-  :init
-  (setq projectile-switch-project-action 'neotree-projectile-action
-	projectile-project-search-path '("~/code/"))
-  :config )
-
-(use-package helm :ensure t)
-
-(use-package helm-projectile
-  :ensure t
-  :init
-  (setq helm-projectile-fuzzy-match t
-	projectile-completion-system 'helm)
-  :config (helm-projectile-on))
-
-(use-package helm-ag :ensure t)
-
-(use-package neotree
-  :ensure t
-  :init
-  (setq neo-hidden-regexp-list '("^\\."
-				 "\\.pyc$"
-				 "~$"
-				 "^#.*#$")))
-
 (use-package evil
   :ensure t
   :init (setq evil-want-C-u-scroll t
@@ -161,55 +131,17 @@
   :config
   (evil-collection-init))
 
-(use-package golden-ratio
-  :ensure t
-  :init (setq golden-ratio-extra-commands ; evil mode fix
-	      '(evil-window-next
-		evil-window-prev
-		evil-window-right
-		evil-window-left
-		evil-window-down
-		evil-window-up)
-	      golden-ratio-auto-scale t
-	      window-combination-resize t)
-  :config
-  (golden-ratio-mode 1)
-  (defadvice align-regexp (around align-regexp-with-spaces)
-    "Never use tabs for alignment."
-    (let ((indent-tabs-mode nil))
-      ad-do-it))
-  (ad-activate 'align-regexp))
-
-(use-package eyebrowse
-  :ensure t
-  :init
-  (setq eyebrowse-wrap-around t
-	eyebrowse-new-workspace t)
-  :config
-  (eyebrowse-mode t)
-  (eyebrowse-setup-evil-keys))
-
-(use-package flycheck
-  :ensure t)
-
-(use-package lsp-mode
-  :ensure t
-  :hook ((ruby-mode . lsp)
-         (go-mode . lsp-deferred)
-         (terraform-mode . lsp)))
-
-(use-package origami :ensure t)
-(use-package lsp-origami :ensure t)
-
-(use-package ido
-  :ensure t
-  :init (setq ido-enable-flex-matching t)
-  :config (ido-mode t))
+(defadvice align-regexp (around align-regexp-with-spaces)
+  "Never use tabs for alignment."
+  (let ((indent-tabs-mode nil))
+    ad-do-it))
+(ad-activate 'align-regexp)
 
 (use-package org
   :ensure t
   :init (setq org-hierarchical-todo-statistics nil
-	      org-checkbox-hierarchical-statistics nil)
+	      org-checkbox-hierarchical-statistics nil
+	      org-src-tab-acts-natively t)
   :config
   (add-hook 'org-mode-hook #'visual-line-mode)
   (add-to-list 'org-modules 'org-tempo t)
@@ -219,15 +151,6 @@
   :ensure t
   :config (add-hook 'eww-mode-hook #'visual-line-mode))
 
-(use-package smartparens
-  :ensure t
-  :hook ((clojure-mode . smartparens-strict-mode)
-	 (emacs-lisp-mode . smartparens-strict-mode)))
-
-(use-package evil-smartparens
-  :ensure t
-  :hook ((clojure-mode . evil-smartparens-mode)
-	 (emacs-lisp-mode . evil-smartparens-mode)))
 
 (defun org-babel-load-init-file (org-file)
   "Given an org file, tangle all elisp code into a new file and then load it."

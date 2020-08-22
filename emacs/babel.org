@@ -1,61 +1,171 @@
 #+TITLE: Satyajeet's emacs
 #+AUTHOR: Satyajeet
 
+** Window Management
+   =eyebrows= allows "tab" like features.
+   #+begin_src emacs-lisp
+     (use-package eyebrowse
+       :ensure t
+       :init
+       (setq eyebrowse-wrap-around t
+	     eyebrowse-new-workspace t)
+       :config
+       (eyebrowse-mode t)
+       (eyebrowse-setup-evil-keys))
+   #+end_src
+
+   =golden-ratio= keeps window sizes in check.
+   #+begin_src emacs-lisp
+     (use-package golden-ratio
+       :ensure t
+       :init (setq golden-ratio-extra-commands ; evil mode fix
+		   '(evil-window-next
+		     evil-window-prev
+		     evil-window-right
+		     evil-window-left
+		     evil-window-down
+		     evil-window-up)
+		   golden-ratio-auto-scale t
+		   window-combination-resize t)
+       :config
+       (golden-ratio-mode 1))
+   #+end_src
+
+** Git
+   #+begin_src emacs-lisp
+     (use-package magit :ensure t)
+   #+end_src
+** Project Management
+	- Autocompletion with =ido= and =helm= where possible.
+	- Project management through =projectile=.
+	- Project search through =ag=.
+	- Sidebar =neotree= if needed.
+	  #+begin_src emacs-lisp
+
+	    (use-package ido
+	      :ensure t
+	      :init (setq ido-enable-flex-matching t)
+	      :config (ido-mode t))
+
+	    (use-package helm :ensure t)
+
+	    (use-package ag :ensure t)
+
+	    (use-package projectile
+	      :ensure t
+	      :init
+	      (setq projectile-switch-project-action 'neotree-projectile-action
+		    projectile-project-search-path '("~/code/"))
+	      :config )
+
+	    (use-package helm-projectile
+	      :ensure t
+	      :init
+	      (setq helm-projectile-fuzzy-match t
+		    projectile-completion-system 'helm)
+	      :config (helm-projectile-on))
+
+	    (use-package helm-ag :ensure t)
+
+	    (use-package neotree
+	      :ensure t
+	      :init
+	      (setq neo-hidden-regexp-list '("^\\."
+					     "\\.pyc$"
+					     "~$"
+					     "^#.*#$")))
+	  #+end_src
+
+** Language Support
+   - LSP support used for Ruby, Golang and Terraform.
+   - Ruby requires =solargraph=.
+   #+begin_src emacs-lisp
+     (use-package flycheck
+       :ensure t)
+
+     (use-package lsp-mode
+       :ensure t
+       :hook ((ruby-mode . lsp)
+	      (go-mode . lsp-deferred)
+	      (terraform-mode . lsp)))
+   #+end_src
+
+** Editing Experience
+   - Code folding through =origami=.
+   - =smartparens= for lisps.
+   #+begin_src emacs-lisp
+     (use-package origami
+       :ensure t)
+
+     (use-package lsp-origami
+       :ensure t)
+
+     (use-package smartparens
+       :ensure t
+       :hook ((clojure-mode . smartparens-strict-mode)
+	      (emacs-lisp-mode . smartparens-strict-mode)))
+
+     (use-package evil-smartparens
+       :ensure t
+       :hook ((clojure-mode . evil-smartparens-mode)
+	      (emacs-lisp-mode . evil-smartparens-mode)))
+   #+end_src
+
 ** Golang Support
    - Use =goimports= for auto-formatting code.
    - Also setup a Go Playground.
 
    #+begin_src emacs-lisp
-(use-package go-mode
-  :ensure t
-  :mode "\\.go\\'"
-  :init (setq gofmt-command "goimports")
-  :config (add-hook 'before-save-hook 'gofmt-before-save))
+     (use-package go-mode
+       :ensure t
+       :mode "\\.go\\'"
+       :init (setq gofmt-command "goimports")
+       :config (add-hook 'before-save-hook 'gofmt-before-save))
 
-(use-package go-playground :ensure t)
+     (use-package go-playground :ensure t)
    #+end_src
 
 ** Plain Text Writing
 *** Skeletons for Empty Files
     Setup note taking skeletons for markdown and empty org files.
     #+begin_src emacs-lisp
-(use-package autoinsert
-  :ensure t
-  :hook (find-file . auto-insert)
-  :init (setq auto-insert-alist ()
-	      auto-insert-mode t
-	      auto-insert-query nil
-	      auto-insert t)
-  :config
-  (define-auto-insert
-    '(markdown-mode . "slip box skeleton")
-    '("Markdown Slip Box skeleton:"
-      "---" \n
-      "date: " (format-time-string "%Y-%m-%dT%T%z") \n
-      "type: fleeting" \n
-      "tags: " _ \n
-      "---" \n))
-  (define-auto-insert
-    '(org-mode . "slip box skeleton")
-    '("Org Slip Box skeleton:"
-      "#+TITLE: " _ \n
-      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
-      "#+TAGS: ")))
+      (use-package autoinsert
+	:ensure t
+	:hook (find-file . auto-insert)
+	:init (setq auto-insert-alist ()
+		    auto-insert-mode t
+		    auto-insert-query nil
+		    auto-insert t)
+	:config
+	(define-auto-insert
+	  '(markdown-mode . "slip box skeleton")
+	  '("Markdown Slip Box skeleton:"
+	    "---" \n
+	    "date: " (format-time-string "%Y-%m-%dT%T%z") \n
+	    "type: fleeting" \n
+	    "tags: " _ \n
+	    "---" \n))
+	(define-auto-insert
+	  '(org-mode . "slip box skeleton")
+	  '("Org Slip Box skeleton:"
+	    "#+TITLE: " _ \n
+	    "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
+	    "#+TAGS: ")))
     #+end_src
 
 *** Focused Writing Mode
-   #+begin_src emacs-lisp
-(use-package writeroom-mode
-  :ensure t
-  :init (setq writeroom-fullscreen-effect 'maximized
-	      writeroom-width 40)
-  :config
-  (add-hook 'writeroom-mode-hook #'visual-line-mode)
-  (with-eval-after-load 'writeroom-mode
-    (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
-    (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
-    (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
-   #+end_src
+    #+begin_src emacs-lisp
+      (use-package writeroom-mode
+	:ensure t
+	:init (setq writeroom-fullscreen-effect 'maximized
+		    writeroom-width 40)
+	:config
+	(add-hook 'writeroom-mode-hook #'visual-line-mode)
+	(with-eval-after-load 'writeroom-mode
+	  (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
+	  (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
+	  (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
+    #+end_src
 
 ** Markup / Config File Support
    - For Markdown, use =kramdown= and enable math processing.
@@ -63,131 +173,131 @@
    - Need jsonnet for [[https://github.com/grafana/grafonnet-lib][grafonnet]] to create grafana dashboards.
 
    #+begin_src emacs-lisp
-(use-package markdown-mode
-  :ensure t
-  :init (setq markdown-command "kramdown"
-	      markdown-enable-math t))
+     (use-package markdown-mode
+       :ensure t
+       :init (setq markdown-command "kramdown"
+		   markdown-enable-math t))
 
-(use-package yaml-mode      :ensure t)
-(use-package json-mode      :ensure t)
-(use-package terraform-mode :ensure t)
-(use-package toml-mode      :ensure t)
-(use-package jsonnet-mode   :ensure t)
-  #+end_src
+     (use-package yaml-mode      :ensure t)
+     (use-package json-mode      :ensure t)
+     (use-package terraform-mode :ensure t)
+     (use-package toml-mode      :ensure t)
+     (use-package jsonnet-mode   :ensure t)
+   #+end_src
 
 ** Clojure Support
    Use =cider= and also enable font locking for stdlib functions.
    #+begin_src emacs-lisp
-(use-package clojure-mode
-  :ensure t)
+     (use-package clojure-mode
+       :ensure t)
 
-(use-package clojure-mode-extra-font-locking
-  :ensure t)
+     (use-package clojure-mode-extra-font-locking
+       :ensure t)
 
-(use-package cider
-  :ensure t
-  :hook (clojure-mode . cider-mode))
+     (use-package cider
+       :ensure t
+       :hook (clojure-mode . cider-mode))
    #+end_src
 ** Configure basic Dockerfile support
    I don't need direct integration with docker yet.
    #+begin_src emacs-lisp
-(use-package dockerfile-mode
-  :ensure t
-  :mode "Dockerfile\\'")
+     (use-package dockerfile-mode
+       :ensure t
+       :mode "Dockerfile\\'")
    #+end_src
 ** Setup an embedded terminal
-  =vterm= is fast and works well with ncurses UIs.
-  Also configure colors pulled from iTerm2.
+   =vterm= is fast and works well with ncurses UIs.
+   Also configure colors pulled from iTerm2.
 
-#+begin_src emacs-lisp
-(use-package vterm
-  :ensure t
-  :config
-  ;; Pulled from iTerm2 ANSI color scheme
-  (defconst color-black   "#000000")
-  (defconst color-red     "#c91b00")
-  (defconst color-green   "#00c200")
-  (defconst color-yellow  "#c7c400")
-  (defconst color-blue    "#0082ff")
-  (defconst color-magenta "#c930c7")
-  (defconst color-cyan    "#00c5c7")
-  (defconst color-white   "#c7c7c7")
+   #+begin_src emacs-lisp
+     (use-package vterm
+       :ensure t
+       :config
+       ;; Pulled from iTerm2 ANSI color scheme
+       (defconst color-black   "#000000")
+       (defconst color-red     "#c91b00")
+       (defconst color-green   "#00c200")
+       (defconst color-yellow  "#c7c400")
+       (defconst color-blue    "#0082ff")
+       (defconst color-magenta "#c930c7")
+       (defconst color-cyan    "#00c5c7")
+       (defconst color-white   "#c7c7c7")
 
-  ;; Custom Colors
-  (defconst color-orange  "#ff9900")
+       ;; Custom Colors
+       (defconst color-orange  "#ff9900")
 
-  ;; Configure Face Attributes for vterm
-  (set-face-attribute 'vterm-color-default nil :foreground color-orange  :background nil :inherit 'default)
-  (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
-  (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
-  (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
-  (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
-  (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
-  (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
-  (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
-  (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
-#+end_src
+       ;; Configure Face Attributes for vterm
+       (set-face-attribute 'vterm-color-default nil :foreground color-orange  :background nil :inherit 'default)
+       (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
+       (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
+       (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
+       (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
+       (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
+       (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
+       (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
+       (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
+   #+end_src
 
 ** Add Ranger File Manager
-  Sometimes better than neotree. Also has "preview" for files.
-  #+begin_src emacs-lisp
-(use-package ranger :ensure t)
-  #+end_src
+   Sometimes better than neotree. Also has "preview" for files.
+   #+begin_src emacs-lisp
+     (use-package ranger :ensure t)
+   #+end_src
 
 ** Install package-lint
-  This is useful for linting code before submission to MELPA.
+   This is useful for linting code before submission to MELPA.
 
-  #+begin_src emacs-lisp
-(use-package package-lint :ensure t)
-  #+end_src
+   #+begin_src emacs-lisp
+     (use-package package-lint :ensure t)
+   #+end_src
 
 ** Setup Nyan Mode
-  Make sure it is animated and wavy!
+   Make sure it is animated and wavy!
 
-#+begin_src emacs-lisp
-(use-package nyan-mode
-  :ensure t
-  :init (setq nyan-animate-nyancat t
-	      nyan-wavy-trail t)
-  :config (nyan-mode))
-#+end_src
+   #+begin_src emacs-lisp
+     (use-package nyan-mode
+       :ensure t
+       :init (setq nyan-animate-nyancat t
+		   nyan-wavy-trail t)
+       :config (nyan-mode))
+   #+end_src
 
 ** Setup leetcode environment
-  Use golang as the preferred language.
-  This has spooky behaviour where it pulls your cookies from the Chrome/Firefox cookie store.
-  Doesn't seem to require any permission to do this for FF!
+   Use golang as the preferred language.
+   This has spooky behaviour where it pulls your cookies from the Chrome/Firefox cookie store.
+   Doesn't seem to require any permission to do this for FF!
 
-  #+begin_src emacs-lisp
-(use-package leetcode
-  :init (setq leetcode-prefer-language "golang")
-  :ensure t)
-  #+end_src
+   #+begin_src emacs-lisp
+     (use-package leetcode
+       :init (setq leetcode-prefer-language "golang")
+       :ensure t)
+   #+end_src
 ** ePUB Reading Support
    - Use "Georgia" as the default font.
    - Fix keybindings for evil mode.
    #+begin_src emacs-lisp
-(use-package nov
-  :ensure t
-  :commands (nov-mode)
-  :init (setq nov-text-width 120
-	      visual-fill-column-center-text t)
-  :mode "\\.epub\\'"
-  :config
-  (add-hook 'nov-mode-hook 'visual-line-mode)
-  (add-hook 'nov-mode-hook 'visual-fill-column-mode)
-  (add-hook 'nov-mode-hook
-	    (lambda ()
-	      (face-remap-add-relative 'variable-pitch
-				       :family "Georgia"
-				       :height 400)))
-  (add-hook 'nov-mode-hook
-	    (lambda ()
-	      (seq-do
-	       (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
-	       '(("C-i" nov-history-back)
-		 ("t" nov-goto-toc)
-		 ("l" evil-forward-char)
-		 ("n" nov-next-document)
-		 ("p" nov-previous-document)
-		 ("C-o" nov-history-forward))))))
+     (use-package nov
+       :ensure t
+       :commands (nov-mode)
+       :init (setq nov-text-width 120
+		   visual-fill-column-center-text t)
+       :mode "\\.epub\\'"
+       :config
+       (add-hook 'nov-mode-hook 'visual-line-mode)
+       (add-hook 'nov-mode-hook 'visual-fill-column-mode)
+       (add-hook 'nov-mode-hook
+		 (lambda ()
+		   (face-remap-add-relative 'variable-pitch
+					    :family "Georgia"
+					    :height 400)))
+       (add-hook 'nov-mode-hook
+		 (lambda ()
+		   (seq-do
+		    (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
+		    '(("C-i" nov-history-back)
+		      ("t" nov-goto-toc)
+		      ("l" evil-forward-char)
+		      ("n" nov-next-document)
+		      ("p" nov-previous-document)
+		      ("C-o" nov-history-forward))))))
    #+end_src
