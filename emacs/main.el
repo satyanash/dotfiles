@@ -14,7 +14,7 @@
   (require 'use-package))
 
 ;; Neutralize custom.el by pointing it to a file that we don't plan to load.
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file "~/.emacs.d/customize-generated.el")
 
 (progn ; visuals
   ;; Configure Default Face Attributes
