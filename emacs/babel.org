@@ -1,0 +1,81 @@
+#+TITLE: my emacs configuration
+
+* Setup an embedded terminal
+  =vterm= is fast and works well with ncurses UIs.
+  Also configure colors pulled from iTerm2.
+
+#+begin_src emacs-lisp
+(use-package vterm
+  :ensure t
+  :config
+  ;; Pulled from iTerm2 ANSI color scheme
+  (defconst color-black   "#000000")
+  (defconst color-red     "#c91b00")
+  (defconst color-green   "#00c200")
+  (defconst color-yellow  "#c7c400")
+  (defconst color-blue    "#0082ff")
+  (defconst color-magenta "#c930c7")
+  (defconst color-cyan    "#00c5c7")
+  (defconst color-white   "#c7c7c7")
+
+  ;; Custom Colors
+  (defconst color-orange  "#ff9900")
+
+  ;; Configure Face Attributes for vterm
+  (set-face-attribute 'vterm-color-default nil :foreground color-orange  :background nil :inherit 'default)
+  (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
+  (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
+  (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
+  (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
+  (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
+  (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
+  (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
+  (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
+#+end_src
+
+* Add Ranger File Manager
+  Sometimes better than neotree. Also has "preview" for files.
+  #+begin_src emacs-lisp
+(use-package ranger :ensure t)
+  #+end_src
+
+* Add jsonnet support
+  Needed mostly for grafonnet to build Grafana dashboards.
+  #+begin_src emacs-lisp
+(use-package jsonnet-mode :ensure t)
+  #+end_src
+
+* Add TOML support
+  I need this to edit telegraf config files, mostly.
+  #+begin_src emacs-lisp
+(use-package toml-mode :ensure t)
+  #+end_src
+
+* Install package-lint
+  This is useful for linting code before submission to MELPA.
+
+  #+begin_src emacs-lisp
+(use-package package-lint :ensure t)
+  #+end_src
+
+* Setup Nyan Mode
+  Make sure it is animated and wavy!
+
+#+begin_src emacs-lisp
+(use-package nyan-mode
+  :ensure t
+  :init (setq nyan-animate-nyancat t
+	      nyan-wavy-trail t)
+  :config (nyan-mode))
+#+end_src
+
+* Setup leetcode plugin
+  Use golang as the preferred language.
+  This has spooky behaviour where it pulls your cookies from the Chrome/Firefox cookie store.
+  Doesn't seem to require any permission to do this for FF!
+
+  #+begin_src emacs-lisp
+(use-package leetcode
+  :init (setq leetcode-prefer-language "golang")
+  :ensure t)
+  #+end_src

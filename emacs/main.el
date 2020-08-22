@@ -58,12 +58,6 @@
   :ensure t
   :config (mode-line-bell-mode))
 
-(use-package nyan-mode
-  :ensure t
-  :init (setq nyan-animate-nyancat t
-	      nyan-wavy-trail t)
-  :config (nyan-mode))
-
 (use-package magit :ensure t)
 
 (use-package ag :ensure t)
@@ -302,7 +296,8 @@
 	      org-checkbox-hierarchical-statistics nil)
   :config
   (add-hook 'org-mode-hook #'visual-line-mode)
-  (add-to-list 'org-modules 'org-tempo t))
+  (add-to-list 'org-modules 'org-tempo t)
+  (add-to-list 'org-modules 'ob-tangle t))
 
 (use-package eww
   :ensure t
@@ -332,43 +327,16 @@
   :ensure t
   :mode "Dockerfile\\'")
 
-(use-package leetcode
-  :init (setq leetcode-prefer-language "golang")
-  :ensure t)
+(defun org-babel-load-init-file (org-file)
+  "Given an org file, tangle all elisp code into a new file and then load it."
+  (let* ((curr-dir (file-name-directory (or load-file-name buffer-file-name)))
+	 (org-file-abs-path (concat curr-dir org-file))
+	 (elisp-dir "~/.emacs.d/ob-init-elisp/")
+	 (elisp-file (concat elisp-dir (file-name-base org-file) ".el")))
+    (make-directory elisp-dir :parents)
+    (org-babel-tangle-file org-file-abs-path elisp-file "emacs-lisp")
+    (load-file elisp-file)))
 
-(use-package vterm
-  :ensure t
-  :config
-  ;; Pulled from iTerm2 ANSI color scheme
-  (defconst color-black   "#000000")
-  (defconst color-red     "#c91b00")
-  (defconst color-green   "#00c200")
-  (defconst color-yellow  "#c7c400")
-  (defconst color-blue    "#0082ff")
-  (defconst color-magenta "#c930c7")
-  (defconst color-cyan    "#00c5c7")
-  (defconst color-white   "#c7c7c7")
-
-  ;; Custom Colors
-  (defconst color-orange  "#ff9900")
-
-  ;; Configure Face Attributes for vterm
-  (set-face-attribute 'vterm-color-default nil :foreground color-orange  :background nil :inherit 'default)
-  (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
-  (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
-  (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
-  (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
-  (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
-  (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
-  (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
-  (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
-
-(use-package ranger :ensure t)
-
-(use-package jsonnet-mode :ensure t)
-
-(use-package toml-mode :ensure t)
-
-(use-package package-lint :ensure t)
+(org-babel-load-init-file "babel.org")
 
 (provide 'main)
