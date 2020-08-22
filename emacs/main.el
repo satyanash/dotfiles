@@ -14,6 +14,9 @@
   (require 'use-package)
   (setq package-selected-packages '(use-package vterm leetcode go-playground eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
 
+;; Neutralize custom.el by pointing it to a file that we don't plan to load.
+(setq custom-file "~/.emacs.d/custom.el")
+
 (progn ; visuals
   ;; Configure Default Face Attributes
   ;; Get "Monego" from https://github.com/cseelus/monego
