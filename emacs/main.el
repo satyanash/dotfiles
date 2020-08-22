@@ -300,7 +300,9 @@
   :ensure t
   :init (setq org-hierarchical-todo-statistics nil
 	      org-checkbox-hierarchical-statistics nil)
-  :config (add-hook 'org-mode-hook #'visual-line-mode))
+  :config
+  (add-hook 'org-mode-hook #'visual-line-mode)
+  (add-to-list 'org-modules 'org-tempo t))
 
 (use-package eww
   :ensure t
