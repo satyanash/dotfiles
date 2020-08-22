@@ -4,29 +4,14 @@
 
 ;; Package Management
 (progn
-    (require 'package)
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-    (package-initialize))
-
-;; bootstrap use-package
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
-
-(progn
-  ;; Pulled from iTerm2 ANSI color scheme
-  (defconst color-black   "#000000")
-  (defconst color-red     "#c91b00")
-  (defconst color-green   "#00c200")
-  (defconst color-yellow  "#c7c400")
-  (defconst color-blue    "#0082ff")
-  (defconst color-magenta "#c930c7")
-  (defconst color-cyan    "#00c5c7")
-  (defconst color-white   "#c7c7c7")
-
-  ;; Custom Colors
-  (defconst color-orange  "#ff9900"))
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (package-initialize)
+  ;; bootstrap use-package
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (require 'use-package))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -45,27 +30,10 @@
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-
- ;; Get "Monego" from https://github.com/cseelus/monego
- '(default ((t (:height 150 :family "Monego"))))
-
- ;; vterm colors
- `(vterm-color-default ((t (:foreground ,color-orange  :background nil :inherit default))))
- `(vterm-color-black   ((t (:foreground ,color-black   :background ,color-black))))
- `(vterm-color-red     ((t (:foreground ,color-red     :background ,color-black))))
- `(vterm-color-green   ((t (:foreground ,color-green   :background ,color-black))))
- `(vterm-color-yellow  ((t (:foreground ,color-yellow  :background ,color-black))))
- `(vterm-color-blue    ((t (:foreground ,color-blue    :background ,color-black))))
- `(vterm-color-magenta ((t (:foreground ,color-magenta :background ,color-black))))
- `(vterm-color-cyan    ((t (:foreground ,color-cyan    :background ,color-black))))
- `(vterm-color-white   ((t (:foreground ,color-white   :background ,color-black)))))
-
 (progn ; visuals
+  ;; Configure Default Face Attributes
+  ;; Get "Monego" from https://github.com/cseelus/monego
+  (set-face-attribute 'default nil :height 150 :family "Monego")
   (show-paren-mode 1)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
@@ -87,14 +55,6 @@
       ;; '(left-curly-arrow nil) ;; left indicator only
       ;; '(left-curly-arrow right-curly-arrow) ;; default
       ))
-
-(setq command-error-function
-  (lambda (data context caller)
-    "Ignore the various errors related to read-only text and motion; pass the rest to the default handler."
-    (let ((err (car data))
-	  (skip-errors '(text-read-only beginning-of-buffer end-of-buffer beginning-of-line end-of-line)))
-	(unless (member err skip-errors)
-	  (command-error-default-function data context caller)))))
 
 ;;; fix temp file behaviour
 (setq
@@ -139,6 +99,13 @@
 	      evil-split-window-below t
 	      evil-search-module 'evil-search)
   :config
+  (setq command-error-function
+	(lambda (data context caller)
+	  "Ignore the various errors related to read-only text and motion; pass the rest to the default handler."
+	  (let ((err (car data))
+		(skip-errors '(text-read-only beginning-of-buffer end-of-buffer beginning-of-line end-of-line)))
+	    (unless (member err skip-errors)
+	      (command-error-default-function data context caller)))))
   (evil-mode 1)
   (evil-collection-init)
   (seq-do
@@ -336,5 +303,32 @@
 (use-package leetcode
   :init (setq leetcode-prefer-language "golang")
   :ensure t)
+
+(use-package vterm
+  :ensure t
+  :config
+  ;; Pulled from iTerm2 ANSI color scheme
+  (defconst color-black   "#000000")
+  (defconst color-red     "#c91b00")
+  (defconst color-green   "#00c200")
+  (defconst color-yellow  "#c7c400")
+  (defconst color-blue    "#0082ff")
+  (defconst color-magenta "#c930c7")
+  (defconst color-cyan    "#00c5c7")
+  (defconst color-white   "#c7c7c7")
+
+  ;; Custom Colors
+  (defconst color-orange  "#ff9900")
+
+  ;; Configure Face Attributes for vterm
+  (set-face-attribute 'vterm-color-default nil :foreground color-orange  :background nil :inherit 'default)
+  (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
+  (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
+  (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
+  (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
+  (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
+  (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
+  (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
+  (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
 
 (provide 'main)
