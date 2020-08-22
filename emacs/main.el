@@ -8,6 +8,10 @@
     (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
     (package-initialize))
 
+;; bootstrap use-package
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 (require 'use-package)
 
 (progn
@@ -35,14 +39,11 @@
  '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  '(line-number-mode t)
  '(column-number-mode t)
- '(nyan-mode t)
  '(package-selected-packages
    (quote
     (use-package vterm leetcode go-playground eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
  '(show-paren-mode t)
- '(tool-bar-mode nil)
- '(writeroom-fullscreen-effect (quote maximized))
- '(writeroom-width 40))
+ '(tool-bar-mode nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -72,10 +73,6 @@
   (setq inhibit-startup-screen t
 	initial-scratch-message ";;;(setq eval-expression-print-level 5\n;;;      eval-expression-print-length 200)\n\n\n"
 	visible-bell t)
-  (progn
-    (setq nyan-animate-nyancat t
-	  nyan-wavy-trail t)
-    (nyan-mode))
   (add-to-list 'custom-theme-load-path
 	       (file-name-as-directory (file-name-directory load-file-name)))
   (load-theme 'vivid-chalk); get themes with (custom-available-themes)
@@ -108,6 +105,12 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t)       ; use versioned backups
+
+(use-package nyan-mode
+  :ensure t
+  :init (setq nyan-animate-nyancat t
+	  nyan-wavy-trail t)
+  :config (nyan-mode))
 
 (use-package projectile
   :ensure t
@@ -287,6 +290,8 @@
 
 (use-package writeroom-mode
   :ensure t
+  :init (setq writeroom-fullscreen-effect 'maximized
+	      writeroom-width 40)
   :config
   (add-hook 'writeroom-mode-hook #'visual-line-mode)
   (with-eval-after-load 'writeroom-mode
@@ -308,8 +313,9 @@
 	      org-checkbox-hierarchical-statistics nil)
   :config (add-hook 'org-mode-hook #'visual-line-mode))
 
-(progn ; configure eww
-  (add-hook 'eww-mode-hook #'visual-line-mode))
+(use-package eww
+  :ensure t
+  :config (add-hook 'eww-mode-hook #'visual-line-mode))
 
 (use-package smartparens
   :ensure t
