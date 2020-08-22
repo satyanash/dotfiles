@@ -11,36 +11,23 @@
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-  (require 'use-package))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("4e392ca6744909f952a9f479fca580f30424404d53d20c328ac4f391ae29e903" default)))
- '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
- '(line-number-mode t)
- '(column-number-mode t)
- '(package-selected-packages
-   (quote
-    (use-package vterm leetcode go-playground eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
- '(show-paren-mode t)
- '(tool-bar-mode nil))
+  (require 'use-package)
+  (setq package-selected-packages '(use-package vterm leetcode go-playground eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
 
 (progn ; visuals
   ;; Configure Default Face Attributes
   ;; Get "Monego" from https://github.com/cseelus/monego
   (set-face-attribute 'default nil :height 150 :family "Monego")
-  (show-paren-mode 1)
+  (show-paren-mode t)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
+  (line-number-mode t)
+  (column-number-mode t)
   (setq inhibit-startup-screen t
 	initial-scratch-message ";;;(setq eval-expression-print-level 5\n;;;      eval-expression-print-length 200)\n\n\n"
-	visible-bell t)
+	visible-bell t
+	custom-safe-themes '("4e392ca6744909f952a9f479fca580f30424404d53d20c328ac4f391ae29e903" default))
   (add-to-list 'custom-theme-load-path
 	       (file-name-as-directory (file-name-directory load-file-name)))
   (load-theme 'vivid-chalk); get themes with (custom-available-themes)
