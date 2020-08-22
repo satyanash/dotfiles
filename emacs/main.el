@@ -59,17 +59,26 @@
 (use-package nyan-mode
   :ensure t
   :init (setq nyan-animate-nyancat t
-	  nyan-wavy-trail t)
+	      nyan-wavy-trail t)
   :config (nyan-mode))
 
 (use-package projectile
   :ensure t
   :init
+  (setq projectile-switch-project-action 'neotree-projectile-action
+	projectile-project-search-path '("~/code/"))
+  :config )
+
+(use-package helm :ensure t)
+
+(use-package helm-projectile
+  :ensure t
+  :init
   (setq helm-projectile-fuzzy-match t
-	projectile-completion-system 'helm
-	projectile-switch-project-action 'neotree-projectile-action
-	projectile-project-search-path '("~/Code/"))
+	projectile-completion-system 'helm)
   :config (helm-projectile-on))
+
+(use-package helm-ag :ensure t)
 
 (use-package neotree
   :ensure t
@@ -84,7 +93,6 @@
   :init (setq evil-want-C-u-scroll t
 	      dabbrev-case-fold-search nil
 	      evil-want-keybinding nil
-	      evil-collection-setup-minibuffer t
 	      evil-vsplit-window-right t
 	      evil-split-window-below t
 	      evil-search-module 'evil-search)
@@ -97,7 +105,6 @@
 	    (unless (member err skip-errors)
 	      (command-error-default-function data context caller)))))
   (evil-mode 1)
-  (evil-collection-init)
   (seq-do
    (lambda (tup) (define-key evil-normal-state-map (kbd (car tup)) (nth 1 tup)))
    '(("C-w C-l" evil-window-right)
@@ -147,6 +154,13 @@
   ;(define-key evil-command-window-mode-map (kbd "C-j") 'evil-command-window-execute)
   ;(define-key evil-command-window-mode-map (kbd "C-p") 'evil-command-window-execute))
 
+(use-package evil-collection
+  :ensure t
+  :init
+  (setq evil-collection-setup-minibuffer t)
+  :config
+  (evil-collection-init))
+
 (use-package golden-ratio
   :ensure t
   :init (setq golden-ratio-extra-commands ; evil mode fix
@@ -180,6 +194,8 @@
   :mode "\\.go\\'"
   :init (setq gofmt-command "goimports")
   :config (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package go-playground :ensure t)
 
 (use-package lsp-mode
   :ensure t
@@ -276,11 +292,13 @@
 
 (use-package smartparens
   :ensure t
-  :hook (clojure-mode . smartparens-strict-mode))
+  :hook ((clojure-mode . smartparens-strict-mode)
+	 (emacs-lisp-mode . smartparens-strict-mode)))
 
 (use-package evil-smartparens
   :ensure t
-  :hook (clojure-mode . evil-smartparens-mode))
+  :hook ((clojure-mode . evil-smartparens-mode)
+	 (emacs-lisp-mode . evil-smartparens-mode)))
 
 (use-package cider
   :ensure t
@@ -320,5 +338,13 @@
   (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
   (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
   (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
+
+(use-package ranger :ensure t)
+
+(use-package jsonnet-mode :ensure t)
+
+(use-package toml-mode :ensure t)
+
+(use-package package-lint :ensure t)
 
 (provide 'main)
