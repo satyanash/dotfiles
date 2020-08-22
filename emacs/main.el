@@ -16,34 +16,6 @@
 ;; Neutralize custom.el by pointing it to a file that we don't plan to load.
 (setq custom-file "~/.emacs.d/customize-generated.el")
 
-(progn ; visuals
-  ;; Configure Default Face Attributes
-  ;; Get "Monego" from https://github.com/cseelus/monego
-  (set-face-attribute 'default nil :height 150 :family "Monego")
-  (show-paren-mode t)
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (line-number-mode t)
-  (column-number-mode t)
-  (setq inhibit-startup-screen t
-	initial-scratch-message ";;;(setq eval-expression-print-level 5\n;;;      eval-expression-print-length 200)\n\n\n"
-	visible-bell t
-	custom-safe-themes '("4e392ca6744909f952a9f479fca580f30424404d53d20c328ac4f391ae29e903" default))
-  (add-to-list 'custom-theme-load-path
-	       (file-name-as-directory (file-name-directory load-file-name)))
-  (load-theme 'vivid-chalk); get themes with (custom-available-themes)
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  (when (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)); get that fancy dark transparent title bar
-    (add-to-list 'default-frame-alist '(ns-appearance . dark)))
-  (setf (cdr (assq 'continuation fringe-indicator-alist))
-      '(nil nil) ;; no continuation indicators
-      ;; '(nil right-curly-arrow) ;; right indicator only
-      ;; '(left-curly-arrow nil) ;; left indicator only
-      ;; '(left-curly-arrow right-curly-arrow) ;; default
-      ))
-
 ;;; fix temp file behaviour
 (setq
    backup-by-copying t      ; don't clobber symlinks
@@ -53,10 +25,6 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t)       ; use versioned backups
-
-(use-package mode-line-bell
-  :ensure t
-  :config (mode-line-bell-mode))
 
 (use-package evil
   :ensure t
@@ -131,12 +99,6 @@
   :config
   (evil-collection-init))
 
-(defadvice align-regexp (around align-regexp-with-spaces)
-  "Never use tabs for alignment."
-  (let ((indent-tabs-mode nil))
-    ad-do-it))
-(ad-activate 'align-regexp)
-
 (use-package org
   :ensure t
   :init (setq org-hierarchical-todo-statistics nil
@@ -147,10 +109,9 @@
   (add-to-list 'org-modules 'org-tempo t)
   (add-to-list 'org-modules 'ob-tangle t))
 
-(use-package eww
-  :ensure t
-  :config (add-hook 'eww-mode-hook #'visual-line-mode))
-
+;; Add the current directory to the theme load path.
+(add-to-list 'custom-theme-load-path
+	     (file-name-as-directory (file-name-directory load-file-name)))
 
 (defun org-babel-load-init-file (org-file)
   "Given an org file, tangle all elisp code into a new file and then load it."

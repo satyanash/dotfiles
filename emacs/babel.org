@@ -1,6 +1,77 @@
 #+TITLE: Satyajeet's emacs
 #+AUTHOR: Satyajeet
 
+** Font
+    Use "Monego", a modification of the classic "Monaco" but with support for bold, italic etc.
+    Get it from <https://github.com/cseelus/monego>.
+    #+begin_src emacs-lisp
+      (set-face-attribute 'default nil :height 150 :family "Monego")
+    #+end_src
+
+** Cosmetics
+   Disable tool, menu and scroll bars.
+   #+begin_src emacs-lisp
+     (tool-bar-mode   -1)
+     (menu-bar-mode   -1)
+     (scroll-bar-mode -1)
+   #+end_src
+
+   Inhibit the startup screen.
+   #+begin_src emacs-lisp
+     (setq inhibit-startup-screen t)
+   #+end_src
+
+   Disable the audio bell and flash only the mode line.
+   #+begin_src emacs-lisp
+     (setq visible-bell t)
+
+     (use-package mode-line-bell
+       :ensure t
+       :config (mode-line-bell-mode))
+   #+end_src
+
+   Start "maximized".
+   #+begin_src emacs-lisp
+     (add-to-list 'default-frame-alist '(fullscreen . maximized))
+   #+end_src
+
+   Get that fancy dark transparent title bar on OSX.
+   #+begin_src emacs-lisp
+     (when (eq system-type 'darwin)
+       (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+       (add-to-list 'default-frame-alist '(ns-appearance . dark)))
+   #+end_src
+
+   Disable all fringe text continuation indicators.
+   #+begin_src emacs-lisp
+     (setf (cdr (assq 'continuation fringe-indicator-alist))
+           '(nil nil) ;; no continuation indicators
+           ;; '(nil right-curly-arrow) ;; right indicator only
+           ;; '(left-curly-arrow nil) ;; left indicator only
+           ;; '(left-curly-arrow right-curly-arrow) ;; default
+           )
+   #+end_src
+
+** Theming
+   Load =vivid-chalk=, a port of the vim =vivid-chalk= theme which in turn was ported
+   from TextMate's Vibrant Ink.
+   #+begin_src emacs-lisp
+     ;; get available themes with (custom-available-themes)
+     (load-theme 'vivid-chalk t)
+   #+end_src
+
+** Indentation
+   - Advice =align-regexp= to not insert tabs.
+   - Disable =indent-tabs-mode=.
+   #+begin_src emacs-lisp
+     (setq-default indent-tabs-mode nil)
+     (defadvice align-regexp (around align-regexp-with-spaces)
+       "Never use tabs for alignment."
+       (let ((indent-tabs-mode nil))
+         ad-do-it))
+     (ad-activate 'align-regexp)
+   #+end_src
+
 ** Window Management
    =eyebrowse= allows "tab" like features.
    #+begin_src emacs-lisp
@@ -111,6 +182,19 @@
               (emacs-lisp-mode . evil-smartparens-mode)))
    #+end_src
 
+   - Highlight matching parentheses.
+   - Show line and column numbers in mode line.
+   #+begin_src emacs-lisp
+     (show-paren-mode t)
+     (line-number-mode t)
+     (column-number-mode t)
+   #+end_src
+
+** Emacs Lisp Support
+   Fix scratch buffer default message.
+   #+begin_src emacs-lisp
+  (setq initial-scratch-message ";;;(setq eval-expression-print-level 5\n;;;      eval-expression-print-length 200)\n\n\n")
+   #+end_src
 ** Golang Support
    - Use =goimports= for auto-formatting code.
    - Also setup a Go Playground.
@@ -300,4 +384,10 @@
                       ("n" nov-next-document)
                       ("p" nov-previous-document)
                       ("C-o" nov-history-forward))))))
+   #+end_src
+** Web Wowser
+   #+begin_src emacs-lisp
+     (use-package eww
+       :ensure t
+       :config (add-hook 'eww-mode-hook #'visual-line-mode))
    #+end_src
