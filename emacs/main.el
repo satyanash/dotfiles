@@ -121,11 +121,16 @@
 			    "^#.*#$"))
   (helm-projectile-on))
 
-(progn
-  (setq evil-want-C-u-scroll t
-	dabbrev-case-fold-search nil
-	evil-want-keybinding nil
-	evil-collection-setup-minibuffer t)
+(use-package evil
+  :ensure t
+  :init (setq evil-want-C-u-scroll t
+	      dabbrev-case-fold-search nil
+	      evil-want-keybinding nil
+	      evil-collection-setup-minibuffer t
+	      evil-vsplit-window-right t
+	      evil-split-window-below t
+	      evil-search-module 'evil-search)
+  :config
   (evil-mode 1)
   (evil-collection-init)
   (seq-do
@@ -167,8 +172,7 @@
      (lambda (tup)
        (define-key helm-map (kbd (car tup)) (nth 1 tup)))
      '(("C-h" evil-delete-backward-char)
-       ("C-w" evil-delete-backward-word))))
-  )
+       ("C-w" evil-delete-backward-word)))))
  ; (seq-do
 					;  (lambda (tup) (define-key evil-command-window-mode-map (kbd (car tup)) (nth 1 tup)))
  ;  '(
@@ -225,27 +229,30 @@
   :init (setq markdown-command "kramdown"
 	      markdown-enable-math t))
 
-(progn ; epub reader
-  (setq nov-text-width 120
-	visual-fill-column-center-text t)
-  (add-hook 'nov-mode-hook 'visual-line-mode)
-  (add-hook 'nov-mode-hook 'visual-fill-column-mode)
-  (add-hook 'nov-mode-hook
-	    (lambda ()
-	      (face-remap-add-relative 'variable-pitch
-				       :family "Georgia"
-				       :height 400)))
-  (add-hook 'nov-mode-hook
-	    (lambda ()
-	      (seq-do
-	       (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
-	       '(("C-i" nov-history-back)
-		 ("t" nov-goto-toc)
-		 ("l" evil-forward-char)
-		 ("n" nov-next-document)
-		 ("p" nov-previous-document)
-		 ("C-o" nov-history-forward)))))
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+(use-package nov
+  :ensure t
+  :commands (nov-mode)
+  :init (setq nov-text-width 120
+	      visual-fill-column-center-text t)
+  :mode "\\.epub\\'"
+  :config (progn ; epub reader
+	    (add-hook 'nov-mode-hook 'visual-line-mode)
+	    (add-hook 'nov-mode-hook 'visual-fill-column-mode)
+	    (add-hook 'nov-mode-hook
+		      (lambda ()
+			(face-remap-add-relative 'variable-pitch
+						 :family "Georgia"
+						 :height 400)))
+	    (add-hook 'nov-mode-hook
+		      (lambda ()
+			(seq-do
+			 (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
+			 '(("C-i" nov-history-back)
+			   ("t" nov-goto-toc)
+			   ("l" evil-forward-char)
+			   ("n" nov-next-document)
+			   ("p" nov-previous-document)
+			   ("C-o" nov-history-forward)))))))
 
 (use-package autoinsert
   :ensure t
