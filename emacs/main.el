@@ -11,8 +11,7 @@
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-  (require 'use-package)
-  (setq package-selected-packages '(use-package vterm leetcode go-playground eyebrowse dockerfile-mode evil-smartparens ranger smartparens cider clojure-mode-extra-font-locking jsonnet-mode toml-mode package-lint helm evil-collection helm-projectile lsp-origami origami ag nyan-mode magit evil-tabs terraform-mode yaml-mode nov writeroom-mode json-mode markdown-mode golden-ratio mode-line-bell helm-ag projectile lsp-mode flycheck go-mode neotree evil)))
+  (require 'use-package))
 
 ;; Neutralize custom.el by pointing it to a file that we don't plan to load.
 (setq custom-file "~/.emacs.d/custom.el")
@@ -34,7 +33,6 @@
   (add-to-list 'custom-theme-load-path
 	       (file-name-as-directory (file-name-directory load-file-name)))
   (load-theme 'vivid-chalk); get themes with (custom-available-themes)
-  (mode-line-bell-mode)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (when (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)); get that fancy dark transparent title bar
@@ -56,11 +54,19 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 
+(use-package mode-line-bell
+  :ensure t
+  :config (mode-line-bell-mode))
+
 (use-package nyan-mode
   :ensure t
   :init (setq nyan-animate-nyancat t
 	      nyan-wavy-trail t)
   :config (nyan-mode))
+
+(use-package magit :ensure t)
+
+(use-package ag :ensure t)
 
 (use-package projectile
   :ensure t
@@ -161,6 +167,9 @@
   :config
   (evil-collection-init))
 
+(use-package evil-tabs
+  :ensure t)
+
 (use-package golden-ratio
   :ensure t
   :init (setq golden-ratio-extra-commands ; evil mode fix
@@ -197,11 +206,17 @@
 
 (use-package go-playground :ensure t)
 
+(use-package flycheck
+  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :hook ((ruby-mode . lsp)
          (go-mode . lsp-deferred)
          (terraform-mode . lsp)))
+
+(use-package origami :ensure t)
+(use-package lsp-origami :ensure t)
 
 (use-package ido
   :ensure t
@@ -276,6 +291,10 @@
   :ensure t
   :mode "\\.yml\\'")
 
+(use-package json-mode
+  :ensure t
+  :mode "\\.json\\'")
+
 (use-package terraform-mode
   :ensure t
   :mode "\\.tf\\'")
@@ -299,6 +318,12 @@
   :ensure t
   :hook ((clojure-mode . evil-smartparens-mode)
 	 (emacs-lisp-mode . evil-smartparens-mode)))
+
+(use-package clojure-mode
+  :ensure t)
+
+(use-package clojure-mode-extra-font-locking
+  :ensure t)
 
 (use-package cider
   :ensure t
