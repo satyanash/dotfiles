@@ -2,13 +2,13 @@
 #+AUTHOR: Satyajeet
 
 ** Window Management
-   =eyebrows= allows "tab" like features.
+   =eyebrowse= allows "tab" like features.
    #+begin_src emacs-lisp
      (use-package eyebrowse
        :ensure t
        :init
        (setq eyebrowse-wrap-around t
-	     eyebrowse-new-workspace t)
+             eyebrowse-new-workspace t)
        :config
        (eyebrowse-mode t)
        (eyebrowse-setup-evil-keys))
@@ -19,14 +19,14 @@
      (use-package golden-ratio
        :ensure t
        :init (setq golden-ratio-extra-commands ; evil mode fix
-		   '(evil-window-next
-		     evil-window-prev
-		     evil-window-right
-		     evil-window-left
-		     evil-window-down
-		     evil-window-up)
-		   golden-ratio-auto-scale t
-		   window-combination-resize t)
+                   '(evil-window-next
+                     evil-window-prev
+                     evil-window-right
+                     evil-window-left
+                     evil-window-down
+                     evil-window-up)
+                   golden-ratio-auto-scale t
+                   window-combination-resize t)
        :config
        (golden-ratio-mode 1))
    #+end_src
@@ -36,45 +36,45 @@
      (use-package magit :ensure t)
    #+end_src
 ** Project Management
-	- Autocompletion with =ido= and =helm= where possible.
-	- Project management through =projectile=.
-	- Project search through =ag=.
-	- Sidebar =neotree= if needed.
-	  #+begin_src emacs-lisp
+   - Autocompletion with =ido= and =helm= where possible.
+   - Project management through =projectile=.
+   - Project search through =ag=.
+   - Sidebar =neotree= if needed.
+     #+begin_src emacs-lisp
 
-	    (use-package ido
-	      :ensure t
-	      :init (setq ido-enable-flex-matching t)
-	      :config (ido-mode t))
+       (use-package ido
+         :ensure t
+         :init (setq ido-enable-flex-matching t)
+         :config (ido-mode t))
 
-	    (use-package helm :ensure t)
+       (use-package helm :ensure t)
 
-	    (use-package ag :ensure t)
+       (use-package ag :ensure t)
 
-	    (use-package projectile
-	      :ensure t
-	      :init
-	      (setq projectile-switch-project-action 'neotree-projectile-action
-		    projectile-project-search-path '("~/code/"))
-	      :config )
+       (use-package projectile
+         :ensure t
+         :init
+         (setq projectile-switch-project-action 'neotree-projectile-action
+               projectile-project-search-path '("~/code/"))
+         :config )
 
-	    (use-package helm-projectile
-	      :ensure t
-	      :init
-	      (setq helm-projectile-fuzzy-match t
-		    projectile-completion-system 'helm)
-	      :config (helm-projectile-on))
+       (use-package helm-projectile
+         :ensure t
+         :init
+         (setq helm-projectile-fuzzy-match t
+               projectile-completion-system 'helm)
+         :config (helm-projectile-on))
 
-	    (use-package helm-ag :ensure t)
+       (use-package helm-ag :ensure t)
 
-	    (use-package neotree
-	      :ensure t
-	      :init
-	      (setq neo-hidden-regexp-list '("^\\."
-					     "\\.pyc$"
-					     "~$"
-					     "^#.*#$")))
-	  #+end_src
+       (use-package neotree
+         :ensure t
+         :init
+         (setq neo-hidden-regexp-list '("^\\."
+                                        "\\.pyc$"
+                                        "~$"
+                                        "^#.*#$")))
+     #+end_src
 
 ** Language Support
    - LSP support used for Ruby, Golang and Terraform.
@@ -86,8 +86,8 @@
      (use-package lsp-mode
        :ensure t
        :hook ((ruby-mode . lsp)
-	      (go-mode . lsp-deferred)
-	      (terraform-mode . lsp)))
+              (go-mode . lsp-deferred)
+              (terraform-mode . lsp)))
    #+end_src
 
 ** Editing Experience
@@ -103,12 +103,12 @@
      (use-package smartparens
        :ensure t
        :hook ((clojure-mode . smartparens-strict-mode)
-	      (emacs-lisp-mode . smartparens-strict-mode)))
+              (emacs-lisp-mode . smartparens-strict-mode)))
 
      (use-package evil-smartparens
        :ensure t
        :hook ((clojure-mode . evil-smartparens-mode)
-	      (emacs-lisp-mode . evil-smartparens-mode)))
+              (emacs-lisp-mode . evil-smartparens-mode)))
    #+end_src
 
 ** Golang Support
@@ -130,41 +130,41 @@
     Setup note taking skeletons for markdown and empty org files.
     #+begin_src emacs-lisp
       (use-package autoinsert
-	:ensure t
-	:hook (find-file . auto-insert)
-	:init (setq auto-insert-alist ()
-		    auto-insert-mode t
-		    auto-insert-query nil
-		    auto-insert t)
-	:config
-	(define-auto-insert
-	  '(markdown-mode . "slip box skeleton")
-	  '("Markdown Slip Box skeleton:"
-	    "---" \n
-	    "date: " (format-time-string "%Y-%m-%dT%T%z") \n
-	    "type: fleeting" \n
-	    "tags: " _ \n
-	    "---" \n))
-	(define-auto-insert
-	  '(org-mode . "slip box skeleton")
-	  '("Org Slip Box skeleton:"
-	    "#+TITLE: " _ \n
-	    "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
-	    "#+TAGS: ")))
+        :ensure t
+        :hook (find-file . auto-insert)
+        :init (setq auto-insert-alist ()
+                    auto-insert-mode t
+                    auto-insert-query nil
+                    auto-insert t)
+        :config
+        (define-auto-insert
+          '(markdown-mode . "slip box skeleton")
+          '("Markdown Slip Box skeleton:"
+            "---" \n
+            "date: " (format-time-string "%Y-%m-%dT%T%z") \n
+            "type: fleeting" \n
+            "tags: " _ \n
+            "---" \n))
+        (define-auto-insert
+          '(org-mode . "slip box skeleton")
+          '("Org Slip Box skeleton:"
+            "#+TITLE: " _ \n
+            "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
+            "#+TAGS: ")))
     #+end_src
 
 *** Focused Writing Mode
     #+begin_src emacs-lisp
       (use-package writeroom-mode
-	:ensure t
-	:init (setq writeroom-fullscreen-effect 'maximized
-		    writeroom-width 40)
-	:config
-	(add-hook 'writeroom-mode-hook #'visual-line-mode)
-	(with-eval-after-load 'writeroom-mode
-	  (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
-	  (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
-	  (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
+        :ensure t
+        :init (setq writeroom-fullscreen-effect 'maximized
+                    writeroom-width 40)
+        :config
+        (add-hook 'writeroom-mode-hook #'visual-line-mode)
+        (with-eval-after-load 'writeroom-mode
+          (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
+          (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
+          (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
     #+end_src
 
 ** Markup / Config File Support
@@ -176,7 +176,7 @@
      (use-package markdown-mode
        :ensure t
        :init (setq markdown-command "kramdown"
-		   markdown-enable-math t))
+                   markdown-enable-math t))
 
      (use-package yaml-mode      :ensure t)
      (use-package json-mode      :ensure t)
@@ -258,7 +258,7 @@
      (use-package nyan-mode
        :ensure t
        :init (setq nyan-animate-nyancat t
-		   nyan-wavy-trail t)
+                   nyan-wavy-trail t)
        :config (nyan-mode))
    #+end_src
 
@@ -280,24 +280,24 @@
        :ensure t
        :commands (nov-mode)
        :init (setq nov-text-width 120
-		   visual-fill-column-center-text t)
+                   visual-fill-column-center-text t)
        :mode "\\.epub\\'"
        :config
        (add-hook 'nov-mode-hook 'visual-line-mode)
        (add-hook 'nov-mode-hook 'visual-fill-column-mode)
        (add-hook 'nov-mode-hook
-		 (lambda ()
-		   (face-remap-add-relative 'variable-pitch
-					    :family "Georgia"
-					    :height 400)))
+                 (lambda ()
+                   (face-remap-add-relative 'variable-pitch
+                                            :family "Georgia"
+                                            :height 400)))
        (add-hook 'nov-mode-hook
-		 (lambda ()
-		   (seq-do
-		    (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
-		    '(("C-i" nov-history-back)
-		      ("t" nov-goto-toc)
-		      ("l" evil-forward-char)
-		      ("n" nov-next-document)
-		      ("p" nov-previous-document)
-		      ("C-o" nov-history-forward))))))
+                 (lambda ()
+                   (seq-do
+                    (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
+                    '(("C-i" nov-history-back)
+                      ("t" nov-goto-toc)
+                      ("l" evil-forward-char)
+                      ("n" nov-next-document)
+                      ("p" nov-previous-document)
+                      ("C-o" nov-history-forward))))))
    #+end_src
