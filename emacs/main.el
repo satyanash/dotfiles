@@ -167,9 +167,6 @@
   :config
   (evil-collection-init))
 
-(use-package evil-tabs
-  :ensure t)
-
 (use-package golden-ratio
   :ensure t
   :init (setq golden-ratio-extra-commands ; evil mode fix
