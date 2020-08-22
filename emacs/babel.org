@@ -1,6 +1,101 @@
-#+TITLE: my emacs configuration
+#+TITLE: Satyajeet's emacs
+#+AUTHOR: Satyajeet
 
-* Setup an embedded terminal
+** Golang Support
+   - Use =goimports= for auto-formatting code.
+   - Also setup a Go Playground.
+
+   #+begin_src emacs-lisp
+(use-package go-mode
+  :ensure t
+  :mode "\\.go\\'"
+  :init (setq gofmt-command "goimports")
+  :config (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package go-playground :ensure t)
+   #+end_src
+
+** Plain Text Writing
+*** Skeletons for Empty Files
+    Setup note taking skeletons for markdown and empty org files.
+    #+begin_src emacs-lisp
+(use-package autoinsert
+  :ensure t
+  :hook (find-file . auto-insert)
+  :init (setq auto-insert-alist ()
+	      auto-insert-mode t
+	      auto-insert-query nil
+	      auto-insert t)
+  :config
+  (define-auto-insert
+    '(markdown-mode . "slip box skeleton")
+    '("Markdown Slip Box skeleton:"
+      "---" \n
+      "date: " (format-time-string "%Y-%m-%dT%T%z") \n
+      "type: fleeting" \n
+      "tags: " _ \n
+      "---" \n))
+  (define-auto-insert
+    '(org-mode . "slip box skeleton")
+    '("Org Slip Box skeleton:"
+      "#+TITLE: " _ \n
+      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
+      "#+TAGS: ")))
+    #+end_src
+
+*** Focused Writing Mode
+   #+begin_src emacs-lisp
+(use-package writeroom-mode
+  :ensure t
+  :init (setq writeroom-fullscreen-effect 'maximized
+	      writeroom-width 40)
+  :config
+  (add-hook 'writeroom-mode-hook #'visual-line-mode)
+  (with-eval-after-load 'writeroom-mode
+    (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
+    (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
+    (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
+   #+end_src
+
+** Markup / Config File Support
+   - For Markdown, use =kramdown= and enable math processing.
+   - Need TOML for telegraf config files.
+   - Need jsonnet for [[https://github.com/grafana/grafonnet-lib][grafonnet]] to create grafana dashboards.
+
+   #+begin_src emacs-lisp
+(use-package markdown-mode
+  :ensure t
+  :init (setq markdown-command "kramdown"
+	      markdown-enable-math t))
+
+(use-package yaml-mode      :ensure t)
+(use-package json-mode      :ensure t)
+(use-package terraform-mode :ensure t)
+(use-package toml-mode      :ensure t)
+(use-package jsonnet-mode   :ensure t)
+  #+end_src
+
+** Clojure Support
+   Use =cider= and also enable font locking for stdlib functions.
+   #+begin_src emacs-lisp
+(use-package clojure-mode
+  :ensure t)
+
+(use-package clojure-mode-extra-font-locking
+  :ensure t)
+
+(use-package cider
+  :ensure t
+  :hook (clojure-mode . cider-mode))
+   #+end_src
+** Configure basic Dockerfile support
+   I don't need direct integration with docker yet.
+   #+begin_src emacs-lisp
+(use-package dockerfile-mode
+  :ensure t
+  :mode "Dockerfile\\'")
+   #+end_src
+** Setup an embedded terminal
   =vterm= is fast and works well with ncurses UIs.
   Also configure colors pulled from iTerm2.
 
@@ -33,32 +128,20 @@
   (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
 #+end_src
 
-* Add Ranger File Manager
+** Add Ranger File Manager
   Sometimes better than neotree. Also has "preview" for files.
   #+begin_src emacs-lisp
 (use-package ranger :ensure t)
   #+end_src
 
-* Add jsonnet support
-  Needed mostly for grafonnet to build Grafana dashboards.
-  #+begin_src emacs-lisp
-(use-package jsonnet-mode :ensure t)
-  #+end_src
-
-* Add TOML support
-  I need this to edit telegraf config files, mostly.
-  #+begin_src emacs-lisp
-(use-package toml-mode :ensure t)
-  #+end_src
-
-* Install package-lint
+** Install package-lint
   This is useful for linting code before submission to MELPA.
 
   #+begin_src emacs-lisp
 (use-package package-lint :ensure t)
   #+end_src
 
-* Setup Nyan Mode
+** Setup Nyan Mode
   Make sure it is animated and wavy!
 
 #+begin_src emacs-lisp
@@ -69,7 +152,7 @@
   :config (nyan-mode))
 #+end_src
 
-* Setup leetcode plugin
+** Setup leetcode environment
   Use golang as the preferred language.
   This has spooky behaviour where it pulls your cookies from the Chrome/Firefox cookie store.
   Doesn't seem to require any permission to do this for FF!
@@ -79,3 +162,32 @@
   :init (setq leetcode-prefer-language "golang")
   :ensure t)
   #+end_src
+** ePUB Reading Support
+   - Use "Georgia" as the default font.
+   - Fix keybindings for evil mode.
+   #+begin_src emacs-lisp
+(use-package nov
+  :ensure t
+  :commands (nov-mode)
+  :init (setq nov-text-width 120
+	      visual-fill-column-center-text t)
+  :mode "\\.epub\\'"
+  :config
+  (add-hook 'nov-mode-hook 'visual-line-mode)
+  (add-hook 'nov-mode-hook 'visual-fill-column-mode)
+  (add-hook 'nov-mode-hook
+	    (lambda ()
+	      (face-remap-add-relative 'variable-pitch
+				       :family "Georgia"
+				       :height 400)))
+  (add-hook 'nov-mode-hook
+	    (lambda ()
+	      (seq-do
+	       (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
+	       '(("C-i" nov-history-back)
+		 ("t" nov-goto-toc)
+		 ("l" evil-forward-char)
+		 ("n" nov-next-document)
+		 ("p" nov-previous-document)
+		 ("C-o" nov-history-forward))))))
+   #+end_src

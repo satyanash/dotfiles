@@ -189,14 +189,6 @@
   (eyebrowse-mode t)
   (eyebrowse-setup-evil-keys))
 
-(use-package go-mode
-  :ensure t
-  :mode "\\.go\\'"
-  :init (setq gofmt-command "goimports")
-  :config (add-hook 'before-save-hook 'gofmt-before-save))
-
-(use-package go-playground :ensure t)
-
 (use-package flycheck
   :ensure t)
 
@@ -213,82 +205,6 @@
   :ensure t
   :init (setq ido-enable-flex-matching t)
   :config (ido-mode t))
-
-(use-package markdown-mode
-  :ensure t
-  :init (setq markdown-command "kramdown"
-	      markdown-enable-math t))
-
-(use-package nov
-  :ensure t
-  :commands (nov-mode)
-  :init (setq nov-text-width 120
-	      visual-fill-column-center-text t)
-  :mode "\\.epub\\'"
-  :config
-  (add-hook 'nov-mode-hook 'visual-line-mode)
-  (add-hook 'nov-mode-hook 'visual-fill-column-mode)
-  (add-hook 'nov-mode-hook
-	    (lambda ()
-	      (face-remap-add-relative 'variable-pitch
-				       :family "Georgia"
-				       :height 400)))
-  (add-hook 'nov-mode-hook
-	    (lambda ()
-	      (seq-do
-	       (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
-	       '(("C-i" nov-history-back)
-		 ("t" nov-goto-toc)
-		 ("l" evil-forward-char)
-		 ("n" nov-next-document)
-		 ("p" nov-previous-document)
-		 ("C-o" nov-history-forward))))))
-
-(use-package autoinsert
-  :ensure t
-  :hook (find-file . auto-insert)
-  :init (setq auto-insert-alist ()
-	      auto-insert-mode t
-	      auto-insert-query nil
-	      auto-insert t)
-  :config
-  (define-auto-insert
-    '(markdown-mode . "slip box skeleton")
-    '("Markdown Slip Box skeleton:"
-      "---" \n
-      "date: " (format-time-string "%Y-%m-%dT%T%z") \n
-      "type: fleeting" \n
-      "tags: " _ \n
-      "---" \n))
-  (define-auto-insert
-    '(org-mode . "slip box skeleton")
-    '("Org Slip Box skeleton:"
-      "#+TITLE: " _ \n
-      "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
-      "#+TAGS: ")))
-
-(use-package writeroom-mode
-  :ensure t
-  :init (setq writeroom-fullscreen-effect 'maximized
-	      writeroom-width 40)
-  :config
-  (add-hook 'writeroom-mode-hook #'visual-line-mode)
-  (with-eval-after-load 'writeroom-mode
-    (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
-    (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
-    (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
-
-(use-package yaml-mode
-  :ensure t
-  :mode "\\.yml\\'")
-
-(use-package json-mode
-  :ensure t
-  :mode "\\.json\\'")
-
-(use-package terraform-mode
-  :ensure t
-  :mode "\\.tf\\'")
 
 (use-package org
   :ensure t
@@ -312,20 +228,6 @@
   :ensure t
   :hook ((clojure-mode . evil-smartparens-mode)
 	 (emacs-lisp-mode . evil-smartparens-mode)))
-
-(use-package clojure-mode
-  :ensure t)
-
-(use-package clojure-mode-extra-font-locking
-  :ensure t)
-
-(use-package cider
-  :ensure t
-  :hook (clojure-mode . cider-mode))
-
-(use-package dockerfile-mode
-  :ensure t
-  :mode "Dockerfile\\'")
 
 (defun org-babel-load-init-file (org-file)
   "Given an org file, tangle all elisp code into a new file and then load it."
