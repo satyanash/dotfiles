@@ -213,7 +213,7 @@
 *** Skeletons for Empty Files
     Setup note taking skeletons for markdown and empty org files.
     #+begin_src emacs-lisp
-      (defun titleize (filename)
+      (defun satyanash--titleize (filename)
         "Adds spacing and title case to input file name."
         (capitalize
          (replace-regexp-in-string
@@ -235,14 +235,14 @@
           '(markdown-mode . "Markdown Note")
           '("Markdown Note:"
             "---" \n
-            "title: " (titleize (buffer-file-name)) \n
+            "title: " (satyanash--titleize (buffer-file-name)) \n
             "date: " (format-time-string "%Y-%m-%dT%T%z") \n
             "tags: " _ \n
             "---" \n))
         (define-auto-insert
           '(org-mode . "Org Mode Note")
           '("Org Mode Note:"
-            "#+TITLE: " (titleize (buffer-file-name)) \n
+            "#+TITLE: " (satyanash--titleize (buffer-file-name)) \n
             "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
             "#+TAGS: " _)))
     #+end_src
