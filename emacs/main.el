@@ -109,6 +109,10 @@
   (add-to-list 'org-modules 'org-tempo t)
   (add-to-list 'org-modules 'ob-tangle t))
 
+(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode))
+
 ;; Add the current directory to the theme load path.
 (add-to-list 'custom-theme-load-path
 	     (file-name-as-directory (file-name-directory load-file-name)))
