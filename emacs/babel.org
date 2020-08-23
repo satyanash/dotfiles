@@ -98,6 +98,29 @@
                (unless (member err skip-errors)
                  (command-error-default-function data context caller)))))
    #+end_src
+** Org Mode
+   Use fancy bullets instead of asterisks.
+   #+begin_src emacs-lisp
+     (use-package org-bullets
+       :ensure t
+       :after org
+       :hook (org-mode . org-bullets-mode))
+   #+end_src
+
+   Make Org and Org Agenda play nice with =evil=.
+   #+begin_src emacs-lisp
+     (use-package evil-org
+       :ensure t
+       :after org
+       :config
+       (add-hook 'org-mode-hook 'evil-org-mode)
+       (add-hook 'evil-org-mode-hook
+                 (lambda ()
+                   (evil-org-set-key-theme)))
+       (require 'evil-org-agenda)
+       (evil-org-agenda-set-keys))
+   #+end_src
+
 ** Font
     Use "Monego", a modification of the classic "Monaco" but with support for bold, italic etc.
     Get it from <https://github.com/cseelus/monego>.

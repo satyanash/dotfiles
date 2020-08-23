@@ -16,6 +16,11 @@
     (package-install 'use-package))
   (require 'use-package))
 
+;; Add the current directory to the theme load path.
+(add-to-list 'custom-theme-load-path
+	     (file-name-as-directory (file-name-directory load-file-name)))
+
+;; Setup Org Mode, Babel and tangling
 (use-package org
   :ensure t
   :init (setq org-hierarchical-todo-statistics nil
@@ -26,19 +31,11 @@
   (add-to-list 'org-modules 'org-tempo t)
   (add-to-list 'org-modules 'ob-tangle t))
 
-(use-package org-bullets
-  :ensure t
-  :hook (org-mode . org-bullets-mode))
-
 (defadvice org-babel-tangle (around time-it activate compile)
-  "Display the time taken by org-babel to tangle files."
+  "Measure the time taken by org-babel to tangle files."
   (let ((tim (current-time)))
     ad-do-it
     (message "org-babel-tangle took %f sec" (float-time (time-subtract (current-time) tim)))))
-
-;; Add the current directory to the theme load path.
-(add-to-list 'custom-theme-load-path
-	     (file-name-as-directory (file-name-directory load-file-name)))
 
 (defun satyanash--load-org-babel-file (org-file)
   "Given an org file, tangle all elisp code into a new file and then load it."
