@@ -499,3 +499,9 @@
        :config
        (add-hook 'eww-after-render-hook #'visual-line-mode))
    #+end_src
+
+** Configure restclient
+   Use this for making fancy REST queries and playing with APIs.
+   #+begin_src emacs-lisp
+     (use-package restclient :ensure t)
+   #+end_src
