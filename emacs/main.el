@@ -2,8 +2,6 @@
 ;;; 
 ;;; Code:
 
-(setq satyanash--emacs-load-start-time (current-time))
-
 ;; Neutralize custom.el by pointing it to a file that we don't plan to load.
 (setq custom-file "~/.emacs.d/customize-generated.el")
 
@@ -60,11 +58,9 @@
 
 (setq satyanash--emacs-load-tangled-start-time (current-time))
 (satyanash--load-org-babel-file "babel.org")
+(message "Tangled org-babel load time: %f seconds."
+         (time-to-seconds (time-since satyanash--emacs-load-tangled-start-time)))
 
-(when (require 'time-date nil t)
-  (message "Tangled org-babel load time: %f seconds."
-           (time-to-seconds (time-since satyanash--emacs-load-tangled-start-time)))
-  (message "Emacs startup time: %f seconds."
-           (time-to-seconds (time-since satyanash--emacs-load-start-time))))
+(message "Emacs init time: %s" (emacs-init-time))
 
 (provide 'main)
