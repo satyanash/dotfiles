@@ -35,13 +35,6 @@
 	      evil-split-window-below t
 	      evil-search-module 'evil-search)
   :config
-  (setq command-error-function
-	(lambda (data context caller)
-	  "Ignore the various errors related to read-only text and motion; pass the rest to the default handler."
-	  (let ((err (car data))
-		(skip-errors '(text-read-only beginning-of-buffer end-of-buffer beginning-of-line end-of-line)))
-	    (unless (member err skip-errors)
-	      (command-error-default-function data context caller)))))
   (evil-mode 1)
   (seq-do
    (lambda (tup) (define-key evil-normal-state-map (kbd (car tup)) (nth 1 tup)))

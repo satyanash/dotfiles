@@ -1,6 +1,22 @@
 #+TITLE: Satyajeet's emacs
 #+AUTHOR: Satyajeet
 
+** Custom Error Handler
+   We have a custom error handler to ignore all those annoying errors like:
+   - Beginning of Buffer
+   - End of Buffer
+   - Beginning of Line
+   - End of Line
+   - Text is Read Only, (when deleting backwards on a prompt)
+   #+begin_src emacs-lisp
+     (setq command-error-function
+           (lambda (data context caller)
+             "Ignore the various errors related to read-only text and motion; pass the rest to the default handler."
+             (let ((err (car data))
+                   (skip-errors '(text-read-only beginning-of-buffer end-of-buffer beginning-of-line end-of-line)))
+               (unless (member err skip-errors)
+                 (command-error-default-function data context caller)))))
+   #+end_src
 ** Font
     Use "Monego", a modification of the classic "Monaco" but with support for bold, italic etc.
     Get it from <https://github.com/cseelus/monego>.
