@@ -213,6 +213,16 @@
 *** Skeletons for Empty Files
     Setup note taking skeletons for markdown and empty org files.
     #+begin_src emacs-lisp
+      (defun titleize (filename)
+        "Adds spacing and title case to input file name."
+        (capitalize
+         (replace-regexp-in-string
+          "-"
+          " "
+          (file-name-base (or filename "unknown"))
+          nil
+          'literal)))
+
       (use-package autoinsert
         :ensure t
         :hook (find-file . auto-insert)
@@ -222,19 +232,19 @@
                     auto-insert t)
         :config
         (define-auto-insert
-          '(markdown-mode . "slip box skeleton")
-          '("Markdown Slip Box skeleton:"
+          '(markdown-mode . "Markdown Note")
+          '("Markdown Note:"
             "---" \n
+            "title: " (titleize (buffer-file-name)) \n
             "date: " (format-time-string "%Y-%m-%dT%T%z") \n
-            "type: fleeting" \n
             "tags: " _ \n
             "---" \n))
         (define-auto-insert
-          '(org-mode . "slip box skeleton")
-          '("Org Slip Box skeleton:"
-            "#+TITLE: " _ \n
+          '(org-mode . "Org Mode Note")
+          '("Org Mode Note:"
+            "#+TITLE: " (titleize (buffer-file-name)) \n
             "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
-            "#+TAGS: ")))
+            "#+TAGS: " _)))
     #+end_src
 
 *** Focused Writing Mode
