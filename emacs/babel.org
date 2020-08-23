@@ -231,45 +231,45 @@
    - Project management through =projectile=.
    - Project search through =ag=.
    - Sidebar =neotree= if needed.
-     #+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 
-       (use-package ido
-         :ensure t
-         :init (setq ido-enable-flex-matching t)
-         :config (ido-mode t))
+     (use-package ido
+       :ensure t
+       :init (setq ido-enable-flex-matching t)
+       :config (ido-mode t))
 
-       (use-package helm :ensure t)
+     (use-package helm :ensure t)
 
-       (use-package ag :ensure t)
+     (use-package ag :ensure t)
 
-       (use-package projectile
-         :ensure t
-         :init
-         (setq projectile-switch-project-action 'neotree-projectile-action
-               projectile-project-search-path '("~/code/"))
-         :config )
+     (use-package projectile
+       :ensure t
+       :init
+       (setq projectile-switch-project-action 'neotree-projectile-action
+             projectile-project-search-path '("~/code/"))
+       :config )
 
-       (use-package helm-projectile
-         :ensure t
-         :init
-         (setq helm-projectile-fuzzy-match t
-               projectile-completion-system 'helm)
-         :config (helm-projectile-on))
+     (use-package helm-projectile
+       :ensure t
+       :init
+       (setq helm-projectile-fuzzy-match t
+             projectile-completion-system 'helm)
+       :config (helm-projectile-on))
 
-       (use-package helm-ag :ensure t)
+     (use-package helm-ag :ensure t)
 
-       (use-package neotree
-         :ensure t
-         :init
-         (setq neo-hidden-regexp-list '("^\\."
-                                        "\\.pyc$"
-                                        "~$"
-                                        "^#.*#$")))
-     #+end_src
+     (use-package neotree
+       :ensure t
+       :init
+       (setq neo-hidden-regexp-list '("^\\."
+                                      "\\.pyc$"
+                                      "~$"
+                                      "^#.*#$")))
+   #+end_src
 
 ** Language Support
    - LSP support used for Ruby, Golang and Terraform.
-   - Ruby requires =solargraph=.
+   - Ruby requires the =solargraph= gem.
    #+begin_src emacs-lisp
      (use-package flycheck
        :ensure t)
