@@ -2,6 +2,8 @@
 ;;; 
 ;;; Code:
 
+(setq satyanash--emacs-load-start-time (current-time))
+
 ;; Package Management
 (progn
   (require 'package)
@@ -66,6 +68,13 @@
       (byte-compile-file elisp-file))
     (load (file-name-sans-extension elisp-file))))
 
+(setq satyanash--emacs-load-tangled-start-time (current-time))
 (satyanash--load-org-babel-file "babel.org")
+
+(when (require 'time-date nil t)
+  (message "Tangled org-babel load time: %f seconds."
+           (time-to-seconds (time-since satyanash--emacs-load-tangled-start-time)))
+  (message "Emacs startup time: %f seconds."
+           (time-to-seconds (time-since satyanash--emacs-load-start-time))))
 
 (provide 'main)
