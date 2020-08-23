@@ -123,16 +123,21 @@
 (add-to-list 'custom-theme-load-path
 	     (file-name-as-directory (file-name-directory load-file-name)))
 
-(defun org-babel-load-init-file (org-file)
+(defun satyanash--load-org-babel-file (org-file)
   "Given an org file, tangle all elisp code into a new file and then load it."
   (let* ((curr-dir (file-name-directory (or load-file-name buffer-file-name)))
 	 (org-file-abs-path (concat curr-dir org-file))
+         (org-file-last-mod (nth 5 (file-attributes org-file-abs-path)))
 	 (elisp-dir "~/.emacs.d/ob-init-elisp/")
-	 (elisp-file (concat elisp-dir (file-name-base org-file) ".el")))
-    (make-directory elisp-dir :parents)
-    (org-babel-tangle-file org-file-abs-path elisp-file "emacs-lisp")
+	 (elisp-file (concat elisp-dir (file-name-base org-file) ".el"))
+         (elisp-file-last-mod (or (nth 5 (file-attributes elisp-file))
+                                  0)) ;;default to epoch if the file does not exist
+         (org-file-changed? (time-less-p elisp-file-last-mod org-file-last-mod)))
+    (when org-file-changed?
+      (make-directory elisp-dir :parents)
+      (org-babel-tangle-file org-file-abs-path elisp-file "emacs-lisp"))
     (load-file elisp-file)))
 
-(org-babel-load-init-file "babel.org")
+(satyanash--load-org-babel-file "babel.org")
 
 (provide 'main)
