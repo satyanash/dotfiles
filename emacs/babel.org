@@ -399,5 +399,6 @@
    #+begin_src emacs-lisp
      (use-package eww
        :ensure t
-       :config (add-hook 'eww-mode-hook #'visual-line-mode))
+       :config
+       (add-hook 'eww-after-render-hook #'visual-line-mode))
    #+end_src
