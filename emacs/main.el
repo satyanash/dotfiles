@@ -4,6 +4,9 @@
 
 (setq satyanash--emacs-load-start-time (current-time))
 
+;; Neutralize custom.el by pointing it to a file that we don't plan to load.
+(setq custom-file "~/.emacs.d/customize-generated.el")
+
 ;; Package Management
 (progn
   (require 'package)
@@ -14,19 +17,6 @@
     (package-refresh-contents)
     (package-install 'use-package))
   (require 'use-package))
-
-;; Neutralize custom.el by pointing it to a file that we don't plan to load.
-(setq custom-file "~/.emacs.d/customize-generated.el")
-
-;;; fix temp file behaviour
-(setq
-   backup-by-copying t      ; don't clobber symlinks
-   backup-directory-alist
-    '(("." . "~/.saves/"))    ; don't litter my fs tree
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2
-   version-control t)       ; use versioned backups
 
 (use-package org
   :ensure t
