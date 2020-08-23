@@ -62,8 +62,9 @@
          (org-file-changed? (time-less-p elisp-file-last-mod org-file-last-mod)))
     (when org-file-changed?
       (make-directory elisp-dir :parents)
-      (org-babel-tangle-file org-file-abs-path elisp-file "emacs-lisp"))
-    (load-file elisp-file)))
+      (org-babel-tangle-file org-file-abs-path elisp-file "emacs-lisp")
+      (byte-compile-file elisp-file))
+    (load (file-name-sans-extension elisp-file))))
 
 (satyanash--load-org-babel-file "babel.org")
 
