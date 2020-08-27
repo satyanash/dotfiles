@@ -315,6 +315,10 @@
    #+begin_src emacs-lisp
   (setq initial-scratch-message ";;;(setq eval-expression-print-level 5\n;;;      eval-expression-print-length 200)\n\n\n")
    #+end_src
+   Auto format elisp
+   #+begin_src emacs-lisp
+     (use-package elisp-format :ensure t)
+   #+end_src
 ** Golang Support
    - Use =goimports= for auto-formatting code.
    - Also setup a Go Playground.
