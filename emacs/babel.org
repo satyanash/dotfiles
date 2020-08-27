@@ -466,12 +466,6 @@
        (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
    #+end_src
 
-** Add Ranger File Manager
-   Sometimes better than neotree. Also has "preview" for files.
-   #+begin_src emacs-lisp
-     (use-package ranger :ensure t)
-   #+end_src
-
 ** Install package-lint
    This is useful for linting code before submission to MELPA.
 
