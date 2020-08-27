@@ -224,7 +224,10 @@
 
 ** Git
    #+begin_src emacs-lisp
-     (use-package magit :ensure t)
+     (use-package magit
+       :ensure t)
+     (use-package evil-magit
+       :ensure t)
    #+end_src
 ** Project Management
    - Autocompletion with =ido= and =helm= where possible.
