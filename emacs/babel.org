@@ -246,8 +246,7 @@
        :ensure t
        :init
        (setq helm-always-two-windows t)
-       :config
-       (helm-mode +1))
+       :config)
 
      (use-package ag :ensure t)
 
