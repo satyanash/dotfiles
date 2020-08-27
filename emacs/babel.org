@@ -216,28 +216,36 @@
      (use-package evil-magit
        :ensure t)
    #+end_src
-** Project Management
-   - Autocompletion with =ido= and =helm= where possible.
-   - Project management through =projectile=.
-   - Project search through =ag=.
+** Searching & Sorting
+   - Fuzzy searching, sorting with =ido= and =helm= where possible.
    #+begin_src emacs-lisp
+   (use-package ido
+     :ensure t
+     :init (setq ido-enable-flex-matching t)
+     :config
+     (ido-mode t))
 
-     (use-package ido
-       :ensure t
-       :init (setq ido-enable-flex-matching t)
-       :config
-       (ido-mode t))
+   (use-package helm
+     :ensure t
+     :init
+     (setq helm-always-two-windows t)
+     :config
+     (define-key helm-map (kbd "C-d") 'helm-next-page)
+     (define-key helm-map (kbd "C-u") 'helm-previous-page))
+   #+end_src
 
-     (use-package helm
-       :ensure t
-       :init
-       (setq helm-always-two-windows t)
-       :config
-       (define-key helm-map (kbd "C-d") 'helm-next-page)
-       (define-key helm-map (kbd "C-u") 'helm-previous-page))
-
+   - Integrate with grep-like tools, mostly =ag=.
+   #+begin_src emacs-lisp
      (use-package ag :ensure t)
+     (use-package helm-ag
+       :ensure t
+       :after helm)
+   #+end_src
 
+** Project Management
+   - Project management through =projectile=.
+   - Augment capabilities with =helm-projectile=.
+   #+begin_src emacs-lisp
      (use-package projectile
        :ensure t
        :init
@@ -252,11 +260,7 @@
        :init
        (setq helm-projectile-fuzzy-match t
              projectile-completion-system 'helm)
-       :config
-       )
-
-     (use-package helm-ag :ensure t)
-
+       :config)
    #+end_src
 
 ** Language Support
