@@ -168,10 +168,13 @@
    #+end_src
 
 ** Indentation
-   - Advice =align-regexp= to not insert tabs.
    - Disable =indent-tabs-mode=.
    #+begin_src emacs-lisp
      (setq-default indent-tabs-mode nil)
+   #+end_src
+
+   - Advice =align-regexp= to not insert tabs.
+   #+begin_src emacs-lisp
      (defadvice align-regexp (around align-regexp-with-spaces)
        "Never use tabs for alignment."
        (let ((indent-tabs-mode nil))
