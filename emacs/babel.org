@@ -327,10 +327,11 @@
 ** Whitespace
    #+begin_src emacs-lisp
      (use-package whitespace
+       :init
+       (setq whitespace-style '(face tabs empty trailing))
        :hook ((prog-mode . whitespace-mode)
               (text-mode . whitespace-mode))
        :config
-       (setq whitespace-style '(face tabs empty trailing lines-tail))
        (add-hook 'before-save-hook #'whitespace-cleanup))
    #+end_src
 
