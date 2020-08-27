@@ -36,20 +36,6 @@
           ("C-p" projectile-find-file)
           ("C-u" evil-scroll-up)
           ))
-       (add-hook 'neotree-mode-hook
-                 (lambda ()
-                   (seq-do
-                    (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
-                    '(("TAB" neotree-enter)
-                      ("SPC" neotree-quick-look)
-                      ("q" neotree-hide)
-                      ("RET" neotree-enter)
-                      ("r" neotree-refresh)
-                      ("n" neotree-next-line)
-                      ("p" neotree-previous-line)
-                      ("A" neotree-stretch-toggle)
-                      ("C" neotree-change-root)
-                      ("H" neotree-hidden-file-toggle)))))
        (seq-do
         (lambda (tup) (define-key evil-insert-state-map (kbd (car tup)) (nth 1 tup)))
         '(
@@ -234,7 +220,6 @@
    - Autocompletion with =ido= and =helm= where possible.
    - Project management through =projectile=.
    - Project search through =ag=.
-   - Sidebar =neotree= if needed.
    #+begin_src emacs-lisp
 
      (use-package ido
@@ -272,13 +257,6 @@
 
      (use-package helm-ag :ensure t)
 
-     (use-package neotree
-       :ensure t
-       :init
-       (setq neo-hidden-regexp-list '("^\\."
-                                      "\\.pyc$"
-                                      "~$"
-                                      "^#.*#$")))
    #+end_src
 
 ** Language Support
