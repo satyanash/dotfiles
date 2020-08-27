@@ -256,7 +256,7 @@
      (use-package projectile
        :ensure t
        :init
-       (setq projectile-switch-project-action 'neotree-projectile-action
+       (setq projectile-switch-project-action #'(lambda () (dired (projectile-project-root)))
              projectile-project-search-path '("~/Code/"))
        :config
        (projectile-mode +1))
