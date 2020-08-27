@@ -236,9 +236,15 @@
      (use-package ido
        :ensure t
        :init (setq ido-enable-flex-matching t)
-       :config (ido-mode t))
+       :config
+       (ido-mode t))
 
-     (use-package helm :ensure t)
+     (use-package helm
+       :ensure t
+       :init
+       (setq helm-always-two-windows t)
+       :config
+       (helm-mode +1))
 
      (use-package ag :ensure t)
 
@@ -246,15 +252,17 @@
        :ensure t
        :init
        (setq projectile-switch-project-action 'neotree-projectile-action
-             projectile-project-search-path '("~/code/"))
-       :config )
+             projectile-project-search-path '("~/Code/"))
+       :config
+       (projectile-mode +1))
 
      (use-package helm-projectile
        :ensure t
        :init
        (setq helm-projectile-fuzzy-match t
              projectile-completion-system 'helm)
-       :config (helm-projectile-on))
+       :config
+       (helm-projectile-on))
 
      (use-package helm-ag :ensure t)
 
