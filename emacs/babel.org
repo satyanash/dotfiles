@@ -34,6 +34,7 @@
           ("C-j" next-line)
           ("C-c C-j" eval-print-last-sexp)
           ("C-p" helm-projectile-find-file)
+          ("C-u" evil-scroll-up)
           ))
        (add-hook 'neotree-mode-hook
                  (lambda ()
