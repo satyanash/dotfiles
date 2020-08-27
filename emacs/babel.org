@@ -324,6 +324,16 @@
      (column-number-mode t)
    #+end_src
 
+** Whitespace
+   #+begin_src emacs-lisp
+     (use-package whitespace
+       :hook ((prog-mode . whitespace-mode)
+              (text-mode . whitespace-mode))
+       :config
+       (setq whitespace-style '(face tabs empty trailing lines-tail))
+       (add-hook 'before-save-hook #'whitespace-cleanup))
+   #+end_src
+
 ** Emacs Lisp Support
    Fix scratch buffer default message.
    #+begin_src emacs-lisp
