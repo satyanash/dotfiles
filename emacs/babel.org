@@ -265,7 +265,9 @@
        (setq projectile-switch-project-action #'(lambda () (dired (projectile-project-root)))
              projectile-project-search-path '("~/Code/"))
        :config
-       (projectile-mode +1))
+       (projectile-mode +1)
+       (define-key projectile-mode-map (kbd "s-*") 'projectile-ag)
+       (define-key projectile-mode-map (kbd "s-p") 'projectile-switch-project))
 
      (use-package helm-projectile
        :ensure t
