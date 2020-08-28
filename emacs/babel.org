@@ -1,6 +1,13 @@
 #+TITLE: Satyajeet's emacs
 #+AUTHOR: Satyajeet
 
+** Load Private Variables
+   We may have a site specific init for some private configuration.
+   #+begin_src emacs-lisp
+     (let ((private-init-file "~/.emacs.d/private-init.el"))
+       (when (file-exists-p private-init-file)
+         (load-file private-init-file)))
+   #+end_src
 ** Fix temp file behaviour
    #+begin_src emacs-lisp
      (setq backup-by-copying t      ; don't clobber symlinks
