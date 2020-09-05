@@ -496,35 +496,6 @@
        :init (setq leetcode-prefer-language "golang")
        :ensure t)
    #+end_src
-** ePUB Reading Support
-   - Use "Georgia" as the default font.
-   - Fix keybindings for evil mode.
-   #+begin_src emacs-lisp
-     (use-package nov
-       :ensure t
-       :commands (nov-mode)
-       :init (setq nov-text-width 120
-                   visual-fill-column-center-text t)
-       :mode "\\.epub\\'"
-       :config
-       (add-hook 'nov-mode-hook 'visual-line-mode)
-       (add-hook 'nov-mode-hook 'visual-fill-column-mode)
-       (add-hook 'nov-mode-hook
-                 (lambda ()
-                   (face-remap-add-relative 'variable-pitch
-                                            :family "Georgia"
-                                            :height 400)))
-       (add-hook 'nov-mode-hook
-                 (lambda ()
-                   (seq-do
-                    (lambda (tup) (define-key evil-normal-state-local-map (kbd (car tup)) (nth 1 tup)))
-                    '(("C-i" nov-history-back)
-                      ("t" nov-goto-toc)
-                      ("l" evil-forward-char)
-                      ("n" nov-next-document)
-                      ("p" nov-previous-document)
-                      ("C-o" nov-history-forward))))))
-   #+end_src
 ** Web Wowser
    #+begin_src emacs-lisp
      (use-package eww
