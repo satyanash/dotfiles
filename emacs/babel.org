@@ -75,8 +75,6 @@
      (use-package evil-collection
        :ensure t
        :after evil
-       :init
-       (setq evil-collection-setup-minibuffer t)
        :config
        (evil-collection-init))
    #+end_src
