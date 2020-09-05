@@ -23,8 +23,21 @@
            version-control t)       ; use versioned backups
    #+end_src
 
-** Dark Side
+** Dark Side [0/2]
    Configure =evil= and =evil-collection=.
+
+   - [ ] =evil-want-C-u-scroll= does not work, for some reason.
+   - Disable =dabbrev-case-fold-search= so that =C-n= and =C-p= based completion works as expected.
+   - =C-h= should keep working like Vim. We don't care about emacs "help" when in insert mode.
+   - Disable =evil-want-keybinding= because we will use =evil-collection= to set keybindings.
+   - Make sure vertical and horizontal splits open to the right and bottom, respectively.
+   - Use =evil-search= as our =evil-search-module=, to make the editor behave more like Vim.
+   - Fix =C-p= and =C-n= to move to previous and next line in insert mode.
+   - We need to manually bind =C-u=, to make it work for now.
+   - Fix =C-h= to delete backward char in insert mode.
+   - Fix =C-h= and =C-w= to delete backward char and word in ex mode.
+   - [ ] Fix =C-j= to behave similar to =RET= in ex mode.
+
    #+begin_src emacs-lisp
      (use-package evil
        :ensure t
@@ -36,41 +49,15 @@
                    evil-search-module 'evil-search)
        :config
        (evil-mode 1)
-       (seq-do
-        (lambda (tup) (define-key evil-normal-state-map (kbd (car tup)) (nth 1 tup)))
-        '(("C-w C-l" evil-window-right)
-          ("C-w C-h" evil-window-left)
-          ("C-w C-j" evil-window-down)
-          ("C-w C-k" evil-window-up)
-          ("C-k" previous-line)
-          ("C-j" next-line)
-          ("C-c C-j" eval-print-last-sexp)
-          ("C-p" projectile-find-file)
-          ("C-u" evil-scroll-up)
-          ))
-       (seq-do
-        (lambda (tup) (define-key evil-insert-state-map (kbd (car tup)) (nth 1 tup)))
-        '(
-          ("C-n" evil-complete-next)
-          ("C-w" evil-delete-backward-word)
-          ("C-h" evil-delete-backward-char)
-          ("C-p" evil-complete-previous)
-                                             ;("C-c" evil-normal-state)
-          ))
-       (with-eval-after-load 'helm
-         (seq-do
-          (lambda (tup)
-            (define-key helm-map (kbd (car tup)) (nth 1 tup)))
-          '(("C-h" evil-delete-backward-char)
-            ("C-w" evil-delete-backward-word)))))
-        ; (seq-do
-        ;  (lambda (tup) (define-key evil-command-window-mode-map (kbd (car tup)) (nth 1 tup)))
-        ;  '(
-        ;    ("C-j" evil-command-window-execute)
-        ;    ("C-p" evil-complete-previous)
-        ;    ))
-        ;(define-key evil-command-window-mode-map (kbd "C-j") 'evil-command-window-execute)
-        ;(define-key evil-command-window-mode-map (kbd "C-p") 'evil-command-window-execute))
+
+       (define-key evil-normal-state-map (kbd "C-p") 'evil-previous-line)
+       (define-key evil-normal-state-map (kbd "C-n") 'evil-next-line)
+       (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+
+       (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char)
+
+       (define-key evil-ex-completion-map (kbd "C-h") 'evil-ex-delete-backward-char)
+       (define-key evil-ex-completion-map (kbd "C-w") 'evil-delete-backward-word))
 
      (use-package evil-collection
        :ensure t
@@ -268,6 +255,7 @@
        (setq projectile-switch-project-action #'(lambda () (dired (projectile-project-root))))
        :config
        (projectile-mode +1)
+       (define-key projectile-mode-map (kbd "C-8") 'projectile-find-file)
        (define-key projectile-mode-map (kbd "M-*") 'projectile-ag)
        (define-key projectile-mode-map (kbd "M-p") 'projectile-switch-project))
 
