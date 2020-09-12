@@ -247,7 +247,9 @@
 
 ** Project Management
    - Project management through =projectile=.
-   - Augment capabilities with =helm-projectile=.
+   - Augment its capabilities with =helm-projectile=.
+   - Opens the project root in =dir= when switching to it.
+   - Configure switching and searching projects and finding files.
    #+begin_src emacs-lisp
      (use-package projectile
        :ensure t
@@ -255,9 +257,9 @@
        (setq projectile-switch-project-action #'(lambda () (dired (projectile-project-root))))
        :config
        (projectile-mode +1)
-       (define-key projectile-mode-map (kbd "C-8") 'projectile-find-file)
+       (define-key projectile-mode-map (kbd "M-8") 'projectile-switch-project)
        (define-key projectile-mode-map (kbd "M-*") 'projectile-ag)
-       (define-key projectile-mode-map (kbd "M-p") 'projectile-switch-project))
+       (define-key projectile-mode-map (kbd "C-8") 'projectile-find-file))
 
      (use-package helm-projectile
        :ensure t
