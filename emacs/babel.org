@@ -397,6 +397,13 @@
           (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
           (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
     #+end_src
+*** Grammar
+    #+begin_src emacs-lisp
+      (use-package langtool
+        :ensure t
+        :init
+        (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/5.0/libexec/languagetool-commandline.jar"))
+    #+end_src
 
 ** Markup / Config File Support
    - For Markdown, use =kramdown= and enable math processing.
