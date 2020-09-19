@@ -45,10 +45,21 @@ alias gdf='git diff'
 alias gap='git add -p'
 alias gsp='git stash -p'
 alias gst='git status'
+alias gcm='git commit -m'
+
+# colorify watch
 alias watch='watch --color'
+
+# make rm safe
 alias rm='rm -i'
 
 alias pingoo="ping google.com"
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # OSX style clipboard utils on X11
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
 
 #alias em='emacsclient --create-frame --no-wait -e "(x-focus-frame nil)"'
 alias em='emacsclient --create-frame --no-wait'
