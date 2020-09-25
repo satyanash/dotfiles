@@ -29,7 +29,8 @@
   :config
   (add-hook 'org-mode-hook #'visual-line-mode)
   (add-to-list 'org-modules 'org-tempo t)
-  (add-to-list 'org-modules 'ob-tangle t))
+  (add-to-list 'org-modules 'ob-tangle t)
+  (add-to-list 'org-modules 'habits t))
 
 (defadvice org-babel-tangle (around time-it activate compile)
   "Measure the time taken by org-babel to tangle files."
