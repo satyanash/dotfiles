@@ -14,13 +14,16 @@
      (setq help-window-select t)
    #+end_src
 ** Fix temp file behaviour
+   - don't clobber symlinks
+   - stop littering the fs tree
+   - use versioned backups
    #+begin_src emacs-lisp
-     (setq backup-by-copying t      ; don't clobber symlinks
-           backup-directory-alist '(("." . "~/.saves/"))    ; don't litter my fs tree
+     (setq backup-by-copying t
+           backup-directory-alist '(("." . "~/.saves/"))
            delete-old-versions t
            kept-new-versions 6
            kept-old-versions 2
-           version-control t)       ; use versioned backups
+           version-control t)
    #+end_src
 
 ** Dark Side [0/2]
@@ -148,21 +151,17 @@
 
    Disable all fringe text continuation indicators.
    #+begin_src emacs-lisp
-     (setf (cdr (assq 'continuation fringe-indicator-alist))
-           '(nil nil) ;; no continuation indicators
-           ;; '(nil right-curly-arrow) ;; right indicator only
-           ;; '(left-curly-arrow nil) ;; left indicator only
-           ;; '(left-curly-arrow right-curly-arrow) ;; default
-           )
+     (setf (cdr (assq 'continuation fringe-indicator-alist)) '(nil nil))
    #+end_src
 
 ** Theming
    Load =vivid-chalk=, a port of the vim =vivid-chalk= theme which in turn was ported
    from TextMate's Vibrant Ink.
    #+begin_src emacs-lisp
-     ;; get available themes with (custom-available-themes)
      (load-theme 'vivid-chalk t)
    #+end_src
+
+   Get all available themes with =(custom-available-themes)=.
 
 ** Indentation
    Disable tabs when indenting a region
@@ -193,10 +192,11 @@
    #+end_src
 
    =golden-ratio= keeps window sizes in check.
+   Configure extra evil commands to also trigger resizing.
    #+begin_src emacs-lisp
      (use-package golden-ratio
        :ensure t
-       :init (setq golden-ratio-extra-commands ; evil mode fix
+       :init (setq golden-ratio-extra-commands
                    '(evil-window-next
                      evil-window-prev
                      evil-window-right
