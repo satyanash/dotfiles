@@ -163,6 +163,12 @@
 
    Get all available themes with =(custom-available-themes)=.
 
+** Line Endings
+   Ensure a newline at the end when writing a file.
+   #+begin_src emacs-lisp
+     (setq-default require-final-newline t)
+   #+end_src
+
 ** Indentation
    Disable tabs when indenting a region
    #+begin_src emacs-lisp
