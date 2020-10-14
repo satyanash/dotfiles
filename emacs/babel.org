@@ -165,12 +165,12 @@
    #+end_src
 
 ** Indentation
-   - Disable =indent-tabs-mode=.
+   Disable tabs when indenting a region
    #+begin_src emacs-lisp
      (setq-default indent-tabs-mode nil)
    #+end_src
 
-   - Advice =align-regexp= to not insert tabs.
+   Advice =align-regexp= to not insert tabs.
    #+begin_src emacs-lisp
      (defadvice align-regexp (around align-regexp-with-spaces)
        "Never use tabs for alignment."
@@ -220,7 +220,7 @@
        :ensure t)
    #+end_src
 ** Searching & Sorting
-   - Fuzzy searching, sorting with =ido= and =helm= where possible.
+   Fuzzy searching, sorting with =ido= and =helm= where possible.
    #+begin_src emacs-lisp
    (use-package ido
      :ensure t
@@ -237,7 +237,7 @@
      (define-key helm-map (kbd "C-u") 'helm-previous-page))
    #+end_src
 
-   - Integrate with grep-like tools, mostly =ag=.
+   Integrate with grep-like tools, mostly =ag=.
    #+begin_src emacs-lisp
      (use-package ag :ensure t)
      (use-package helm-ag
