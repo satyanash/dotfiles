@@ -44,8 +44,9 @@
          (org-file-last-mod (nth 5 (file-attributes org-file-abs-path)))
 	 (elisp-dir "~/.emacs.d/ob-init-elisp/")
 	 (elisp-file (concat elisp-dir (file-name-base org-file) ".el"))
+         (epoch-timestamp 0)
          (elisp-file-last-mod (or (nth 5 (file-attributes elisp-file))
-                                  0)) ;;default to epoch if the file does not exist
+                                  epoch-timestamp))
          (org-file-changed? (time-less-p elisp-file-last-mod org-file-last-mod)))
     (when org-file-changed?
       (make-directory elisp-dir :parents)
