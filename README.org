@@ -1,0 +1,23 @@
+* Satyajeet's dotfiles
+
+This repo contains my configuration for `emacs`, `bash` and `vim`.
+
+** Setup
+   Run `./setup.sh` to:
+   - symlink `~/.bashrc` to `./.bashrc`
+   - setup `~/.emacs` to load `./emacs/main.el`
+
+** Emacs Configuration
+   - This is contained in the `./emacs` directory.
+   - The entrypoint is `main.el`.
+   - It does some housekeeping before tangling, compiling and loading `babel.org`.
+   - `babel.org` is a literate =org-mode= file containing most of the =emacs-lisp= configuration.
+   - `vivid-chalk-theme.el` contains =custom-theme= definition for vivid-chalk ported from the =color-theme= implementation. Though it has some pending garishness that needs fixing.
+   - As is evidenced, this setup relies heavily on =org-mode=.
+   - Package management is provided by =package.el=, called via =use-package=.
+     - Thus it must be loaded and installed first, before doing anything else.
+   - There are some other experimental files which are not included on startup and are yet to be incorporated into the main configuration. (=diagnostics.el=, =rcode.el=, =minibuffer.el=)
+
+** Vim Configuration
+   The `.vimrc` is present only for archival purposes.
+   It is not maintained.
