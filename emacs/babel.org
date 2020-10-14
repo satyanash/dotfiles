@@ -425,6 +425,12 @@
      (use-package jsonnet-mode   :ensure t)
    #+end_src
 
+** PHP Support
+   PHP editing support.
+   #+begin_src emacs-lisp
+     (use-package php-mode
+       :ensure t)
+   #+end_src
 ** Clojure Support
    Use =cider= and also enable font locking for stdlib functions.
    #+begin_src emacs-lisp
