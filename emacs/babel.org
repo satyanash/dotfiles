@@ -29,16 +29,16 @@
 ** Dark Side [0/2]
    Configure =evil= and =evil-collection=.
 
-   - [ ] =evil-want-C-u-scroll= does not work, for some reason.
+   - [ ] =evil-want-C-u-scroll= does not work, for some reason. We explicitly bind =C-u= for now.
    - Disable =dabbrev-case-fold-search= so that =C-n= and =C-p= based completion works as expected.
-   - =C-h= should keep working like Vim. We don't care about emacs "help" when in insert mode.
    - Disable =evil-want-keybinding= because we will use =evil-collection= to set keybindings.
    - Make sure vertical and horizontal splits open to the right and bottom, respectively.
    - Use =evil-search= as our =evil-search-module=, to make the editor behave more like Vim.
-   - Fix =C-p= and =C-n= to move to previous and next line in insert mode.
-   - We need to manually bind =C-u=, to make it work for now.
-   - Fix =C-h= to delete backward char in insert mode.
-   - Fix =C-h= and =C-w= to delete backward char and word in ex mode.
+   - Fix =C-p= and =C-n= to move to previous and next line in normal mode.
+   - =C-h= should keep working like Vim. We don't care about emacs "help" when in insert mode.
+     - Fix =C-h= to delete backward char in insert mode.
+     - Fix =C-h= to delete backward char in ex mode.
+   - Fix =C-w= to delete backward word in ex mode.
    - [ ] Fix =C-j= to behave similar to =RET= in ex mode.
 
    #+begin_src emacs-lisp
