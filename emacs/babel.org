@@ -80,9 +80,14 @@
      (setq command-error-function
            (lambda (data context caller)
              "Ignore the various errors related to read-only text and motion; pass the rest to the default handler."
-             (let ((err (car data))
-                   (skip-errors '(text-read-only beginning-of-buffer end-of-buffer beginning-of-line end-of-line)))
-               (unless (member err skip-errors)
+             (let* ((err (car data))
+                    (skip-errors '(text-read-only
+                                   beginning-of-buffer
+                                   end-of-buffer
+                                   beginning-of-line
+                                   end-of-line))
+                    (err-skippable? (member err skip-errors)))
+               (unless err-skippable?
                  (command-error-default-function data context caller)))))
    #+end_src
 ** Org Mode
