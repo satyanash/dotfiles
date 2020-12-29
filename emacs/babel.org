@@ -446,6 +446,11 @@
      (use-package jsonnet-mode   :ensure t)
    #+end_src
 
+** Web Mode
+   #+begin_src emacs-lisp
+     (use-package web-mode
+       :ensure t)
+   #+end_src
 ** PHP Support
    PHP editing support.
    #+begin_src emacs-lisp
