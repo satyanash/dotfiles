@@ -26,6 +26,7 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec lxterminal
 
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -158,8 +159,8 @@ hide_edge_borders both
 workspace_auto_back_and_forth yes
 
 # Switch keyboard layouts
-bindsym $mod+Shift+F11 exec setxkbmap -layout us
-bindsym $mod+Shift+F12 exec setxkbmap -layout in -variant bolnagri
+bindsym $mod+Shift+F11 exec setxkbmap -layout us -option 'ctrl:nocaps'
+bindsym $mod+Shift+F12 exec setxkbmap -layout in -variant bolnagri -option 'ctrl:nocaps'
 
 # Backlight controls
 bindsym XF86Mail exec xbacklight -dec 10
