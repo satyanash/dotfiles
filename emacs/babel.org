@@ -412,6 +412,14 @@
           (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
           (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
     #+end_src
+*** Auto Correct
+    #+begin_src emacs-lisp
+      (use-package flyspell
+        :ensure t
+        :config
+        (eval-after-load 'flyspell-mode
+          (define-key flyspell-mode-map (kbd "<f6>") #'flyspell-auto-correct-word)))
+    #+end_src
 *** Grammar
     #+begin_src emacs-lisp
       (use-package langtool
