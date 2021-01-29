@@ -398,6 +398,16 @@
             "#+TAGS: " _)))
     #+end_src
 
+*** Writing Quality
+    #+begin_src emacs-lisp
+      (use-package artbollocks-mode
+        :ensure t)
+    #+end_src
+
+    #+begin_src emacs-lisp
+      (use-package writegood-mode
+        :ensure t)
+    #+end_src
 *** Focused Writing Mode
     #+begin_src emacs-lisp
       (use-package writeroom-mode
@@ -407,6 +417,7 @@
         :config
         (add-hook 'writeroom-mode-hook #'visual-line-mode)
         (add-hook 'writeroom-mode-hook #'flyspell-mode)
+        (add-hook 'writeroom-mode-hook #'artbollocks-mode)
         (with-eval-after-load 'writeroom-mode
           (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
           (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
