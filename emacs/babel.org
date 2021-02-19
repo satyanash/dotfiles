@@ -8,6 +8,19 @@
        (when (file-exists-p private-init-file)
          (load-file private-init-file)))
    #+end_src
+** Fix word boundaries
+   Fix the default syntax table and that of various modes to treat underscores more like vim.
+   This fixes issues with word commands not working on identifiers containing an underscore.
+
+   #+begin_src emacs-lisp
+     (modify-syntax-entry ?_ "w" (standard-syntax-table))
+     ;; python
+     (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+     ;; ruby
+     (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+     ;; Javascript
+     (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+   #+end_src
 ** Fix Emacs Help Behaviour
    All help windows will gain focus when they're shown.
    #+begin_src emacs-lisp
