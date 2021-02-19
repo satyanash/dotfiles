@@ -143,6 +143,12 @@
      (scroll-bar-mode -1)
    #+end_src
 
+   Use relative line numbering.
+   #+begin_src emacs-lisp
+     (setq display-line-numbers-type 'relative)
+     (global-display-line-numbers-mode)
+   #+end_src
+
    Inhibit the startup screen.
    #+begin_src emacs-lisp
      (setq inhibit-startup-screen t)
