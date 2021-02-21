@@ -487,7 +487,12 @@
 ** Web Mode
    #+begin_src emacs-lisp
      (use-package web-mode
-       :ensure t)
+       :ensure t
+       :init (setq web-mode-markup-indent-offset 2
+                   web-mode-css-indent-offset 2
+                   web-mode-code-indent-offset 2)
+       :mode ("\\.html.erb\\'"
+              "\\.html\\'"))
    #+end_src
 ** PHP Support
    PHP editing support.
