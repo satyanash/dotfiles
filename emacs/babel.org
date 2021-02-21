@@ -311,6 +311,8 @@
 
      (use-package lsp-mode
        :ensure t
+       :init (setq lsp-solargraph-use-bundler t
+                   lsp-solargraph-multi-root nil)
        :hook ((ruby-mode . lsp)
               (go-mode . lsp-deferred)
               (terraform-mode . lsp)))
