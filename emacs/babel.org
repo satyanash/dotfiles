@@ -311,7 +311,7 @@
 
      (use-package lsp-mode
        :ensure t
-       :init (setq lsp-solargraph-use-bundler t
+       :init (setq lsp-solargraph-use-bundler nil
                    lsp-solargraph-multi-root nil)
        :hook ((ruby-mode . lsp)
               (go-mode . lsp-deferred)
