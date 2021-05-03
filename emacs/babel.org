@@ -314,7 +314,8 @@
        :init (setq lsp-solargraph-use-bundler nil)
        :hook ((ruby-mode . lsp)
               (go-mode . lsp-deferred)
-              (terraform-mode . lsp)))
+              (terraform-mode . lsp)
+              (typescript-mode . lsp)))
    #+end_src
 
 ** Editing Experience
@@ -595,4 +596,11 @@
    Use this for making fancy REST queries and playing with APIs.
    #+begin_src emacs-lisp
      (use-package restclient :ensure t)
+   #+end_src
+
+** Typescript
+   Basic typescript support.
+   #+begin_src emacs-lisp
+     (use-package typescript-mode
+       :ensure t)
    #+end_src
