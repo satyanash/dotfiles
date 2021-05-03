@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ $(command -v fortune) && $(command -v cowsay) && $(command -v lolcat) ]]; then
+  fortune | cowsay | lolcat
+fi
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -107,10 +111,6 @@ __prompt_command() {
 }
 
 PROMPT_COMMAND=__prompt_command
-
-if [[ $(command -v fortune) && $(command -v cowsay) && $(command -v lolcat) ]]; then
-  fortune | cowsay | lolcat
-fi
 
 function dockill() {
   docker stop $1 && docker rm $1
