@@ -106,6 +106,25 @@
                  (command-error-default-function data context caller)))))
    #+end_src
 ** Org Mode
+   Setup language support in org-mode.
+   #+begin_src emacs-lisp
+     (with-eval-after-load 'org
+       (org-babel-do-load-languages 'org-babel-load-languages
+                                    '((emacs-lisp . t)
+                                      (plantuml . t)))
+   #+end_src
+
+   Reload inline images on evaluating a code block.
+   #+begin_src emacs-lisp
+     (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+   #+end_src
+
+   Configure plantuml support in org-mode.
+   #+begin_src emacs-lisp
+     (setq org-plantuml-jar-path
+           (expand-file-name "/usr/share/java/plantuml/plantuml.jar"))
+   #+end_src
+
    Use fancy bullets instead of asterisks.
    #+begin_src emacs-lisp
      (use-package org-bullets
