@@ -5,16 +5,25 @@
 ;; Neutralize custom.el by pointing it to a file that we don't plan to load.
 (setq custom-file "~/.emacs.d/customize-generated.el")
 
-;; Package Management
-(progn
-  (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (package-initialize)
-  ;; bootstrap use-package
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
-  (require 'use-package))
+;; disable package.el
+(setq package-enable-at-startup nil)
+
+;; Package Management with straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Setup use-package
+(straight-use-package 'use-package)
 
 ;; Add the current directory to the theme load path.
 (add-to-list 'custom-theme-load-path
@@ -22,7 +31,7 @@
 
 ;; Setup Org Mode, Babel and tangling
 (use-package org
-  :ensure t
+  :straight t
   :init (setq org-hierarchical-todo-statistics nil
 	      org-checkbox-hierarchical-statistics nil
 	      org-src-tab-acts-natively t)

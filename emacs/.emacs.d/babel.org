@@ -58,7 +58,7 @@
 
    #+begin_src emacs-lisp
      (use-package evil
-       :ensure t
+       :straight t
        :init (setq evil-want-C-u-scroll t
                    dabbrev-case-fold-search nil
                    evil-want-keybinding nil
@@ -78,7 +78,7 @@
        (define-key evil-ex-completion-map (kbd "C-w") 'evil-delete-backward-word))
 
      (use-package evil-collection
-       :ensure t
+       :straight t
        :after evil
        :config
        (evil-collection-init))
@@ -128,7 +128,7 @@
    Use fancy bullets instead of asterisks.
    #+begin_src emacs-lisp
      (use-package org-bullets
-       :ensure t
+       :straight t
        :after org
        :hook (org-mode . org-bullets-mode))
    #+end_src
@@ -136,7 +136,7 @@
    Make Org and Org Agenda play nice with =evil=.
    #+begin_src emacs-lisp
      (use-package evil-org
-       :ensure t
+       :straight t
        :after org
        :config
        (add-hook 'org-mode-hook 'evil-org-mode)
@@ -178,7 +178,7 @@
      (setq visible-bell t)
 
      (use-package mode-line-bell
-       :ensure t
+       :straight t
        :config (mode-line-bell-mode))
    #+end_src
 
@@ -233,7 +233,7 @@
    =eyebrowse= allows "tab" like features.
    #+begin_src emacs-lisp
      (use-package eyebrowse
-       :ensure t
+       :straight t
        :init
        (setq eyebrowse-wrap-around t
              eyebrowse-new-workspace t)
@@ -246,7 +246,7 @@
    Configure extra evil commands to also trigger resizing.
    #+begin_src emacs-lisp
      (use-package golden-ratio
-       :ensure t
+       :straight t
        :init (setq golden-ratio-extra-commands
                    '(evil-window-next
                      evil-window-prev
@@ -263,7 +263,7 @@
 ** Git
    #+begin_src emacs-lisp
      (use-package magit
-       :ensure t
+       :straight t
        :config
        (global-set-key (kbd "C-x g") 'magit-status))
    #+end_src
@@ -271,13 +271,13 @@
    Fuzzy searching, sorting with =ido= and =helm= where possible.
    #+begin_src emacs-lisp
    (use-package ido
-     :ensure t
+     :straight t
      :init (setq ido-enable-flex-matching t)
      :config
      (ido-mode t))
 
    (use-package helm
-     :ensure t
+     :straight t
      :init
      (setq helm-always-two-windows t)
      :config
@@ -287,9 +287,9 @@
 
    Integrate with grep-like tools, mostly =ag=.
    #+begin_src emacs-lisp
-     (use-package ag :ensure t)
+     (use-package ag :straight t)
      (use-package helm-ag
-       :ensure t
+       :straight t
        :after helm)
    #+end_src
 
@@ -300,7 +300,7 @@
    - Configure switching and searching projects and finding files.
    #+begin_src emacs-lisp
      (use-package projectile
-       :ensure t
+       :straight t
        :init
        (setq projectile-switch-project-action #'(lambda () (dired (projectile-project-root))))
        :config
@@ -310,7 +310,7 @@
        (define-key projectile-mode-map (kbd "C-8") 'projectile-find-file))
 
      (use-package helm-projectile
-       :ensure t
+       :straight t
        :after '(helm projectile)
        :init
        (setq helm-projectile-fuzzy-match t
@@ -323,10 +323,10 @@
    - Ruby requires the =solargraph= gem.
    #+begin_src emacs-lisp
      (use-package flycheck
-       :ensure t)
+       :straight t)
 
      (use-package lsp-mode
-       :ensure t
+       :straight t
        :init (setq lsp-solargraph-use-bundler nil)
        :hook ((ruby-mode . lsp)
               (go-mode . lsp-deferred)
@@ -339,18 +339,18 @@
    - =smartparens= for lisps.
    #+begin_src emacs-lisp
      (use-package origami
-       :ensure t)
+       :straight t)
 
      (use-package lsp-origami
-       :ensure t)
+       :straight t)
 
      (use-package smartparens
-       :ensure t
+       :straight t
        :hook ((clojure-mode . smartparens-strict-mode)
               (emacs-lisp-mode . smartparens-strict-mode)))
 
      (use-package evil-smartparens
-       :ensure t
+       :straight t
        :hook ((clojure-mode . evil-smartparens-mode)
               (emacs-lisp-mode . evil-smartparens-mode)))
    #+end_src
@@ -366,6 +366,7 @@
 ** Whitespace
    #+begin_src emacs-lisp
      (use-package whitespace
+       :straight t
        :init
        (setq whitespace-style '(face tabs empty trailing))
        :hook ((prog-mode . whitespace-mode)
@@ -381,7 +382,7 @@
    #+end_src
    Auto format elisp
    #+begin_src emacs-lisp
-     (use-package elisp-format :ensure t)
+     (use-package elisp-format :straight t)
    #+end_src
 ** Golang Support
    - Use =goimports= for auto-formatting code.
@@ -389,12 +390,12 @@
 
    #+begin_src emacs-lisp
      (use-package go-mode
-       :ensure t
+       :straight t
        :mode "\\.go\\'"
        :init (setq gofmt-command "goimports")
        :config (add-hook 'before-save-hook 'gofmt-before-save))
 
-     (use-package go-playground :ensure t)
+     (use-package go-playground :straight t)
    #+end_src
 
 ** Plain Text Writing
@@ -412,7 +413,7 @@
           'literal)))
 
       (use-package autoinsert
-        :ensure t
+        :straight t
         :hook (find-file . auto-insert)
         :init (setq auto-insert-alist ()
                     auto-insert-mode t
@@ -438,17 +439,17 @@
 *** Writing Quality
     #+begin_src emacs-lisp
       (use-package artbollocks-mode
-        :ensure t)
+        :straight t)
     #+end_src
 
     #+begin_src emacs-lisp
       (use-package writegood-mode
-        :ensure t)
+        :straight t)
     #+end_src
 *** Focused Writing Mode
     #+begin_src emacs-lisp
       (use-package writeroom-mode
-        :ensure t
+        :straight t
         :init (setq writeroom-fullscreen-effect 'maximized
                     writeroom-width 50)
         :config
@@ -464,7 +465,7 @@
 *** Auto Correct
     #+begin_src emacs-lisp
       (use-package flyspell
-        :ensure t
+        :straight t
         :config
         (eval-after-load 'flyspell-mode
           (define-key flyspell-mode-map (kbd "<f6>") #'flyspell-auto-correct-word)))
@@ -472,7 +473,7 @@
 *** Grammar
     #+begin_src emacs-lisp
       (use-package langtool
-        :ensure t
+        :straight t
         :init
         (pcase system-type
           ('gnu/linux
@@ -492,21 +493,21 @@
 
    #+begin_src emacs-lisp
      (use-package markdown-mode
-       :ensure t
+       :straight t
        :init (setq markdown-command "kramdown"
                    markdown-enable-math t))
 
-     (use-package yaml-mode      :ensure t)
-     (use-package json-mode      :ensure t)
-     (use-package terraform-mode :ensure t)
-     (use-package toml-mode      :ensure t)
-     (use-package jsonnet-mode   :ensure t)
+     (use-package yaml-mode      :straight t)
+     (use-package json-mode      :straight t)
+     (use-package terraform-mode :straight t)
+     (use-package toml-mode      :straight t)
+     (use-package jsonnet-mode   :straight t)
    #+end_src
 
 ** Web Mode
    #+begin_src emacs-lisp
      (use-package web-mode
-       :ensure t
+       :straight t
        :init (setq web-mode-markup-indent-offset 2
                    web-mode-css-indent-offset 2
                    web-mode-code-indent-offset 2)
@@ -517,26 +518,26 @@
    PHP editing support.
    #+begin_src emacs-lisp
      (use-package php-mode
-       :ensure t)
+       :straight t)
    #+end_src
 ** Clojure Support
    Use =cider= and also enable font locking for stdlib functions.
    #+begin_src emacs-lisp
      (use-package clojure-mode
-       :ensure t)
+       :straight t)
 
      (use-package clojure-mode-extra-font-locking
-       :ensure t)
+       :straight t)
 
      (use-package cider
-       :ensure t
+       :straight t
        :hook (clojure-mode . cider-mode))
    #+end_src
 ** Configure basic Dockerfile support
    I don't need direct integration with docker yet.
    #+begin_src emacs-lisp
      (use-package dockerfile-mode
-       :ensure t
+       :straight t
        :mode "Dockerfile\\'")
    #+end_src
 ** Setup an embedded terminal
@@ -545,7 +546,7 @@
 
    #+begin_src emacs-lisp
      (use-package vterm
-       :ensure t
+       :straight t
        :config
        ;; Pulled from iTerm2 ANSI color scheme
        (defconst color-black   "#000000")
@@ -575,7 +576,7 @@
    This is useful for linting code before submission to MELPA.
 
    #+begin_src emacs-lisp
-     (use-package package-lint :ensure t)
+     (use-package package-lint :straight t)
    #+end_src
 
 ** Setup Nyan Mode
@@ -583,7 +584,7 @@
 
    #+begin_src emacs-lisp
      (use-package nyan-mode
-       :ensure t
+       :straight t
        :init (setq nyan-animate-nyancat t
                    nyan-wavy-trail t)
        :config (nyan-mode))
@@ -597,12 +598,12 @@
    #+begin_src emacs-lisp
      (use-package leetcode
        :init (setq leetcode-prefer-language "golang")
-       :ensure t)
+       :straight t)
    #+end_src
 ** Web Wowser
    #+begin_src emacs-lisp
      (use-package eww
-       :ensure t
+       :straight t
        :config
        (add-hook 'eww-after-render-hook #'visual-line-mode))
    #+end_src
@@ -610,12 +611,12 @@
 ** Configure restclient
    Use this for making fancy REST queries and playing with APIs.
    #+begin_src emacs-lisp
-     (use-package restclient :ensure t)
+     (use-package restclient :straight t)
    #+end_src
 
 ** Typescript
    Basic typescript support.
    #+begin_src emacs-lisp
      (use-package typescript-mode
-       :ensure t)
+       :straight t)
    #+end_src
