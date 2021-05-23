@@ -266,9 +266,6 @@
        :ensure t
        :config
        (global-set-key (kbd "C-x g") 'magit-status))
-
-     (use-package evil-magit
-       :ensure t)
    #+end_src
 ** Searching & Sorting
    Fuzzy searching, sorting with =ido= and =helm= where possible.
