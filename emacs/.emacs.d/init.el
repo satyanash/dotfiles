@@ -1,5 +1,5 @@
 ;;; satyanash's .emacs
-;;; 
+;;;
 ;;; Code:
 
 ;; Neutralize custom.el by pointing it to a file that we don't plan to load.
@@ -60,5 +60,3 @@
          (time-to-seconds (time-since satyanash--emacs-load-tangled-start-time)))
 
 (message "Emacs init time: %s" (emacs-init-time))
-
-(provide 'main)

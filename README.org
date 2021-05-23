@@ -7,12 +7,13 @@ You must have =stow= installed to make this work.
    Run =stow <foo>= to setup files in directory =./<foo>=.
    For example:
    - setup =.bashrc= with =stow bash=
+   - setup =.emacs.d= with =stow emacs=
    - setup =.i3= and =.i3status.conf= with =stow i3=
    - setup =.vimrc= with =stow vim=
 
 ** Emacs Configuration
    - This is contained in the =./emacs= directory.
-   - The entrypoint is =main.el=.
+   - The entrypoint is =.emacs.d/init.el=.
    - It does some housekeeping before tangling, compiling and loading =babel.org=.
    - =babel.org= is a literate =org-mode= file containing most of the =emacs-lisp= configuration.
    - =vivid-chalk-theme.el= contains =custom-theme= definition for vivid-chalk ported from the =color-theme= implementation. Though it has some pending garishness that needs fixing.
