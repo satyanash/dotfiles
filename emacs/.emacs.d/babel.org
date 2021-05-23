@@ -561,7 +561,6 @@
        (defconst color-orange  "#ff9900")
 
        ;; Configure Face Attributes for vterm
-       (set-face-attribute 'vterm-color-default nil :foreground color-orange  :background nil :inherit 'default)
        (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
        (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
        (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
