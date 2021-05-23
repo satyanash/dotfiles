@@ -8,8 +8,27 @@ set number
 set relativenumber 
 set hlsearch
 set incsearch
-set exrc
 set ruler
+set background=dark
+set smartindent
+
+" Allow local .vimrc
+set secure
+set exrc
+
+" disable audio bells
+set visualbell t_vb=
+
+" speed up UI
+set ttyfast
+set lazyredraw
+
+" show awaiting vim command in the bottom right
+set showcmd
+set noshowmode
+
+" make syntax highlighting not break on long lines/files
+set mmp=5000
 
 " much needed remaps for muscle retraining
 " Forces jj for esc
@@ -19,6 +38,11 @@ set ruler
 "inoremap <BACKSPACE> <NOP>
 " Forces Ctrl-j for Return
 "inoremap <Return> <NOP>
+" remap stuff
+" inoremap <DEL> <NOP>
+" inoremap <ESC> <NOP>
+" inoremap <RETURN> <NOP>
+" inoremap <BACKSPACE> <NOP>
 
 " Use char-wise yank when doing Shift+y
 " nnoremap Y v$y
@@ -121,6 +145,10 @@ Plugin 'roman/golden-ratio'
 Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
 
+" New Plugins
+" Plugin 'janko-m/vim-test'
+" Plugin 'FredKSchott/CoVim'
+" Plugin 'vim-scripts/gtags.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -144,17 +172,15 @@ filetype plugin indent on    " required
 "
 set laststatus=2
 
+autocmd FileType java set tags=.tags
+autocmd FileType clojure nmap <buffer> <C-]> ]<C-D>
+
+if $TERM == "xterm" || $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+	set t_Co=256
+endif
 
 " Ack global search keybind
 map <D-*> :Ack <C-r><C-w><CR>
-
-" auto imports
-let g:go_fmt_command = "goimports"
-
-" disable audio bells
-set visualbell t_vb=
-
-autocmd FileType clojure nmap <buffer> <C-]> ]<C-D>
 
 " highlight current line
 set cursorline
@@ -164,24 +190,10 @@ highlight Search cterm=NONE ctermfg=grey ctermbg=blue
 " run nohlsearch when ctrl-l
 nnoremap <C-l> :nohlsearch<CR><C-l>
 
-" speed up UI
-set ttyfast
-set lazyredraw
 
 colorscheme vividchalk
 
-" autocmd vimenter * NERDTree
-let g:NERDTreeDirArrows=0
-
-filetype plugin indent on
-syntax on 
-
-" make syntax highlighting not break on long lines/files
-set mmp=5000
-
-" show awaiting vim command in the bottom right
-set showcmd
-
+syntax on
 
 if executable('terraform-lsp')
   " terraform lsp config
@@ -192,5 +204,22 @@ if executable('terraform-lsp')
         \ })
 endif
 
+" autocmd vimenter * NERDTree
+let g:NERDTreeDirArrows=0
+
 let g:lsp_highlight_references_enabled = 1
 let g:go_rename_command = "gopls"
+
+" syntastic
+let g:syntastic_enable_signs=1
+" Disable auto jump
+"let g:syntastic_auto_jump=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_javascript_checkers = ['']
+
+" Set the powerline python version
+let g:powerline_pycmd="py3"
+
+" auto imports
+let g:go_fmt_command = "goimports"
