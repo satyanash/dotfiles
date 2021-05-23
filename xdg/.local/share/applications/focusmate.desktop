@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Exec=chromium --user-data-dir=$HOME/.config/chromium_app_focusmate/ --force-device-scale-factor=1.2 --app=https://www.focusmate.com/;
+Name=Focusmate
