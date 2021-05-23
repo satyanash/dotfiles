@@ -111,7 +111,7 @@
      (with-eval-after-load 'org
        (org-babel-do-load-languages 'org-babel-load-languages
                                     '((emacs-lisp . t)
-                                      (plantuml . t)))
+                                      (plantuml . t))))
    #+end_src
 
    Reload inline images on evaluating a code block.
