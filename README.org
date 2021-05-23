@@ -1,11 +1,11 @@
 * Satyajeet's dotfiles
 
 This repo contains my configuration for =emacs=, =bash= and =vim=.
+You must have =stow= installed to make this work.
 
 ** Setup
-   Run =./setup.sh= to:
-   - symlink =~/.bashrc= to =./.bashrc=
-   - setup =~/.emacs= to load =./emacs/main.el=
+   Run =stow <foo>= to setup files in directory =./<foo>=. For example:
+   - setup bash with =stow bash=
 
 ** Emacs Configuration
    - This is contained in the =./emacs= directory.
