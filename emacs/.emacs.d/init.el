@@ -40,15 +40,16 @@
 (defun satyanash--load-org-babel-file (org-file)
   "Given an org file, tangle all elisp code into a new file and then load it."
   (let* ((curr-dir (file-name-directory (or load-file-name buffer-file-name)))
-	 (org-file-abs-path (concat curr-dir org-file))
+	 (org-file-abs-path (file-truename (concat curr-dir org-file)))
          (org-file-last-mod (nth 5 (file-attributes org-file-abs-path)))
-	 (elisp-dir "~/.emacs.d/ob-init-elisp/")
+	 (elisp-dir (file-truename "~/.emacs.d/ob-init-elisp/"))
 	 (elisp-file (concat elisp-dir (file-name-base org-file) ".el"))
          (epoch-timestamp 0)
          (elisp-file-last-mod (or (nth 5 (file-attributes elisp-file))
                                   epoch-timestamp))
          (org-file-changed? (time-less-p elisp-file-last-mod org-file-last-mod)))
     (when org-file-changed?
+      (message "Source %s is newer than Destination %s" org-file-abs-path elisp-file)
       (make-directory elisp-dir :parents)
       (org-babel-tangle-file org-file-abs-path elisp-file "emacs-lisp")
       (byte-compile-file elisp-file))
