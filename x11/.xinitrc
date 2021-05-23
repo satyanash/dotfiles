@@ -2,17 +2,21 @@
 export BROWSER=firefox
 export DE=i3
 
+## set wallpaper
 hsetroot -full ~/.wallpaper.jpg &
 
-## DPI: 100%: 96, 125%: 120, 150%: 144, 175%: 168, 200%: 192
-## DPI, backlight, Xresources
+## merge Xresources
 xrdb -merge ~/.Xresources
-xrandr --dpi 120
-xbacklight -set 10
-xset -b
-#xinput set-prop 12 278 1
-#xinput set-prop 12 286 1
 
+# scale DPI for hi-res screens
+## DPI: 100%: 96, 125%: 120, 150%: 144, 175%: 168, 200%: 192
+xrandr --dpi 120
+
+# Set backlight to 10%
+xbacklight -set 10
+
+# disable bell
+xset -b
 
 ## map the caps lock key to Ctrl key
 setxkbmap -option 'ctrl:nocaps'
@@ -20,26 +24,31 @@ setxkbmap -option 'ctrl:nocaps'
 ## start the notification daemon
 /usr/lib/notify-osd/notify-osd &
 
-## start the nm-applet
+## start the network manager applet
 nm-applet &
+
+## volume control applet
 volumeicon &
+
+## desktop monitor
 conky &
+
+## bluetooth applet
 blueman-applet &
 
-## start parcellite
+## start clipboard manager
 parcellite &
 
-## fix touchpad
+## fix touchpad tapping and scroll direction
 xinput set-prop "DLL06FD:01 04F3:300F Touchpad" "libinput Tapping Enabled" 1
 xinput set-prop "DLL06FD:01 04F3:300F Touchpad" "libinput Natural Scrolling Enabled" 1
 #xinput set-prop "DLL06FD:01 04F3:300F Touchpad" "" 1
 
-## start redshift-gtk
+## start redshifting for Nagpur
 redshift-gtk -l 21:77 &
 
+## onscreen keyboard for touch mode
 onboard &
 
 ## Run the window manager session
 exec i3
-#exec xterm
-#exec fvwm
