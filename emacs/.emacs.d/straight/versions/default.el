@@ -11,6 +11,7 @@
  ("elisp-format" . "03cc293eb2f78ec58fc1d84279af06816a04b979")
  ("emacs-aio" . "da93523e235529fa97d6f251319d9e1d6fc24a41")
  ("emacs-async" . "9a8cd0c3d5c120bfa03187c54dba6e33f6e3ca19")
+ ("emacs-crystal-mode" . "15998140b0a4172cd4b4d14d0377fba96a8917fc")
  ("emacs-hcl-mode" . "e12b1df2ca28d2b06c471cd709c038a2dc0bcdbd")
  ("emacs-libvterm" . "2b1392cb2b14ec5bd0b7355197d5f353aa5d3983")
  ("emacsmirror-mirror" . "ea0e522a7c2a298a486e372eb13b21c39aa2f0ac")
