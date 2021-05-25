@@ -44,7 +44,7 @@
  ("log4e" . "7df0c1ff4656f8f993b87064b1567618eadb5546")
  ("lsp-mode" . "2d41848dde2fdcb1a85546302c4b842a12a68ef9")
  ("lsp-origami" . "bedea3d25552d6969e917a15a0acc3d333ddc742")
- ("magit" . "e37882710bd91d95bac967d342e5aea846cce783")
+ ("magit" . "c3bbc9b9425f3370690cabb11bd35b9040773fdc")
  ("markdown-mode" . "de365c070c7deecbabfd5a7294bc8c2603d9ec22")
  ("melpa" . "54bd4ea32fb912c51735243fa8f609890516fad9")
  ("mode-line-bell" . "26ac7d97abdeb762ceaeab6b892f3ed7e3412494")
