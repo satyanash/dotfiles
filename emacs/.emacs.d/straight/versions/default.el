@@ -72,6 +72,7 @@
  ("typescript.el" . "b369d7d2518fa11760ac3908a383405350cd51d2")
  ("use-package" . "a7422fb8ab1baee19adb2717b5b47b9c3812a84c")
  ("visual-fill-column" . "6fa9e7912af412533aec0da8b8f62c227f9f3f54")
+ ("wc-mode" . "63be1433b8a63cdc3239cc751e36360429c42b51")
  ("web-mode" . "8ef47935d638902ba35a557cae5edd6ab6ab1346")
  ("with-editor" . "86bdff68a106bc9d383fdab3bbf1ad4b703a52f0")
  ("writegood-mode" . "ed42d918d98826ad88928b7af9f2597502afc6b0")

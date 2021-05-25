@@ -450,6 +450,11 @@
       (use-package writegood-mode
         :straight t)
     #+end_src
+
+    #+begin_src emacs-lisp
+      (use-package wc-mode
+        :straight t)
+    #+end_src
 *** Focused Writing Mode
     #+begin_src emacs-lisp
       (use-package writeroom-mode
