@@ -20,7 +20,6 @@
  ("evil-collection" . "33bcc7f40c35adbcbb8bb1839b58d9133ee78d55")
  ("evil-org-mode" . "80ef38fb378541937f6ddfe836809e76eda1e355")
  ("evil-smartparens" . "026d4a3cfce415a4dfae1457f871b385386e61d3")
- ("eyebrowse" . "88c7b59aa7c5c93bc23812217213adfa238f977b")
  ("f.el" . "c4dbf8c8e83df834f5d6f72cd5649b9d8a8812ec")
  ("flycheck" . "f8c679fff349850c80541a31de50009c3c15d4c9")
  ("gnu-elpa-mirror" . "3f69bd0d6dcc9060acfb4b9bd2456b360eb2fe51")

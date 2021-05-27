@@ -248,18 +248,6 @@
    #+end_src
 
 ** Window Management
-   =eyebrowse= allows "tab" like features.
-   #+begin_src emacs-lisp
-     (use-package eyebrowse
-       :straight t
-       :init
-       (setq eyebrowse-wrap-around t
-             eyebrowse-new-workspace t)
-       :config
-       (eyebrowse-mode t)
-       (eyebrowse-setup-evil-keys))
-   #+end_src
-
    =golden-ratio= keeps window sizes in check.
    Configure extra evil commands to also trigger resizing.
    #+begin_src emacs-lisp
