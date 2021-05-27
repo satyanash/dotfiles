@@ -70,6 +70,7 @@
  ("toml-mode.el" . "f6c61817b00f9c4a3cab1bae9c309e0fc45cdd06")
  ("transient" . "6ceddc4d8c7a3c13d78c459213c796d2c19234c6")
  ("typescript.el" . "b369d7d2518fa11760ac3908a383405350cd51d2")
+ ("undo-tree" . "e326c6135e62f5fe8536528d3acd5e798f847407")
  ("use-package" . "a7422fb8ab1baee19adb2717b5b47b9c3812a84c")
  ("visual-fill-column" . "6fa9e7912af412533aec0da8b8f62c227f9f3f54")
  ("wc-mode" . "63be1433b8a63cdc3239cc751e36360429c42b51")

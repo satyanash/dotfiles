@@ -44,6 +44,14 @@
    #+end_src
 
 ** Dark Side [0/2]
+
+   Evil no longer ships with =undo-tree=, so we install it ourselves.
+
+   #+begin_src emacs-lisp
+     (use-package undo-tree
+         :straight t)
+   #+end_src
+
    Configure =evil= and =evil-collection=.
 
    - [ ] =evil-want-C-u-scroll= does not work, for some reason. We explicitly bind =C-u= for now.
