@@ -43,6 +43,14 @@
            create-lockfiles nil)
    #+end_src
 
+** Git
+   #+begin_src emacs-lisp
+     (use-package magit
+       :straight t
+       :config
+       (global-set-key (kbd "C-x g") 'magit-status))
+   #+end_src
+
 ** Dark Side [0/2]
 
    Evil no longer ships with =undo-tree=, so we install it ourselves.
@@ -89,7 +97,7 @@
 
      (use-package evil-collection
        :straight t
-       :after evil
+       :after (evil magit)
        :config
        (evil-collection-init))
    #+end_src
@@ -270,13 +278,6 @@
        (golden-ratio-mode 1))
    #+end_src
 
-** Git
-   #+begin_src emacs-lisp
-     (use-package magit
-       :straight t
-       :config
-       (global-set-key (kbd "C-x g") 'magit-status))
-   #+end_src
 ** Searching & Sorting
    Fuzzy searching, sorting with =ido= and =helm= where possible.
    #+begin_src emacs-lisp
