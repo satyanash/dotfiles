@@ -500,8 +500,7 @@
           ('darwin
            (setq
             langtool-language-tool-jar
-            "/usr/local/Cellar/languagetool/5.0/libexec/languagetool-commandline.jar"))
-          (t nil)))
+            "/usr/local/Cellar/languagetool/5.0/libexec/languagetool-commandline.jar"))))
     #+end_src
 
 ** Markup / Config File Support
