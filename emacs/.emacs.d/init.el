@@ -61,7 +61,8 @@
       (message "Source %s is newer than Destination %s" org-file-abs-path elisp-file)
       (make-directory elisp-dir :parents)
       (org-babel-tangle-file org-file-abs-path elisp-file "emacs-lisp")
-      (byte-compile-file elisp-file))
+      ;;(byte-compile-file elisp-file)
+      )
     (load (file-name-sans-extension elisp-file))))
 
 (setq satyanash--emacs-load-tangled-start-time (current-time))
