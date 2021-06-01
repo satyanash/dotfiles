@@ -57,7 +57,8 @@
 
    #+begin_src emacs-lisp
      (use-package undo-tree
-         :straight t)
+       :straight t
+       :config (global-undo-tree-mode))
    #+end_src
 
    Configure =evil= and =evil-collection=.
@@ -78,6 +79,7 @@
      (use-package evil
        :straight t
        :init (setq evil-want-C-u-scroll t
+                   evil-undo-system 'undo-tree
                    dabbrev-case-fold-search nil
                    evil-want-keybinding nil
                    evil-vsplit-window-right t
@@ -93,7 +95,8 @@
        (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char)
 
        (define-key evil-ex-completion-map (kbd "C-h") 'evil-ex-delete-backward-char)
-       (define-key evil-ex-completion-map (kbd "C-w") 'evil-delete-backward-word))
+       (define-key evil-ex-completion-map (kbd "C-w") 'evil-delete-backward-word)
+       :hook (evil-local-mode . turn-on-undo-tree-mode))
 
      (use-package evil-collection
        :straight t
