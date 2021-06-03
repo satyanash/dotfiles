@@ -1,6 +1,4 @@
 #!/bin/bash
-export BROWSER=firefox
-export DE=i3
 
 ## set wallpaper
 hsetroot -full ~/.wallpaper.jpg &
