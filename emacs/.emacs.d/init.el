@@ -34,7 +34,8 @@
   :straight t
   :init (setq org-hierarchical-todo-statistics nil
 	      org-checkbox-hierarchical-statistics nil
-	      org-src-tab-acts-natively t)
+	      org-src-tab-acts-natively t
+              org-startup-indented t)
   :config
   (add-hook 'org-mode-hook #'visual-line-mode)
   (add-to-list 'org-modules 'org-tempo t)
