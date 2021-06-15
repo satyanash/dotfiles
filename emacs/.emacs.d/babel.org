@@ -335,7 +335,8 @@
               (go-mode . lsp-deferred)
               (terraform-mode . lsp)
               (typescript-mode . lsp)
-              (crystal-mode . lsp)))
+              (crystal-mode . lsp)
+              (java-mode . lsp)))
    #+end_src
 
 ** Editing Experience
@@ -633,5 +634,11 @@
    Basic crystal support.
    #+begin_src emacs-lisp
      (use-package crystal-mode
+       :straight t)
+   #+end_src
+
+** Java
+   #+begin_src emacs-lisp
+     (use-package lsp-java
        :straight t)
    #+end_src
