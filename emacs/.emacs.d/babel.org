@@ -633,7 +633,7 @@
 
    #+begin_src emacs-lisp
      (use-package leetcode
-       :init (setq leetcode-prefer-language "golang")
+       :init (setq leetcode-prefer-language "python3")
        :straight t)
    #+end_src
 ** Web Wowser
