@@ -483,12 +483,16 @@
 *** Grammar
     #+begin_src emacs-lisp
       (use-package langtool
-        :straight t
+        :straight (langtool :type git
+                            :host github :repo "mhayashi1120/Emacs-langtool"
+                            :fork (:host github :repo "ejuarezg/Emacs-langtool"))
         :init
         (pcase system-type
           ('gnu/linux
            (setq langtool-java-classpath
-                 "/usr/share/languagetool:/usr/share/java/languagetool/*"))
+                 "/usr/share/languagetool:/usr/share/java/languagetool/*"
+                 langtool-language-tool-server-jar
+                 "/usr/share/java/languagetool/languagetool-server.jar"))
           ('darwin
            (setq
             langtool-language-tool-jar

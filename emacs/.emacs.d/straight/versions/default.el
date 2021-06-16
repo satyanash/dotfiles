@@ -1,4 +1,4 @@
-(("Emacs-langtool" . "8276eccc5587bc12fd205ee58a7a982f0a136e41")
+(("Emacs-langtool" . "8476654b5f8d2bcf782656f2d3dc4a5f369a5e10")
  ("a.el" . "3d341eb7813ee02b00ab28e11c915295bfd4b5a7")
  ("ace-window" . "c7cb315c14e36fded5ac4096e158497ae974bec9")
  ("ag.el" . "ed7e32064f92f1315cecbfc43f120bbc7508672c")
