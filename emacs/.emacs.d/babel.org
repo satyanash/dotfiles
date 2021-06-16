@@ -322,7 +322,17 @@
 
 ** Language Support
    - LSP support used for Ruby, Golang and Terraform.
-   - Ruby requires the =solargraph= gem.
+   - Following servers must be present on the PATH:
+
+   | Language   | bin                          |
+   |------------+------------------------------|
+   | Ruby       | =solargraph=                 |
+   | Golang     | =gopls=                      |
+   | Typescript | =typescript-language-server= |
+   | Crystal    | =/bin/crystalline=           |
+   | Java       | =jdtls= auto-setup works     |
+   | Terraform  | =terraform-lsp=              |
+
    #+begin_src emacs-lisp
      (use-package flycheck
        :straight t)
