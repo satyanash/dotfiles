@@ -461,12 +461,22 @@
       (use-package writeroom-mode
         :straight t
         :init (setq writeroom-fullscreen-effect 'maximized
-                    writeroom-width 50)
+                    writeroom-width 64)
         :config
         (add-hook 'writeroom-mode-hook #'visual-line-mode)
         (add-hook 'writeroom-mode-hook #'flyspell-mode)
         (add-hook 'writeroom-mode-hook #'artbollocks-mode)
-        (add-hook 'writeroom-mode-hook #'display-line-numbers-mode)
+        (add-hook 'writeroom-mode-hook
+                  (lambda ()
+                    (if writeroom-mode
+                        (progn
+                          (display-line-numbers-mode -1)
+                          (langtool-check-buffer)
+                          (add-hook 'after-save-hook #'langtool-check-buffer nil 'buffer-local))
+                      (display-line-numbers-mode)
+                      (langtool-check-done)
+                      (langtool-server-stop)
+                      (remove-hook 'after-save-hook #'langtool-check-buffer 'buffer-local))))
         (with-eval-after-load 'writeroom-mode
           (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
           (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
