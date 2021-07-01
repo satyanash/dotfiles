@@ -1,3 +1,4 @@
 firefox
 hammerspoon
 iterm2
+jumpcut
