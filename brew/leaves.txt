@@ -1,0 +1,6 @@
+autoconf
+d12frosted/emacs-plus/emacs-plus@27
+gnu-sed
+stow
+texinfo
+tig
