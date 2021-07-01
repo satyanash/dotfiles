@@ -1,0 +1,3 @@
+*
+!.gitignore
+!straight/versions/default.el
