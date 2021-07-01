@@ -1,5 +1,7 @@
 autoconf
+bash-completion
 d12frosted/emacs-plus/emacs-plus@27
+git
 gnu-sed
 stow
 texinfo
