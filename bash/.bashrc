@@ -83,8 +83,9 @@ if [[ $(command -v pyenv) ]]; then
     eval "$(pyenv init --path)"
 fi
 
-if [[ $(command -v z) ]]; then
-  . /usr/local/etc/profile.d/z.sh
+# setup z
+if [[ -f /usr/local/etc/profile.d/z.sh ]]; then
+    source /usr/local/etc/profile.d/z.sh
 fi
 
 ## prompt hackery
