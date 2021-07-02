@@ -345,6 +345,7 @@
               (go-mode . lsp-deferred)
               (terraform-mode . lsp)
               (typescript-mode . lsp)
+              (js-mode . lsp)
               (crystal-mode . lsp)
               (java-mode . lsp)))
    #+end_src
