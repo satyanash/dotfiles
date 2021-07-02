@@ -76,6 +76,13 @@ if [[ $(command -v rbenv) ]]; then
   eval "$(rbenv init -)"
 fi
 
+# Load pyenv
+if [[ $(command -v pyenv) ]]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+fi
+
 if [[ $(command -v z) ]]; then
   . /usr/local/etc/profile.d/z.sh
 fi
