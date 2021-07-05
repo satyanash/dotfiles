@@ -1,9 +1,16 @@
-autoconf
+bash
 bash-completion
+blis
 d12frosted/emacs-plus/emacs-plus@27
 git
 gnu-sed
+lapack
 node
+openblas
+pyenv
+python@3.7
 stow
 texinfo
+the_silver_searcher
 tig
+z
