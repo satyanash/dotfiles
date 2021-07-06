@@ -50,6 +50,7 @@ alias gap='git add -p'
 alias gsp='git stash -p'
 alias gst='git status'
 alias gcm='git commit -m'
+alias gco='git checkout'
 
 # colorify watch
 alias watch='watch --color'
