@@ -324,14 +324,15 @@
    - LSP support used for Ruby, Golang and Terraform.
    - Following servers must be present on the PATH:
 
-   | Language   | bin                          |
-   |------------+------------------------------|
-   | Ruby       | =solargraph=                 |
-   | Golang     | =gopls=                      |
-   | Typescript | =typescript-language-server= |
-   | Crystal    | =/bin/crystalline=           |
-   | Java       | =jdtls= auto-setup works     |
-   | Terraform  | =terraform-lsp=              |
+   | Language   | bin                                   |
+   |------------+---------------------------------------|
+   | Ruby       | =solargraph=                          |
+   | Golang     | =gopls=                               |
+   | Typescript | =typescript-language-server=          |
+   | Crystal    | =/bin/crystalline=                    |
+   | Java       | =jdtls= auto-setup works              |
+   | Terraform  | =terraform-lsp=                       |
+   | Python     | =pip3 install python-lsp-server[all]= |
 
    #+begin_src emacs-lisp
      (use-package flycheck
@@ -347,6 +348,7 @@
               (typescript-mode . lsp)
               (js-mode . lsp)
               (crystal-mode . lsp)
+              (python-mode . lsp)
               (java-mode . lsp)))
    #+end_src
 
