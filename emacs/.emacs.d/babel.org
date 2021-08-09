@@ -654,7 +654,8 @@
    Basic typescript support.
    #+begin_src emacs-lisp
      (use-package typescript-mode
-       :straight t)
+       :straight t
+       :config (setq js-indent-level 2))
    #+end_src
 
 ** Crystal
