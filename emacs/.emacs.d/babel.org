@@ -670,3 +670,9 @@
      (use-package lsp-java
        :straight t)
    #+end_src
+
+** CSV Editing
+   #+begin_src emacs-lisp
+     (use-package csv-mode
+       :straight t)
+   #+end_src
