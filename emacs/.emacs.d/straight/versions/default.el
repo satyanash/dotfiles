@@ -9,6 +9,8 @@
  ("cfrs" . "2cb7f1cbf9292b0efe167ef372cfb5a7600564eb")
  ("cider" . "eccfcea186c3560527fbfc98491b3ab9a3f1e16f")
  ("clojure-mode" . "33f267ac182afe8fa82cc321e9f515c0397e35f6")
+ ("company-mode" . "87825c7891ccf4aefb88b9d49c7ff074cc74c53a")
+ ("csv-mode" . "8da54e8b4ef9e5fe8a0afa147c625ced603dc0aa")
  ("dap-mode" . "cc395e066755c7513d4862f5639f3d162b3bd30f")
  ("dash.el" . "b9286a84975874b10493f1cb4ea051c501f51273")
  ("dockerfile-mode" . "ad06a41259ff2961d603bf23a3a8fbd22dde2161")
