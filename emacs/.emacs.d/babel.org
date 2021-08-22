@@ -361,7 +361,8 @@
        :straight t)
 
      (use-package lsp-origami
-       :straight t)
+       :straight t
+       :hook (lsp-after-open-hook #'lsp-origami-try-enable))
 
      (use-package smartparens
        :straight t
