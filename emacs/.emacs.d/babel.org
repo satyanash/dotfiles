@@ -657,7 +657,9 @@
    #+begin_src emacs-lisp
      (use-package typescript-mode
        :straight t
-       :config (setq js-indent-level 2))
+       :config (setq js-indent-level 2)
+       :mode ("\\.tsx\\'"
+              "\\.ts\\'"))
    #+end_src
 
 ** Crystal
