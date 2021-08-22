@@ -353,6 +353,11 @@
               (java-mode . lsp)))
    #+end_src
 
+#+begin_src emacs-lisp
+  (use-package company
+    :straight t)
+#+end_src
+
 ** Editing Experience
    - Code folding through =origami=.
    - =smartparens= for lisps.
