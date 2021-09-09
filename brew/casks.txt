@@ -1,4 +1,10 @@
+chromium
+docker
+figma
 firefox
 hammerspoon
 iterm2
 jumpcut
+slack
+spotify
+steam
