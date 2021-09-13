@@ -33,6 +33,7 @@
    - stop littering the fs tree
    - use versioned backups
    - don't create lock files
+   - place backups in a single place
    #+begin_src emacs-lisp
      (setq backup-by-copying t
            backup-directory-alist '(("." . "~/.saves/"))
@@ -42,6 +43,12 @@
            version-control t
            create-lockfiles nil)
    #+end_src
+
+Ensure that auto-save files also end up in the right place
+
+#+begin_src emacs-lisp
+  (append auto-save-file-name-transforms '((".*" "~/.-saves" t)))
+#+end_src
 
 ** Git
    #+begin_src emacs-lisp
