@@ -699,3 +699,14 @@ Ensure that auto-save files also end up in the right place
      (use-package csv-mode
        :straight t)
    #+end_src
+
+** Python
+
+Setup the black formatter.
+
+#+begin_src emacs-lisp
+  (use-package python-black
+    :straight t
+    :after python
+    :hook ((python-mode . python-black-on-save-mode-enable-dwim)))
+#+end_src
