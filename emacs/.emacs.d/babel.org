@@ -674,6 +674,13 @@ Ensure that auto-save files also end up in the right place
               "\\.ts\\'"))
    #+end_src
 
+** Rust
+   #+begin_src emacs-lisp
+     (use-package rust-mode
+       :straight t
+       :config (setq rust-format-on-save t))
+   #+end_src
+
 ** Crystal
    Basic crystal support.
    #+begin_src emacs-lisp
