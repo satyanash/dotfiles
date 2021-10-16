@@ -349,7 +349,9 @@ Ensure that auto-save files also end up in the right place
        :straight t
        :init (setq lsp-solargraph-use-bundler nil
                    lsp-enable-indentation nil
-                   lsp-clients-crystal-executable '("/bin/crystalline"))
+                   lsp-clients-crystal-executable '("/bin/crystalline")
+                   lsp-pylsp-plugins-pydocstyle-enabled nil
+                   lsp-pylsp-plugins-pycodestyle-enabled nil)
        :hook ((ruby-mode . lsp)
               (go-mode . lsp-deferred)
               (terraform-mode . lsp)
