@@ -258,22 +258,11 @@ Ensure that auto-save files also end up in the right place
    #+end_src
 
 ** Window Management
-   =golden-ratio= keeps window sizes in check.
-   Configure extra evil commands to also trigger resizing.
+   zoom mode with golden ratio
    #+begin_src emacs-lisp
-     (use-package golden-ratio
+     (use-package zoom
        :straight t
-       :init (setq golden-ratio-extra-commands
-                   '(evil-window-next
-                     evil-window-prev
-                     evil-window-right
-                     evil-window-left
-                     evil-window-down
-                     evil-window-up)
-                   golden-ratio-auto-scale t
-                   window-combination-resize t)
-       :config
-       (golden-ratio-mode 1))
+       :init (setq zoom-size '(0.618 . 0.618)))
    #+end_src
 
 ** Searching & Sorting
