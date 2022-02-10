@@ -692,8 +692,15 @@ Ensure that auto-save files also end up in the right place
    #+end_src
 
 ** Python
+*** Ensure that the right python version is used.
 
-Setup the black formatter.
+#+begin_src emacs-lisp
+  (use-package pyvenv
+    :straight t
+    :config (pyvenv-mode 1))
+#+end_src
+
+*** Setup the black formatter.
 
 #+begin_src emacs-lisp
   (use-package python-black
