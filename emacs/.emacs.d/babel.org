@@ -708,3 +708,11 @@ Ensure that auto-save files also end up in the right place
     :after python
     :hook ((python-mode . python-black-on-save-mode-enable-dwim)))
 #+end_src
+
+*** Setup pytest
+
+#+begin_src emacs-lisp
+  (use-package python-pytest
+    :straight t
+    :after python)
+#+end_src
