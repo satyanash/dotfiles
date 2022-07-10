@@ -19,7 +19,6 @@ blueman
 bluez
 bluez-utils
 bzip2
-calibre
 chromium
 cloc
 clojure
@@ -44,11 +43,9 @@ ed
 efibootmgr
 emacs
 eog
-eslint
 evince
 exfat-utils
 fakeroot
-fbreader
 figlet
 file
 file-roller
@@ -167,7 +164,6 @@ perl-finance-quote
 perl-glib-object-introspection
 pitivi
 pkgconf
-plantuml
 powertop
 procps-ng
 psmisc
@@ -184,7 +180,6 @@ rlwrap
 ruby
 ruby-irb
 rust
-rxvt-unicode
 s-nail
 sane
 sbcl
@@ -194,8 +189,6 @@ sdl2_mixer
 sdl2_ttf
 sed
 shadow
-shards
-sigil
 simplescreenrecorder
 sl
 slim
@@ -224,13 +217,11 @@ ttf-inconsolata
 ttf-opensans
 ttf-ubuntu-font-family
 udisks2
-unixodbc
 usbutils
 util-linux
 vi
 virtualbox
 vlc
-vmpk
 volumeicon
 weston
 wget
@@ -242,7 +233,6 @@ wireplumber
 wireshark-qt
 wkhtmltopdf
 wpa_supplicant
-xboard
 xf86-video-intel
 xfsprogs
 xorg-bdftopcf
