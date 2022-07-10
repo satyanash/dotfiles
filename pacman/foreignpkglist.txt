@@ -1,17 +1,12 @@
 bfg
 chromium-widevine
-gbacklight
 gforth
 gksu
 gnome-icon-theme
-jasmin
 jsonnet
 jsonnet-bundler-bin
 kindlegen
 kubectl-bin
-lib32-libstdc++5
-libstdc++5
-numix-gtk-theme
 nvm
 ophis
 package-query
@@ -22,7 +17,6 @@ rbspy-bin
 redshift-git
 redshift-gtk-git
 ruby-build
-skippy-xd-git
 ttf-ms-fonts
 ttf-vista-fonts
 yay

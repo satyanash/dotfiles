@@ -1,9 +1,9 @@
 # pacman
 
-To refresh the list of installed packages:
+To refresh the list of installed signed packages:
 
 ```bash
-pacman -Qqe > pkglist.txt
+pacman -Qqen > pkglist.txt
 ```
 
 To refresh the list of AUR packages:
