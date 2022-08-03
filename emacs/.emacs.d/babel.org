@@ -14,14 +14,21 @@
 
    #+begin_src emacs-lisp
      (modify-syntax-entry ?_ "w" (standard-syntax-table))
+
+     (defun fix-word-boundaries () (modify-syntax-entry ?_ "w"))
+
      ;; python
-     (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+     (add-hook 'python-mode-hook 'fix-word-boundaries)
      ;; ruby
-     (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+     (add-hook 'ruby-mode-hook 'fix-word-boundaries)
      ;; Javascript
-     (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+     (add-hook 'js2-mode-hook 'fix-word-boundaries)
      ;; Crystal
-     (add-hook 'crystal-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+     (add-hook 'crystal-mode-hook 'fix-word-boundaries)
+     ;; Typescript
+     (add-hook 'typescript-mode-hook 'fix-word-boundaries)
+     ;; Yaml
+     (add-hook 'yaml-mode-hook 'fix-word-boundaries)
    #+end_src
 ** Fix Emacs Help Behaviour
    All help windows will gain focus when they're shown.
