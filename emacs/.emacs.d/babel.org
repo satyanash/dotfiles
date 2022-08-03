@@ -655,14 +655,21 @@ Ensure that auto-save files also end up in the right place
      (use-package restclient :straight t)
    #+end_src
 
-** Typescript
+** Typescript / Javascript
+   Install prettier support for autoformatting.
+   #+begin_src emacs-lisp
+     (use-package prettier
+       :straight t)
+   #+end_src
+
    Basic typescript support.
    #+begin_src emacs-lisp
      (use-package typescript-mode
        :straight t
        :config (setq js-indent-level 2)
        :mode ("\\.tsx\\'"
-              "\\.ts\\'"))
+              "\\.ts\\'")
+       :hook ((typescript-mode . prettier-mode)))
    #+end_src
 
 ** Rust
