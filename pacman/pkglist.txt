@@ -11,6 +11,7 @@ autorandr
 aws-cli
 bash
 bash-completion
+bemenu
 bind
 binutils
 bison
