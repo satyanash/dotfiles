@@ -1,0 +1,10 @@
+# build on top of existing i3 config
+include "~/.i3/config"
+
+# configure touchpad behaviour
+input * tap enabled
+input * natural_scroll enabled
+input * xkb_options ctrl:nocaps
+
+# configure outputs
+output * scale 1.2
