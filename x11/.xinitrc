@@ -37,10 +37,17 @@ blueman-applet &
 ## start clipboard manager
 parcellite &
 
+
+function fix_touchpad() {
+	local touchpad_name="$1"
+	xinput set-prop "${touchpad_name}" "libinput Tapping Enabled" 1
+	xinput set-prop "${touchpad_name}" "libinput Natural Scrolling Enabled" 1
+}
+
 ## fix touchpad tapping and scroll direction
-xinput set-prop "DLL06FD:01 04F3:300F Touchpad" "libinput Tapping Enabled" 1
-xinput set-prop "DLL06FD:01 04F3:300F Touchpad" "libinput Natural Scrolling Enabled" 1
-#xinput set-prop "DLL06FD:01 04F3:300F Touchpad" "" 1
+fix_touchpad "ELAN074E:00 04F3:31B5 Touchpad"
+fix_touchpad "DLL04FD:01 04F3:300F Touchpad"
+
 
 ## start redshifting for Nagpur
 redshift-gtk -l 21:77 &
