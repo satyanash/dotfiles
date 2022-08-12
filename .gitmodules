@@ -1,0 +1,3 @@
+[submodule "fonts/.local/share/fonts/monego"]
+	path = fonts/.local/share/fonts/monego
+	url = https://github.com/cseelus/monego.git
