@@ -237,8 +237,17 @@ Ensure that auto-save files also end up in the right place
 ** Theming
    Load =vivid-chalk=, a port of the vim =vivid-chalk= theme which in turn was ported
    from TextMate's Vibrant Ink.
+
+   Bind =F5= to toggle it.
    #+begin_src emacs-lisp
      (load-theme 'vivid-chalk t)
+
+     (global-set-key
+      (kbd "<f5>")
+      (lambda () (interactive)
+        (if custom-enabled-themes
+            (disable-theme 'vivid-chalk)
+          (load-theme 'vivid-chalk t))))
    #+end_src
 
    Get all available themes with =(custom-available-themes)=.
