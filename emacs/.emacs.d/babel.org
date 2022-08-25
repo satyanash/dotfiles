@@ -728,5 +728,7 @@ Ensure that auto-save files also end up in the right place
 #+begin_src emacs-lisp
   (use-package python-pytest
     :straight t
-    :after python)
+    :after python
+    :config
+    (define-key python-mode-map (kbd "C-x C-p") 'python-pytest-dispatch))
 #+end_src
