@@ -602,31 +602,31 @@ Ensure that auto-save files also end up in the right place
    Also configure colors pulled from iTerm2.
 
    #+begin_src emacs-lisp
-     (use-package vterm
-       :straight t
-       :config
-       ;; Pulled from iTerm2 ANSI color scheme
-       (defconst color-black   "#000000")
-       (defconst color-red     "#c91b00")
-       (defconst color-green   "#00c200")
-       (defconst color-yellow  "#c7c400")
-       (defconst color-blue    "#0082ff")
-       (defconst color-magenta "#c930c7")
-       (defconst color-cyan    "#00c5c7")
-       (defconst color-white   "#c7c7c7")
+     ;;(use-package vterm
+     ;;  :straight t
+     ;;  :config
+     ;;  ;; Pulled from iTerm2 ANSI color scheme
+     ;;  (defconst color-black   "#000000")
+     ;;  (defconst color-red     "#c91b00")
+     ;;  (defconst color-green   "#00c200")
+     ;;  (defconst color-yellow  "#c7c400")
+     ;;  (defconst color-blue    "#0082ff")
+     ;;  (defconst color-magenta "#c930c7")
+     ;;  (defconst color-cyan    "#00c5c7")
+     ;;  (defconst color-white   "#c7c7c7")
 
-       ;; Custom Colors
-       (defconst color-orange  "#ff9900")
+     ;;  ;; Custom Colors
+     ;;  (defconst color-orange  "#ff9900")
 
-       ;; Configure Face Attributes for vterm
-       (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
-       (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
-       (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
-       (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
-       (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
-       (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
-       (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
-       (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
+     ;;  ;; Configure Face Attributes for vterm
+     ;;  (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
+     ;;  (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
+     ;;  (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
+     ;;  (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
+     ;;  (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
+     ;;  (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
+     ;;  (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
+     ;;  (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
    #+end_src
 
 ** Install package-lint
