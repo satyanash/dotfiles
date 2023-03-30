@@ -741,3 +741,20 @@ Ensure that auto-save files also end up in the right place
     :config
     (define-key python-mode-map (kbd "C-x C-p") 'python-pytest-dispatch))
 #+end_src
+
+** Copilot
+   #+begin_src emacs-lisp
+     (use-package copilot
+       :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+       :ensure t
+       :config (add-hook 'prog-mode-hook 'copilot-mode))
+
+     (defun satyanash/copilot-tab ()
+       (interactive)
+       (or (copilot-accept-completion)
+           (indent-for-tab-command)))
+
+     (with-eval-after-load 'copilot
+       (evil-define-key 'insert copilot-mode-map
+         (kbd "<tab>") #'satyanash/copilot-tab))
+   #+end_src
