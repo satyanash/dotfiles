@@ -336,18 +336,20 @@ Ensure that auto-save files also end up in the right place
    - LSP support used for Ruby, Golang and Terraform.
    - Following servers must be present on the PATH:
 
-   | Language   | bin                                   |
-   |------------+---------------------------------------|
-   | Ruby       | =solargraph=                          |
-   | Golang     | =gopls=                               |
-   | Typescript | =typescript-language-server=          |
-   | Crystal    | =/bin/crystalline=                    |
-   | Java       | =jdtls= auto-setup works              |
-   | Terraform  | =terraform-lsp=                       |
-   | Python     | =pip3 install python-lsp-server[all]= |
+   | Language   | bin                                    |
+   |------------+----------------------------------------|
+   | Ruby       | =solargraph=                           |
+   | Golang     | =gopls=                                |
+   | Typescript | =typescript-language-server=           |
+   | Crystal    | =/bin/crystalline=                     |
+   | Java       | jdtls = auto - setup works             |
+   | Terraform  | =terraform-lsp=                        |
+   | Python     | =pip3 install -U jedi-language-server= |
 
    #+begin_src emacs-lisp
      (use-package flycheck
+       :straight t)
+     (use-package lsp-jedi
        :straight t)
 
      (use-package lsp-mode
@@ -364,7 +366,10 @@ Ensure that auto-save files also end up in the right place
               (js-mode . lsp)
               (crystal-mode . lsp)
               (python-mode . lsp)
-              (java-mode . lsp)))
+              (java-mode . lsp))
+       :config (with-eval-after-load 'lsp-mode
+                 (define-key lsp-mode-map (kbd "C-\\") 'lsp-find-references)
+                 (define-key lsp-mode-map (kbd "C-[") 'lsp-find-implementation)))
    #+end_src
 
 #+begin_src emacs-lisp
