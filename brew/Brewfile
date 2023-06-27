@@ -95,6 +95,7 @@ brew "borkdude/brew/babashka"
 #brew "d12frosted/emacs-plus/emacs-plus@27", link: false
 brew "d12frosted/emacs-plus/emacs-plus@28", args: ["with-native-comp"]
 brew "hashicorp/tap/terraform-ls"
+cask "1password"
 cask "anki"
 cask "chromium"
 cask "docker"
