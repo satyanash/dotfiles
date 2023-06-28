@@ -336,21 +336,25 @@ Ensure that auto-save files also end up in the right place
    - LSP support used for Ruby, Golang and Terraform.
    - Following servers must be present on the PATH:
 
-   | Language   | bin                                    |
-   |------------+----------------------------------------|
-   | Ruby       | =solargraph=                           |
-   | Golang     | =gopls=                                |
-   | Typescript | =typescript-language-server=           |
-   | Crystal    | =/bin/crystalline=                     |
-   | Java       | jdtls = auto - setup works             |
-   | Terraform  | =terraform-lsp=                        |
-   | Python     | =pip3 install -U jedi-language-server= |
+   | Language      | bin                                    |
+   |---------------+----------------------------------------|
+   | Ruby          | =solargraph=                           |
+   | Golang        | =gopls=                                |
+   | Typescript    | =typescript-language-server=           |
+   | Crystal       | =/bin/crystalline=                     |
+   | Java          | jdtls = auto - setup works             |
+   | Terraform     | =terraform-lsp=                        |
+   | Python (Jedi) | =pip3 install -U jedi-language-server= |
 
    #+begin_src emacs-lisp
      (use-package flycheck
        :straight t)
-     (use-package lsp-jedi
-       :straight t)
+
+     (use-package lsp-pyright
+       :straight t
+       :hook (python-mode . (lambda ()
+                               (require 'lsp-pyright)
+                               (lsp))))
 
      (use-package lsp-mode
        :straight t
