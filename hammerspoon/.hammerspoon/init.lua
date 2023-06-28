@@ -1,3 +1,6 @@
+-- download: https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip
+-- unzip it under ~/.hammerspoon/Spoons/
+
 hs.loadSpoon("SpoonInstall")
 
 spoon.SpoonInstall.repos.ShiftIt = {
