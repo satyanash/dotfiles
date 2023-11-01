@@ -336,15 +336,16 @@ Ensure that auto-save files also end up in the right place
    - LSP support used for Ruby, Golang and Terraform.
    - Following servers must be present on the PATH:
 
-   | Language      | bin                                    |
-   |---------------+----------------------------------------|
-   | Ruby          | =solargraph=                           |
-   | Golang        | =gopls=                                |
-   | Typescript    | =typescript-language-server=           |
-   | Crystal       | =/bin/crystalline=                     |
-   | Java          | jdtls = auto - setup works             |
-   | Terraform     | =terraform-lsp=                        |
-   | Python (Jedi) | =pip3 install -U jedi-language-server= |
+   | Language      | bin                          |
+   |---------------+------------------------------|
+   | Ruby          | =solargraph=                 |
+   | Golang        | =gopls=                      |
+   | Typescript    | =typescript-language-server= |
+   | Crystal       | =/bin/crystalline=           |
+   | Java          | jdtls = auto - setup works   |
+   | Terraform     | =terraform-lsp=              |
+   | Python (Jedi) | =ls-pyright=                 |
+   | Lua           | =lua-language-server=        |
 
    #+begin_src emacs-lisp
      (use-package flycheck
@@ -362,7 +363,8 @@ Ensure that auto-save files also end up in the right place
                    lsp-enable-indentation nil
                    lsp-clients-crystal-executable '("/bin/crystalline")
                    lsp-pylsp-plugins-pydocstyle-enabled nil
-                   lsp-pylsp-plugins-pycodestyle-enabled nil)
+                   lsp-pylsp-plugins-pycodestyle-enabled nil
+                   lsp-clients-lua-language-server-bin "/usr/bin/lua-language-server")
        :hook ((ruby-mode . lsp)
               (go-mode . lsp-deferred)
               (terraform-mode . lsp)
@@ -371,6 +373,7 @@ Ensure that auto-save files also end up in the right place
               (svelte-mode . lsp)
               (crystal-mode . lsp)
               (python-mode . lsp)
+              (lua-mode . lsp)
               (java-mode . lsp))
        :config (with-eval-after-load 'lsp-mode
                  (define-key lsp-mode-map (kbd "C-\\") 'lsp-find-references)
