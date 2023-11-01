@@ -8,10 +8,10 @@ input * xkb_options ctrl:nocaps
 
 # configure keyboard
 
-input * {
-      repeat_rate 100
-      repeat_delay 150
-}
+#input * {
+#      repeat_rate 100
+#      repeat_delay 150
+#}
 
 # configure outputs
 output * scale 1.2
