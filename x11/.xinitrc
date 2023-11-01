@@ -29,7 +29,7 @@ nm-applet &
 volumeicon &
 
 ## desktop monitor
-conky &
+# conky &
 
 ## bluetooth applet
 blueman-applet &
