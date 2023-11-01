@@ -368,6 +368,7 @@ Ensure that auto-save files also end up in the right place
               (terraform-mode . lsp)
               (typescript-mode . lsp)
               (js-mode . lsp)
+              (svelte-mode . lsp)
               (crystal-mode . lsp)
               (python-mode . lsp)
               (java-mode . lsp))
@@ -680,7 +681,7 @@ Ensure that auto-save files also end up in the right place
      (use-package restclient :straight t)
    #+end_src
 
-** Typescript / Javascript
+** Typescript / Javascript / Frameworks
    Install prettier support for autoformatting.
    #+begin_src emacs-lisp
      (use-package prettier
@@ -695,6 +696,15 @@ Ensure that auto-save files also end up in the right place
        :mode ("\\.tsx\\'"
               "\\.ts\\'")
        :hook ((typescript-mode . prettier-mode)))
+   #+end_src
+
+   Svelte Support
+   #+begin_src emacs-lisp
+     (use-package svelte-mode
+       :straight t
+       :config (setq svelte-basic-offset 2
+                     svelte-display-submode-name t)
+       :mode ("\\.svelte\\'"))
    #+end_src
 
 ** Rust
