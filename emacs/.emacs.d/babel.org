@@ -737,6 +737,11 @@ Ensure that auto-save files also end up in the right place
        :straight t)
    #+end_src
 
+   #+begin_src emacs-lisp
+     (use-package graphql-mode
+       :straight t)
+   #+end_src
+
 ** Python
 *** Ensure that the right python version is used.
 
