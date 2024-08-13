@@ -146,6 +146,7 @@ Ensure that auto-save files also end up in the right place
      (with-eval-after-load 'org
        (org-babel-do-load-languages 'org-babel-load-languages
                                     '((emacs-lisp . t)
+                                      (python . t)
                                       (plantuml . t))))
    #+end_src
 
