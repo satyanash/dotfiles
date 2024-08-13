@@ -101,11 +101,12 @@ __prompt_command() {
   local txtwht='\[\e[1;37m\]' # White
   local txtrst='\[\e[0m\]'    # Text Reset
   local txtdim='\[\e[2m\]'    # dim
+  local txtbld='\[\e[1m\]'    # bold
 
   # username@hostname
-  PS1+="${txtwht}\u${txtrst}"
+  PS1+="${txtbld}\u${txtrst}"
   PS1+="@"
-  PS1+="${txtwht}${boxname}${txtrst}"
+  PS1+="${txtbld}${boxname}${txtrst}"
 
   # pwd
   PS1+=":${txtblu}\W${txtrst}"
