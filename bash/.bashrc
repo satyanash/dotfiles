@@ -146,5 +146,7 @@ function genpass() {
 }
 
 if [[ -f ~/.bash_local.sh ]]; then
+  # This is a local file that is not checked into the repository.
+  # It is used to store local configurations specific to this machine.
   source ~/.bash_local.sh
 fi
