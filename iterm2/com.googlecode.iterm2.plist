@@ -485,12 +485,16 @@
 			</dict>
 			<key>Background Color (Light)</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<string>1</string>
+				<real>0.93725490196078431</real>
+				<key>Color Space</key>
+				<string>P3</string>
 				<key>Green Component</key>
-				<string>1</string>
+				<real>0.96470588235294119</real>
 				<key>Red Component</key>
-				<string>1</string>
+				<real>0.96470588235294119</real>
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
