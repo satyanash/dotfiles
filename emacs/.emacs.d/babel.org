@@ -792,3 +792,12 @@ Ensure that auto-save files also end up in the right place
        (evil-define-key 'insert copilot-mode-map
          (kbd "<tab>") #'satyanash/copilot-tab))
    #+end_src
+
+** Format All
+
+   #+begin_src emacs-lisp
+     (use-package format-all
+       :commands format-all-mode
+       :hook (prog-mode . format-all-mode)
+       :straight t)
+   #+end_src
