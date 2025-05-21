@@ -365,7 +365,8 @@ Ensure that auto-save files also end up in the right place
                    lsp-clients-crystal-executable '("/bin/crystalline")
                    lsp-pylsp-plugins-pydocstyle-enabled nil
                    lsp-pylsp-plugins-pycodestyle-enabled nil
-                   lsp-clients-lua-language-server-bin "/usr/bin/lua-language-server")
+                   lsp-clients-lua-language-server-bin "/usr/bin/lua-language-server"
+                   lsp-disabled-clients '(rubocop-ls typeprof-ls))
        :hook ((ruby-mode . lsp)
               (go-mode . lsp-deferred)
               (terraform-mode . lsp)
