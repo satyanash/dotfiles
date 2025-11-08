@@ -2,12 +2,6 @@
 ;;;
 ;;; Code:
 
-;; Neutralize custom.el by pointing it to a file that we don't plan to load.
-(setq custom-file "~/.emacs.d/customize-generated.el")
-
-;; disable package.el
-(setq package-enable-at-startup nil)
-
 ;; Package Management with straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
