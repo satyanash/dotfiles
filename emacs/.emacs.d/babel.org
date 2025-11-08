@@ -727,9 +727,12 @@ Ensure that auto-save files also end up in the right place
    #+end_src
 
 ** Java
+Temporarily disable lsp-java until I figure this error:
+Error (use-package): lsp-java/:catch: Invalid escape char syntax: \x not followed by hex digit
+
    #+begin_src emacs-lisp
-     (use-package lsp-java
-       :straight t)
+     ;;; (use-package lsp-java
+     ;;;   :straight t)
    #+end_src
 
 ** CSV Editing
@@ -738,6 +741,7 @@ Ensure that auto-save files also end up in the right place
        :straight t)
    #+end_src
 
+** Graphql Mode
    #+begin_src emacs-lisp
      (use-package graphql-mode
        :straight t)
