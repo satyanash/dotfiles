@@ -1,0 +1,101 @@
+#+TITLE: Emacs Behavioural Fixes
+
+* Load Private Variables
+We may have a site specific init for some private configuration.
+#+begin_src emacs-lisp
+    (let ((private-init-file "~/.emacs.d/private-init.el"))
+    (when (file-exists-p private-init-file)
+        (load-file private-init-file)))
+#+end_src
+* Fix word boundaries
+   Fix the default syntax table and that of various modes to treat underscores more like vim.
+   This fixes issues with word commands not working on identifiers containing an underscore.
+
+   #+begin_src emacs-lisp
+     (modify-syntax-entry ?_ "w" (standard-syntax-table))
+
+     (defun fix-word-boundaries () (modify-syntax-entry ?_ "w"))
+
+     ;; python
+     (add-hook 'python-mode-hook 'fix-word-boundaries)
+     ;; ruby
+     (add-hook 'ruby-mode-hook 'fix-word-boundaries)
+     ;; Javascript
+     (add-hook 'js2-mode-hook 'fix-word-boundaries)
+     ;; Crystal
+     (add-hook 'crystal-mode-hook 'fix-word-boundaries)
+     ;; Typescript
+     (add-hook 'typescript-mode-hook 'fix-word-boundaries)
+     ;; Yaml
+     (add-hook 'yaml-mode-hook 'fix-word-boundaries)
+   #+end_src
+* Fix Emacs Help Behaviour
+   All help windows will gain focus when they're shown.
+   #+begin_src emacs-lisp
+     (setq help-window-select t)
+   #+end_src
+* Fix temp file behaviour
+  - don't clobber symlinks
+  - stop littering the fs tree
+  - use versioned backups
+  - don't create lock files
+  - place backups in a single place
+   #+begin_src emacs-lisp
+     (setq backup-by-copying t
+           backup-directory-alist '(("." . "~/.saves/"))
+           delete-old-versions t
+           kept-new-versions 6
+           kept-old-versions 2
+           version-control t
+           create-lockfiles nil)
+   #+end_src
+
+Ensure that auto-save files also end up in the right place
+
+#+begin_src emacs-lisp
+  (append auto-save-file-name-transforms '((".*" "~/.-saves" t)))
+#+end_src
+
+* Custom Error Handler
+We have a custom error handler to ignore all those annoying errors like:
+- Beginning of Buffer
+- End of Buffer
+- Beginning of Line
+- End of Line
+- Text is Read Only, (when deleting backwards on a prompt)
+
+#+begin_src emacs-lisp
+  (setq command-error-function
+        (lambda (data context caller)
+          "Ignore the various errors related to read-only text and motion; pass the rest to the default handler."
+          (let* ((err (car data))
+                 (skip-errors '(text-read-only
+                                beginning-of-buffer
+                                end-of-buffer
+                                beginning-of-line
+                                end-of-line))
+                 (err-skippable? (member err skip-errors)))
+            (unless err-skippable?
+              (command-error-default-function data context caller)))))
+#+end_src
+
+* Line Endings
+Ensure a newline at the end when writing a file.
+#+begin_src emacs-lisp
+  (setq-default require-final-newline t)
+#+end_src
+
+* Indentation
+Disable tabs when indenting a region
+#+begin_src emacs-lisp
+  (setq-default indent-tabs-mode nil)
+#+end_src
+
+Advice =align-regexp= to not insert tabs.
+#+begin_src emacs-lisp
+  (defadvice align-regexp (around align-regexp-with-spaces)
+  "Never use tabs for alignment."
+  (let ((indent-tabs-mode nil))
+      ad-do-it))
+  (ad-activate 'align-regexp)
+#+end_src

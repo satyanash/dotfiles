@@ -1,0 +1,154 @@
+#+TITLE: Writing Experience
+
+* Org Mode
+Setup language support in org-mode.
+#+begin_src emacs-lisp
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages 'org-babel-load-languages
+                                 '((emacs-lisp . t)
+                                   (python . t)
+                                   (plantuml . t))))
+#+end_src
+
+Reload inline images on evaluating a code block.
+#+begin_src emacs-lisp
+  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+#+end_src
+
+Configure plantuml support in org-mode.
+#+begin_src emacs-lisp
+  (setq org-plantuml-jar-path
+        (expand-file-name "/usr/share/java/plantuml/plantuml.jar"))
+#+end_src
+
+Use fancy bullets instead of asterisks.
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :straight t
+    :after org
+    :hook (org-mode . org-bullets-mode))
+#+end_src
+
+Make Org and Org Agenda play nice with =evil=.
+#+begin_src emacs-lisp
+  (use-package evil-org
+    :straight t
+    :after org
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+              (lambda ()
+                (evil-org-set-key-theme)))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+#+end_src
+
+* Skeletons for Empty Files
+Setup note taking skeletons for markdown and empty org files.
+#+begin_src emacs-lisp
+  (defun satyanash--titleize (filename)
+    "Adds spacing and title case to input file name."
+    (capitalize
+     (replace-regexp-in-string
+      "-"
+      " "
+      (file-name-base (or filename "unknown"))
+      nil
+      'literal)))
+
+  (use-package autoinsert
+    :straight t
+    :hook (find-file . auto-insert)
+    :init (setq auto-insert-alist ()
+                auto-insert-mode t
+                auto-insert-query nil
+                auto-insert t)
+    :config
+    (define-auto-insert
+      '(markdown-mode . "Markdown Note")
+      '("Markdown Note:"
+        "---" \n
+        "title: " (satyanash--titleize (buffer-file-name)) \n
+        "date: " (format-time-string "%Y-%m-%dT%T%z") \n
+        "tags: " _ \n
+        "---" \n))
+    (define-auto-insert
+      '(org-mode . "Org Mode Note")
+      '("Org Mode Note:"
+        "#+TITLE: " (satyanash--titleize (buffer-file-name)) \n
+        "#+DATE: " (format-time-string "%Y-%m-%dT%T%z") \n
+        "#+TAGS: " _)))
+#+end_src
+
+* Writing Quality
+#+begin_src emacs-lisp
+  (use-package artbollocks-mode
+    :straight t)
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package writegood-mode
+    :straight t)
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package wc-mode
+    :straight t)
+#+end_src
+
+* Focused Writing Mode
+#+begin_src emacs-lisp
+  (use-package writeroom-mode
+    :straight t
+    :init (setq writeroom-fullscreen-effect 'maximized
+                writeroom-width 64)
+    :config
+    (add-hook 'writeroom-mode-hook (lambda ()
+                                     (if writeroom-mode
+                                         (display-line-numbers-mode -1)
+                                       (display-line-numbers-mode))))
+                                          ;(add-hook 'writeroom-mode-hook #'visual-line-mode)
+                                          ;(add-hook 'writeroom-mode-hook #'flyspell-mode)
+                                          ;(add-hook 'writeroom-mode-hook #'artbollocks-mode)
+                                          ;(add-hook 'writeroom-mode-hook
+                                          ;          (lambda ()
+                                          ;            (if writeroom-mode
+                                          ;                (progn
+                                          ;                  (langtool-check-buffer)
+                                          ;                  (add-hook 'after-save-hook #'langtool-check-buffer nil 'buffer-local))
+                                          ;              (langtool-check-done)
+                                          ;              (langtool-server-stop)
+                                          ;              (remove-hook 'after-save-hook #'langtool-check-buffer 'buffer-local))))
+    (with-eval-after-load 'writeroom-mode
+      (define-key writeroom-mode-map (kbd "C-M--") #'writeroom-decrease-width)
+      (define-key writeroom-mode-map (kbd "C-M-=") #'writeroom-increase-width)
+      (define-key writeroom-mode-map (kbd "C-M-0") #'writeroom-adjust-width)))
+#+end_src
+
+* Auto Correct
+#+begin_src emacs-lisp
+  (use-package flyspell
+    :straight t
+    :config
+    (eval-after-load 'flyspell-mode
+      (define-key flyspell-mode-map (kbd "<f6>") #'flyspell-auto-correct-word)))
+#+end_src
+
+* Grammar
+#+begin_src emacs-lisp
+  (use-package langtool
+    :straight (langtool :type git
+                        :host github :repo "mhayashi1120/Emacs-langtool"
+                        :fork (:host github :repo "ejuarezg/Emacs-langtool"))
+    :init
+    (pcase system-type
+      ('gnu/linux
+       (setq langtool-java-classpath
+             "/usr/share/languagetool:/usr/share/java/languagetool/*"
+             langtool-language-tool-server-jar
+             "/usr/share/java/languagetool/languagetool-server.jar"))
+      ('darwin
+       (setq
+        langtool-language-tool-jar
+        "/usr/local/Cellar/languagetool/5.0/libexec/languagetool-commandline.jar"))))
+#+end_src

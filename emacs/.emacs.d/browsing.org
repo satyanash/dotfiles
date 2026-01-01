@@ -1,0 +1,9 @@
+#+TITLE: Web Browsing in Emacs
+
+* Web Wowser
+#+begin_src emacs-lisp
+  (use-package eww
+    :straight t
+    :config
+    (add-hook 'eww-after-render-hook #'visual-line-mode))
+#+end_src

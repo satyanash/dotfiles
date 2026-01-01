@@ -1,0 +1,55 @@
+#+TITLE: Evil Mode
+
+* Welcome to the dark side [0/2]
+
+Evil no longer ships with =undo-tree=, so we install it ourselves.
+
+#+begin_src emacs-lisp
+    (use-package undo-tree
+    :straight t
+    :config (global-undo-tree-mode))
+#+end_src
+
+Configure =evil= and =evil-collection=.
+
+- [ ] =evil-want-C-u-scroll= does not work, for some reason. We explicitly bind =C-u= for now.
+- Disable =dabbrev-case-fold-search= so that =C-n= and =C-p= based completion works as expected.
+- Disable =evil-want-keybinding= because we will use =evil-collection= to set keybindings.
+- Make sure vertical and horizontal splits open to the right and bottom, respectively.
+- Use =evil-search= as our =evil-search-module=, to make the editor behave more like Vim.
+- Fix =C-p= and =C-n= to move to previous and next line in normal mode.
+- =C-h= should keep working like Vim. We don't care about emacs "help" when in insert mode.
+    - Fix =C-h= to delete backward char in insert mode.
+    - Fix =C-h= to delete backward char in ex mode.
+- Fix =C-w= to delete backward word in ex mode.
+- [ ] Fix =C-j= to behave similar to =RET= in ex mode.
+
+#+begin_src emacs-lisp
+    (use-package evil
+    :straight t
+    :init (setq evil-want-C-u-scroll t
+                evil-undo-system 'undo-tree
+                dabbrev-case-fold-search nil
+                evil-want-keybinding nil
+                evil-vsplit-window-right t
+                evil-split-window-below t
+                evil-search-module 'evil-search)
+    :config
+    (evil-mode 1)
+
+    (define-key evil-normal-state-map (kbd "C-p") 'evil-previous-line)
+    (define-key evil-normal-state-map (kbd "C-n") 'evil-next-line)
+    (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+
+    (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char)
+
+    (define-key evil-ex-completion-map (kbd "C-h") 'evil-ex-delete-backward-char)
+    (define-key evil-ex-completion-map (kbd "C-w") 'evil-delete-backward-word)
+    :hook (evil-local-mode . turn-on-undo-tree-mode))
+
+    (use-package evil-collection
+    :straight t
+    :after (evil magit)
+    :config
+    (evil-collection-init))
+#+end_src

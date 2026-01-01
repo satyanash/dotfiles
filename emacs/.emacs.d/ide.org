@@ -1,0 +1,407 @@
+#+TITLE: IDE Experience
+
+* Git
+#+begin_src emacs-lisp
+  (use-package magit
+    :straight t
+    :config
+    (global-set-key (kbd "C-x g") 'magit-status))
+#+end_src
+
+* Window Management
+zoom mode with golden ratio
+#+begin_src emacs-lisp
+  (use-package zoom
+    :straight t
+    :init (setq zoom-size '(0.618 . 0.618)))
+#+end_src
+
+* Searching & Sorting
+Fuzzy searching, sorting with =ido= and =helm= where possible.
+#+begin_src emacs-lisp
+  (use-package ido
+    :straight t
+    :init (setq ido-enable-flex-matching t)
+    :config
+    (ido-mode t))
+
+  (use-package helm
+    :straight t
+    :init
+    (setq helm-always-two-windows t)
+    :config
+    (define-key helm-map (kbd "C-d") 'helm-next-page)
+    (define-key helm-map (kbd "C-u") 'helm-previous-page))
+#+end_src
+
+Integrate with grep-like tools, mostly =ag=.
+#+begin_src emacs-lisp
+  (use-package ag :straight t)
+  (use-package helm-ag
+    :straight t
+    :after helm)
+#+end_src
+
+* Project Management
+- Project management through =projectile=.
+- Augment its capabilities with =helm-projectile=.
+- Opens the project root in =dir= when switching to it.
+- Configure switching and searching projects and finding files.
+
+#+begin_src emacs-lisp
+  (use-package projectile
+    :straight t
+    :init
+    (setq projectile-switch-project-action #'(lambda () (dired (projectile-project-root))))
+    :config
+    (projectile-mode +1)
+    (define-key projectile-mode-map (kbd "M-8") 'projectile-switch-project)
+    (define-key projectile-mode-map (kbd "M-*") 'projectile-ag)
+    (define-key projectile-mode-map (kbd "C-8") 'projectile-find-file))
+
+  (use-package helm-projectile
+    :straight t
+    :after '(helm projectile)
+    :init
+    (setq helm-projectile-fuzzy-match t
+          projectile-completion-system 'helm)
+    :config)
+#+end_src
+
+* Autocompletion
+
+#+begin_src emacs-lisp
+  (use-package company
+    :straight t)
+#+end_src
+
+* Language Server Protocol Support
+- LSP support used for Ruby, Golang and Terraform.
+- Following servers must be present on the PATH:
+
+| Language      | bin                          |
+|---------------+------------------------------|
+| Ruby          | =solargraph=                 |
+| Golang        | =gopls=                      |
+| Typescript    | =typescript-language-server= |
+| Crystal       | =/bin/crystalline=           |
+| Java          | jdtls = auto - setup works   |
+| Terraform     | =terraform-lsp=              |
+| Python (Jedi) | =ls-pyright=                 |
+| Lua           | =lua-language-server=        |
+
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :straight t)
+
+  (use-package lsp-pyright
+    :straight t
+    :hook (python-mode . (lambda ()
+                           (require 'lsp-pyright)
+                           (lsp))))
+
+  (use-package lsp-mode
+    :straight t
+    :init (setq lsp-solargraph-use-bundler nil
+                lsp-enable-indentation nil
+                lsp-clients-crystal-executable '("/bin/crystalline")
+                lsp-pylsp-plugins-pydocstyle-enabled nil
+                lsp-pylsp-plugins-pycodestyle-enabled nil
+                lsp-clients-lua-language-server-bin "/usr/bin/lua-language-server"
+                lsp-disabled-clients '(rubocop-ls typeprof-ls))
+    :hook ((ruby-mode . lsp)
+           (go-mode . lsp-deferred)
+           (terraform-mode . lsp)
+           (typescript-mode . lsp)
+           (js-mode . lsp)
+           (svelte-mode . lsp)
+           (crystal-mode . lsp)
+           (python-mode . lsp)
+           (lua-mode . lsp)
+           (java-mode . lsp))
+    :config (with-eval-after-load 'lsp-mode
+              (define-key lsp-mode-map (kbd "C-\\") 'lsp-find-references)
+              (define-key lsp-mode-map (kbd "C-[") 'lsp-find-implementation)))
+#+end_src
+
+* Code Folding
+- Code folding through =origami=.
+#+begin_src emacs-lisp
+  (use-package origami
+    :straight t)
+
+  (use-package lsp-origami
+    :straight t
+    :hook (lsp-after-open-hook #'lsp-origami-try-enable))
+#+end_src
+
+* Parentheses for lisps
+
+#+begin_src emacs-lisp
+  (use-package smartparens
+    :straight t
+    :hook ((clojure-mode . smartparens-strict-mode)
+           (emacs-lisp-mode . smartparens-strict-mode)))
+
+  (use-package evil-smartparens
+    :straight t
+    :hook ((clojure-mode . evil-smartparens-mode)
+           (emacs-lisp-mode . evil-smartparens-mode)))
+#+end_src
+
+* Whitespace
+#+begin_src emacs-lisp
+  (use-package whitespace
+    :straight t
+    :init
+    (setq whitespace-style '(face tabs empty trailing))
+    :hook ((prog-mode . whitespace-mode)
+           (text-mode . whitespace-mode))
+    :config
+    (add-hook 'before-save-hook #'whitespace-cleanup))
+#+end_src
+
+* Emacs Lisp
+Fix scratch buffer default message.
+#+begin_src emacs-lisp
+  (setq initial-scratch-message ";;;(setq eval-expression-print-level 5\n;;;      eval-expression-print-length 200)\n\n\n")
+#+end_src
+
+Auto format elisp
+#+begin_src emacs-lisp
+  (use-package elisp-format :straight t)
+#+end_src
+
+* Golang
+- Use =goimports= for auto-formatting code.
+- Also setup a Go Playground.
+
+#+begin_src emacs-lisp
+  (use-package go-mode
+    :straight t
+    :mode "\\.go\\'"
+    :init (setq gofmt-command "goimports")
+    :config (add-hook 'before-save-hook 'gofmt-before-save))
+
+  (use-package go-playground :straight t)
+#+end_src
+
+* Markup / Config File Support
+- For Markdown, use =kramdown= and enable math processing.
+- Need TOML for telegraf config files.
+- Need jsonnet for [[https://github.com/grafana/grafonnet-lib][grafonnet]] to create grafana dashboards.
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :straight t
+    :init (setq markdown-command "kramdown"
+                markdown-enable-math t))
+
+  (use-package yaml-mode      :straight t)
+  (use-package json-mode      :straight t)
+  (use-package terraform-mode :straight t)
+  (use-package toml-mode      :straight t)
+  (use-package jsonnet-mode   :straight t)
+#+end_src
+
+* Web Mode
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :straight t
+    :init (setq web-mode-markup-indent-offset 2
+                web-mode-css-indent-offset 2
+                web-mode-code-indent-offset 2)
+    :mode ("\\.html.erb\\'"
+           "\\.html\\'"))
+#+end_src
+* PHP Support
+PHP editing support.
+#+begin_src emacs-lisp
+  (use-package php-mode
+    :straight t)
+#+end_src
+* Clojure Support
+Use =cider= and also enable font locking for stdlib functions.
+#+begin_src emacs-lisp
+  (use-package clojure-mode
+    :straight t)
+
+  (use-package clojure-mode-extra-font-locking
+    :straight t)
+
+  (use-package cider
+    :straight t
+    :hook (clojure-mode . cider-mode))
+#+end_src
+* Configure basic Dockerfile support
+I don't need direct integration with docker yet.
+#+begin_src emacs-lisp
+  (use-package dockerfile-mode
+    :straight t
+    :mode "Dockerfile\\'")
+#+end_src
+* Setup an embedded terminal
+=vterm= is fast and works well with ncurses UIs.
+Also configure colors pulled from iTerm2.
+
+#+begin_src emacs-lisp
+  ;;(use-package vterm
+  ;;  :straight t
+  ;;  :config
+  ;;  ;; Pulled from iTerm2 ANSI color scheme
+  ;;  (defconst color-black   "#000000")
+  ;;  (defconst color-red     "#c91b00")
+  ;;  (defconst color-green   "#00c200")
+  ;;  (defconst color-yellow  "#c7c400")
+  ;;  (defconst color-blue    "#0082ff")
+  ;;  (defconst color-magenta "#c930c7")
+  ;;  (defconst color-cyan    "#00c5c7")
+  ;;  (defconst color-white   "#c7c7c7")
+
+  ;;  ;; Custom Colors
+  ;;  (defconst color-orange  "#ff9900")
+
+  ;;  ;; Configure Face Attributes for vterm
+  ;;  (set-face-attribute 'vterm-color-black   nil :foreground color-black   :background color-black)
+  ;;  (set-face-attribute 'vterm-color-red     nil :foreground color-red     :background color-black)
+  ;;  (set-face-attribute 'vterm-color-green   nil :foreground color-green   :background color-black)
+  ;;  (set-face-attribute 'vterm-color-yellow  nil :foreground color-yellow  :background color-black)
+  ;;  (set-face-attribute 'vterm-color-blue    nil :foreground color-blue    :background color-black)
+  ;;  (set-face-attribute 'vterm-color-magenta nil :foreground color-magenta :background color-black)
+  ;;  (set-face-attribute 'vterm-color-cyan    nil :foreground color-cyan    :background color-black)
+  ;;  (set-face-attribute 'vterm-color-white   nil :foreground color-white   :background color-black))
+#+end_src
+
+* Install package-lint
+This is useful for linting code before submission to MELPA.
+
+#+begin_src emacs-lisp
+  (use-package package-lint :straight t)
+#+end_src
+
+* Configure restclient
+Use this for making fancy REST queries and playing with APIs.
+#+begin_src emacs-lisp
+  (use-package restclient :straight t)
+#+end_src
+
+* Typescript / Javascript / Frameworks
+Install prettier support for autoformatting.
+#+begin_src emacs-lisp
+  (use-package prettier
+    :straight t)
+#+end_src
+
+Basic typescript support.
+#+begin_src emacs-lisp
+  (use-package typescript-mode
+    :straight t
+    :config (setq js-indent-level 2)
+    :mode ("\\.tsx\\'"
+           "\\.ts\\'")
+    :hook ((typescript-mode . prettier-mode)))
+#+end_src
+
+Svelte Support
+#+begin_src emacs-lisp
+  (use-package svelte-mode
+    :straight t
+    :config (setq svelte-basic-offset 2
+                  svelte-display-submode-name t)
+    :mode ("\\.svelte\\'"))
+#+end_src
+
+* Rust
+#+begin_src emacs-lisp
+  (use-package rust-mode
+    :straight t
+    :config (setq rust-format-on-save t))
+#+end_src
+
+* Crystal
+Basic crystal support.
+#+begin_src emacs-lisp
+  (use-package crystal-mode
+    :straight t)
+#+end_src
+
+* Java
+Temporarily disable lsp-java until I figure this error:
+Error (use-package): lsp-java/:catch: Invalid escape char syntax: \x not followed by hex digit
+
+#+begin_src emacs-lisp
+  ;;; (use-package lsp-java
+  ;;;   :straight t)
+#+end_src
+
+* CSV Editing
+#+begin_src emacs-lisp
+  (use-package csv-mode
+    :straight t)
+#+end_src
+
+* Graphql Mode
+#+begin_src emacs-lisp
+  (use-package graphql-mode
+    :straight t)
+#+end_src
+
+* Python
+** Ensure that the right python version is used.
+
+#+begin_src emacs-lisp
+  (use-package pyvenv
+    :straight t
+    :config (pyvenv-mode 1))
+#+end_src
+
+** Setup the black formatter.
+
+#+begin_src emacs-lisp
+  (use-package python-black
+    :straight t
+    :after python
+    :hook ((python-mode . python-black-on-save-mode-enable-dwim)))
+#+end_src
+
+* Lua
+#+begin_src emacs-lisp
+  (use-package lua-mode
+    :straight t)
+#+end_src
+
+** Setup pytest
+
+#+begin_src emacs-lisp
+  (use-package python-pytest
+    :straight t
+    :after python
+    :config
+    (define-key python-mode-map (kbd "C-x C-p") 'python-pytest-dispatch))
+#+end_src
+
+* Copilot
+#+begin_src emacs-lisp
+  ;;;(use-package copilot
+  ;;;  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  ;;;  :ensure t
+  ;;;  :config (add-hook 'prog-mode-hook 'copilot-mode))
+  ;;;
+  ;;;(defun satyanash/copilot-tab ()
+  ;;;  (interactive)
+  ;;;  (or (copilot-accept-completion)
+  ;;;      (indent-for-tab-command)))
+  ;;;
+  ;;;(with-eval-after-load 'copilot
+  ;;;  (evil-define-key 'insert copilot-mode-map
+  ;;;    (kbd "<tab>") #'satyanash/copilot-tab))
+#+end_src
+
+* Format All
+
+#+begin_src emacs-lisp
+  (use-package format-all
+    :commands format-all-mode
+    :hook (prog-mode . format-all-mode)
+    :straight t)
+#+end_src

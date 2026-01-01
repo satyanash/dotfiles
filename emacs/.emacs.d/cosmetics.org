@@ -1,0 +1,105 @@
+#+TITLE: Look and Feel
+
+* Font
+Use "Monego", a modification of the classic "Monaco" but with support for bold, italic etc.
+Get it from <https://github.com/cseelus/monego>.
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil :height 150 :family "Monego")
+#+end_src
+
+* Bars
+Disable tool, menu and scroll bars.
+#+begin_src emacs-lisp
+  (tool-bar-mode   -1)
+  (menu-bar-mode   -1)
+  (scroll-bar-mode -1)
+#+end_src
+
+Get that fancy dark transparent title bar on OSX.
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+    (add-to-list 'default-frame-alist '(ns-appearance . dark)))
+#+end_src
+
+* Line Numbering
+
+Use relative line numbering.
+#+begin_src emacs-lisp
+  (setq display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode)
+#+end_src
+
+* Startup
+
+Inhibit the startup screen.
+#+begin_src emacs-lisp
+  (setq inhibit-startup-screen t)
+#+end_src
+
+Start "maximized".
+#+begin_src emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+end_src
+
+* Modeline
+
+Show line and column numbers in mode line.
+
+#+begin_src emacs-lisp
+    (line-number-mode t)
+    (column-number-mode t)
+#+end_src
+
+Disable the audio bell and flash only the mode line.
+
+#+begin_src emacs-lisp
+  (setq visible-bell t)
+
+  (use-package mode-line-bell
+    :straight t
+    :config (mode-line-bell-mode))
+#+end_src
+
+* Highlighting
+
+Highlight matching parentheses.
+
+#+begin_src emacs-lisp
+  (show-paren-mode t)
+#+end_src
+
+Disable all fringe text continuation indicators.
+
+#+begin_src emacs-lisp
+  (setf (cdr (assq 'continuation fringe-indicator-alist)) '(nil nil))
+#+end_src
+
+* Load Custom Theme
+Load =vivid-chalk=, a port of the vim =vivid-chalk= theme which in turn was ported from TextMate's Vibrant Ink.
+
+Bind =F5= to toggle it.
+
+#+begin_src emacs-lisp
+  (load-theme 'vivid-chalk t)
+
+  (global-set-key
+   (kbd "<f5>")
+   (lambda () (interactive)
+     (if custom-enabled-themes
+         (disable-theme 'vivid-chalk)
+       (load-theme 'vivid-chalk t))))
+#+end_src
+
+Get all available themes with =(custom-available-themes)=.
+
+* Setup Nyan Mode
+Make sure it is animated and wavy!
+
+#+begin_src emacs-lisp
+  (use-package nyan-mode
+    :straight t
+    :init (setq nyan-animate-nyancat t
+                nyan-wavy-trail t)
+    :config (nyan-mode))
+#+end_src

@@ -67,7 +67,15 @@
      (message "%s: %fs" ,label (time-to-seconds (time-since --start)))
      --result))
 
-(satyanash/time-it "babel.org"
-                   (satyanash/load-org-babel-file "babel.org"))
+(dolist (f '(
+             "fixes.org"
+             "evil.org"
+             "cosmetics.org"
+             "ide.org"
+             "writing.org"
+             "browsing.org"
+             ))
+  (satyanash/time-it f
+                     (satyanash/load-org-babel-file f)))
 
 (message "Emacs init time: %s" (emacs-init-time))
