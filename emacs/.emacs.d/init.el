@@ -60,9 +60,14 @@
       )
     (load (file-name-sans-extension elisp-file))))
 
-(setq satyanash/emacs-load-tangled-start-time (current-time))
-(satyanash/load-org-babel-file "babel.org")
-(message "Tangled org-babel load time: %f seconds."
-         (time-to-seconds (time-since satyanash/emacs-load-tangled-start-time)))
+(defmacro satyanash/time-it (label &rest body)
+  "Prints time taken to execute body in secs"
+  `(let ((--start (current-time))
+         (--result (progn ,@body)))
+     (message "%s: %fs" ,label (time-to-seconds (time-since --start)))
+     --result))
+
+(satyanash/time-it "babel.org"
+                   (satyanash/load-org-babel-file "babel.org"))
 
 (message "Emacs init time: %s" (emacs-init-time))
