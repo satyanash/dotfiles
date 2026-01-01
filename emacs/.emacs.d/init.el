@@ -41,7 +41,7 @@
     ad-do-it
     (message "org-babel-tangle took %f sec" (float-time (time-subtract (current-time) tim)))))
 
-(defun satyanash--load-org-babel-file (org-file)
+(defun satyanash/load-org-babel-file (org-file)
   "Given an org file, tangle all elisp code into a new file and then load it."
   (let* ((curr-dir (file-name-directory (or load-file-name buffer-file-name)))
 	 (org-file-abs-path (file-truename (concat curr-dir org-file)))
@@ -60,9 +60,9 @@
       )
     (load (file-name-sans-extension elisp-file))))
 
-(setq satyanash--emacs-load-tangled-start-time (current-time))
-(satyanash--load-org-babel-file "babel.org")
+(setq satyanash/emacs-load-tangled-start-time (current-time))
+(satyanash/load-org-babel-file "babel.org")
 (message "Tangled org-babel load time: %f seconds."
-         (time-to-seconds (time-since satyanash--emacs-load-tangled-start-time)))
+         (time-to-seconds (time-since satyanash/emacs-load-tangled-start-time)))
 
 (message "Emacs init time: %s" (emacs-init-time))
