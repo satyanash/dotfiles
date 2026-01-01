@@ -77,6 +77,9 @@ if [[ $(command -v rbenv) ]]; then
   eval "$(rbenv init -)"
 fi
 
+# prefer user's binaries
+export PATH="$HOME/.local/bin:$PATH"
+
 # Load pyenv
 if [[ $(command -v pyenv) ]]; then
     export PYENV_ROOT="$HOME/.pyenv"
