@@ -77,9 +77,6 @@ if [[ $(command -v rbenv) ]]; then
   eval "$(rbenv init -)"
 fi
 
-# prefer user's binaries
-export PATH="$HOME/.local/bin:$PATH"
-
 # Load pyenv
 if [[ $(command -v pyenv) ]]; then
     export PYENV_ROOT="$HOME/.pyenv"
@@ -154,3 +151,6 @@ if [[ -f ~/.bash_local.sh ]]; then
   # It is used to store local configurations specific to this machine.
   source ~/.bash_local.sh
 fi
+
+# prefer user's binaries
+export PATH="$HOME/.local/bin:$PATH"
