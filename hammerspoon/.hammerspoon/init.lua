@@ -12,6 +12,15 @@ spoon.SpoonInstall.repos.ShiftIt = {
 spoon.SpoonInstall:andUse("ShiftIt", { repo = "ShiftIt" })
 spoon.ShiftIt:bindHotkeys({})
 
+spoon.SpoonInstall:andUse("ClipboardTool", {
+  config = {
+    show_in_menubar = false,
+  },
+  hotkeys = {
+    toggle_clipboard = {{"ctrl", "alt"}, "v"}
+  },
+  start = true,
+})
 
 hs.hotkey.bind({'alt', 'ctrl', 'cmd'}, 'n', function()
   -- get the focused window
