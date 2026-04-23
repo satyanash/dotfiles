@@ -15,6 +15,7 @@ spoon.ShiftIt:bindHotkeys({})
 spoon.SpoonInstall:andUse("ClipboardTool", {
   config = {
     show_in_menubar = false,
+    show_copied_alert = false,
   },
   hotkeys = {
     toggle_clipboard = {{"ctrl", "alt"}, "v"}
