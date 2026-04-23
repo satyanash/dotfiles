@@ -8,6 +8,8 @@
 	<string>E84EEC30-15DA-4222-A55A-325727AA1DF6</string>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
+	<key>EnableAPIServer</key>
+	<true/>
 	<key>EnableDivisionView</key>
 	<true/>
 	<key>EnableProxyIcon</key>
@@ -537,6 +539,8 @@
 				<key>Red Component</key>
 				<real>0.92929404973983765</real>
 			</dict>
+			<key>Badge Text</key>
+			<string>\(user.badge)</string>
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
