@@ -12,6 +12,8 @@ spoon.SpoonInstall.repos.ShiftIt = {
 spoon.SpoonInstall:andUse("ShiftIt", { repo = "ShiftIt" })
 spoon.ShiftIt:bindHotkeys({})
 
+require("caffeine")
+
 spoon.SpoonInstall:andUse("ClipboardTool", {
   config = {
     show_in_menubar = false,
