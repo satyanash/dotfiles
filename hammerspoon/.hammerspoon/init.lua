@@ -13,6 +13,7 @@ spoon.SpoonInstall:andUse("ShiftIt", { repo = "ShiftIt" })
 spoon.ShiftIt:bindHotkeys({})
 
 require("caffeine")
+require("disable_expose_button")
 
 spoon.SpoonInstall:andUse("ClipboardTool", {
   config = {
